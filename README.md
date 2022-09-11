@@ -1,6 +1,15 @@
 # object_guesser
 
-A new Flutter project.
+Gamify Manual Object Labelling App
+
+This is also an honors project in the University of Ottawa in 2022 Fall term.
+
+## Team Members
+
+| Name                           | Email               | Student No. |
+| ------------------------------ | ------------------- | ----------- |
+| Hongyi Lin (@cyclexit)         | hlin087@uottawa.ca  | 300053082   |
+| Rodger Retanal (@iamnotrodger) | rreta014@uottawa.ca | 300052309   |
 
 ## Getting Started
 
