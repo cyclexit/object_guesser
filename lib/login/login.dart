@@ -1,8 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
-const _HeightGap = SizedBox(
+const _heightGap = SizedBox(
   height: 10,
 );
 
@@ -21,7 +19,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () => Navigator.pushNamed(context, '/home'),
                 child: const Text("Login"),
               ),
-              _HeightGap,
+              _heightGap,
               ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, '/about'),
                 child: const Text("About"),
