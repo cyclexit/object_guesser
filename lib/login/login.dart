@@ -6,12 +6,16 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("About"),
-          onPressed: () => Navigator.pushNamed(context, '/about'),
+      body: Column(children: <Widget>[
+        ElevatedButton(
+          onPressed: () => Navigator.pushNamed(context, '/home'),
+          child: const Text("Login"),
         ),
-      ),
+        ElevatedButton(
+          onPressed: () => Navigator.pushNamed(context, '/about'),
+          child: const Text("About"),
+        ),
+      ]),
     );
   }
 }

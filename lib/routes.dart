@@ -3,5 +3,5 @@ import 'package:object_guesser/about/about.dart';
 
 var appRoutes = {
   '/': (context) => const LoginPage(),
-  '/about': (context) => const AboutScreen()
+  '/about': (context) => const AboutPage()
 };
