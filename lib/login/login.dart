@@ -11,20 +11,22 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, '/home'),
-                child: const Text("Login"),
-              ),
-              _heightGap,
-              ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, '/about'),
-                child: const Text("About"),
-              ),
-            ]),
+        child: IntrinsicWidth(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/home'),
+                  child: const Text("Login"),
+                ),
+                _heightGap,
+                ElevatedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/about'),
+                  child: const Text("About"),
+                ),
+              ]),
+        ),
       ),
     );
   }
