@@ -17,7 +17,8 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, '/home'),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                      context, '/home', (route) => false),
                   child: const Text("Login"),
                 ),
                 _heightGap,
