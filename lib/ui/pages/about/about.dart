@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:object_guesser/game/game_mode.dart';
+import 'package:object_guesser/game/game_modes.dart';
 import 'package:object_guesser/ui/widgets/game_mode_header.dart';
 
 /*
@@ -13,9 +13,15 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(
-        child: GameModeHeader(
-          gameModeInfo: multipleChoice,
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            GameModeHeader(gameModeInfo: multipleChoice),
+            GameModeHeader(gameModeInfo: input),
+            GameModeHeader(gameModeInfo: select),
+          ],
         ),
       ),
     );

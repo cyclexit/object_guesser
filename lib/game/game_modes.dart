@@ -11,4 +11,4 @@ const GameModeInfo input = GameModeInfo(
 const GameModeInfo select = GameModeInfo(
     gameMode: "Select",
     gameModeDescription:
-        "Select the pictures which contain the object given by the label.");
+        "Select the pictures which contain the object described by the label.");
