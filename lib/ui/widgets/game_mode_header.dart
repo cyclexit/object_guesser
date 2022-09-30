@@ -19,19 +19,9 @@ class GameModeHeader extends StatelessWidget {
                 color: Colors.blue,
               ),
               borderRadius: const BorderRadius.all(Radius.circular(5))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                gameMode,
-                style: const TextStyle(color: Colors.white),
-              ),
-              const Icon(
-                Icons.search,
-                color: Colors.white,
-              )
-            ],
+          child: Text(
+            gameMode,
+            style: const TextStyle(color: Colors.white),
           )),
     );
   }
