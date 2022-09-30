@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/game/game_modes.dart';
 import 'package:object_guesser/ui/widgets/game_mode_header.dart';
 
-/*
- * hl: the about page is used for the ui debugging during the development.
- */
+// The about page is used for temporary UI components visualization during the
+// development.
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
 
