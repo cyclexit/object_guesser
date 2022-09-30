@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:object_guesser/game/game_mode.dart';
 import 'package:object_guesser/ui/widgets/game_mode_header.dart';
 
 /*
@@ -13,7 +15,8 @@ class AboutPage extends StatelessWidget {
       appBar: AppBar(),
       body: const Center(
         child: GameModeHeader(
-            gameMode: "Multiple Choice", gameModeDescription: "Hahahaha"),
+          gameModeInfo: multipleChoice,
+        ),
       ),
     );
   }

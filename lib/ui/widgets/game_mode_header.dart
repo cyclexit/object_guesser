@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:object_guesser/game/game_mode_info.dart';
 
 class GameModeHeader extends StatelessWidget {
-  final String gameMode;
-  final String gameModeDescription;
-  const GameModeHeader(
-      {Key? key, required this.gameMode, required this.gameModeDescription})
+  final GameModeInfo gameModeInfo;
+  const GameModeHeader({Key? key, required this.gameModeInfo})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: gameModeDescription,
+      message: gameModeInfo.gameModeDescription,
+      triggerMode: TooltipTriggerMode.tap,
       child: Container(
           padding: const EdgeInsets.all(3.0),
           decoration: BoxDecoration(
@@ -20,7 +20,7 @@ class GameModeHeader extends StatelessWidget {
               ),
               borderRadius: const BorderRadius.all(Radius.circular(5))),
           child: Text(
-            gameMode,
+            gameModeInfo.gameMode,
             style: const TextStyle(color: Colors.white),
           )),
     );
