@@ -16,7 +16,9 @@ class TestPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               GameModeHeader(gameModeInfo: multipleChoice),
+              SizedBox(height: 5),
               GameModeHeader(gameModeInfo: input),
+              SizedBox(height: 5),
               GameModeHeader(gameModeInfo: select)
             ]),
       ),
@@ -30,9 +32,23 @@ Widget createTestPage() {
 
 void main() {
   group("GameModeHeader widget tests\n", () {
-    testWidgets("Test if 3 GameModeHeader objects show up", (tester) async {
+    testWidgets("Find by gameMode", (tester) async {
       await tester.pumpWidget(createTestPage());
       expect(find.byType(GameModeHeader), findsNWidgets(3));
+      expect(find.widgetWithText(GameModeHeader, multipleChoice.gameMode),
+          findsOneWidget);
+      expect(
+          find.widgetWithText(GameModeHeader, input.gameMode), findsOneWidget);
+      expect(
+          find.widgetWithText(GameModeHeader, select.gameMode), findsOneWidget);
+    });
+
+    testWidgets("Find by gameModeDescription", (tester) async {
+      await tester.pumpWidget(createTestPage());
+      expect(
+          find.byTooltip(multipleChoice.gameModeDescription), findsOneWidget);
+      expect(find.byTooltip(input.gameModeDescription), findsOneWidget);
+      expect(find.byTooltip(select.gameModeDescription), findsOneWidget);
     });
   });
 }
