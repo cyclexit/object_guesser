@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
 
 class GameModeHeader extends StatelessWidget {
-  const GameModeHeader({Key? key}) : super(key: key);
+  final String gameMode;
+  final String gameModeDescription;
+  const GameModeHeader(
+      {Key? key, required this.gameMode, required this.gameModeDescription})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Tooltip(
+      message: gameModeDescription,
+      child: Container(
+          padding: const EdgeInsets.all(3.0),
+          decoration: BoxDecoration(
+              color: Colors.blue,
+              border: Border.all(
+                color: Colors.blue,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(5))),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                gameMode,
+                style: const TextStyle(color: Colors.white),
+              ),
+              const Icon(
+                Icons.search,
+                color: Colors.white,
+              )
+            ],
+          )),
+    );
   }
 }
