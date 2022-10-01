@@ -3,9 +3,11 @@ name: "run_flutter_tests"
 on:
   pull_request:
     branches: [master]
+  push:
+    branches: [master]
 
 jobs:
-  test:
+  run_flutter_tests:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

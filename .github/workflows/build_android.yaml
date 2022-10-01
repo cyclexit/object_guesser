@@ -3,9 +3,11 @@ name: "build_android"
 on:
   pull_request:
     branches: [master]
+  push:
+    branches: [master]
 
 jobs:
-  build:
+  build_android:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
