@@ -3,6 +3,8 @@ name: "run_flutter_tests"
 on:
   pull_request:
     branches: [master]
+  push:
+    branches: [master]
 
 jobs:
   run_flutter_tests:
