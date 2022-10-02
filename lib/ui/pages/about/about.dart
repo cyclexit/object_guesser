@@ -11,7 +11,8 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(child: UserInputForm()),
+      body: const Align(
+          alignment: Alignment.bottomCenter, child: UserInputForm()),
     );
   }
 }
