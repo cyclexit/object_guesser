@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:object_guesser/ui/widgets/next_button.dart';
 
-import 'package:object_guesser/ui/widgets/user_input_field.dart';
+import 'package:object_guesser/ui/forms/user_input_field.dart';
 
 // The about page is used for temporary UI components visualization during the
 // development.
@@ -16,7 +16,7 @@ class AboutPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: [const UserInputField(), NextButton(onPressed: () {})],
+          children: [const UserInputForm(), NextButton(onPressed: () {})],
         ),
       ),
     );
