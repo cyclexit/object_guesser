@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:object_guesser/game/user_input_regex.dart';
 
+// TODO:
+// 1. Convert this to StatefulWidget
+// 2. Rename it as UserInputField
 class UserInputField extends StatelessWidget {
   const UserInputField({Key? key}) : super(key: key);
 
