@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NextButton extends StatelessWidget {
-  void Function()? onPressed;
+  final void Function()? onPressed;
 
-  NextButton({super.key, required this.onPressed});
+  const NextButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
