@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:object_guesser/game/user_input_regex.dart';
+
 class UserInputField extends StatelessWidget {
   const UserInputField({Key? key}) : super(key: key);
 
@@ -10,7 +12,7 @@ class UserInputField extends StatelessWidget {
       child: TextFormField(
         validator: (String? value) {
           if (value != null) {
-            // TODO: validate the string with regex.
+            return userInputRegExp.hasMatch(value) ? null : inputFormatHelpMsg;
           }
           return null;
         },
