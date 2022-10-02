@@ -8,6 +8,12 @@ class UserInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: TextFormField(
+        validator: (String? value) {
+          if (value != null) {
+            // TODO: validate the string with regex.
+          }
+          return null;
+        },
         autocorrect: true, // this may be a patch for user typos
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),
