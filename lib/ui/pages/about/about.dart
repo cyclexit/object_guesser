@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:object_guesser/ui/widgets/next_button.dart';
 
 import 'package:object_guesser/ui/forms/user_input_form.dart';
 
