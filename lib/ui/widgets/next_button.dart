@@ -7,7 +7,9 @@ class NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: ElevatedButton(onPressed: onPressed, child: const Text("Next ➟")),
+    );
   }
 }
