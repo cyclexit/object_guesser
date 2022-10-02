@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/game/user_input_regex.dart';
 import 'package:object_guesser/ui/widgets/next_button.dart';
 
-// TODO:
-// 1. Convert this to StatefulWidget
 class UserInputForm extends StatefulWidget {
   const UserInputForm({Key? key}) : super(key: key);
 
@@ -14,6 +12,7 @@ class UserInputForm extends StatefulWidget {
 
 class _UserInputFormState extends State<UserInputForm> {
   final _formKey = GlobalKey<FormState>();
+  final _userInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +26,7 @@ class _UserInputFormState extends State<UserInputForm> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
               child: TextFormField(
+                controller: _userInputController,
                 validator: (String? value) {
                   if (value != null) {
                     return userInputRegExp.hasMatch(value)
@@ -48,10 +48,12 @@ class _UserInputFormState extends State<UserInputForm> {
                 onPressed: () {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
+                    // TODO: replace the logic here with a call to the server or
+                    // save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                      SnackBar(
+                          content:
+                              Text("You enter: ${_userInputController.text}")),
                     );
                   }
                 },
