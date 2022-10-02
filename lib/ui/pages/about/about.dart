@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:object_guesser/ui/widgets/next_button.dart';
 
 import 'package:object_guesser/ui/widgets/user_input_field.dart';
 
@@ -15,7 +16,7 @@ class AboutPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: const [UserInputField()],
+          children: [const UserInputField(), NextButton(onPressed: () {})],
         ),
       ),
     );
