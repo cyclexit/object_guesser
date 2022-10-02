@@ -12,13 +12,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [const UserInputForm(), NextButton(onPressed: () {})],
-        ),
-      ),
+      body: const Center(child: UserInputForm()),
     );
   }
 }
