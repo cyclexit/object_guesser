@@ -1,8 +1,9 @@
 // Input text alphabets: “a-z”, “A-Z”, “-”(dash), “ ”(space)
-// TODO: make input "   dog-" invalid
-final RegExp userInputRegExp =
-    RegExp(r"^$|\s|^[a-zA-Z\s]+[a-zA-Z-\s]*[a-zA-Z\s]$");
+// NOTE: This regex is only used to validate the trimmed strings which are the
+// strings without heading and trailing whitespaces.
+final RegExp trimmedUserInputRegExp =
+    RegExp(r"^$|^([a-zA-Z]+(\s|-))*[a-zA-Z]+$");
 
 const String inputFormatHelpMsg =
-    "A valid input should begin and end with a latin letter and only contain "
-    "A-Z, a-z, whitespace and hyphen.";
+    "A valid input should be an English word or phrase that only contain A-Z,"
+    " a-z, whitespace and hyphen.";

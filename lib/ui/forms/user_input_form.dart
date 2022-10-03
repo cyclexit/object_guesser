@@ -41,7 +41,7 @@ class _UserInputFormState extends State<UserInputForm> {
                   controller: _userInputController,
                   validator: (String? value) {
                     if (value != null) {
-                      return userInputRegExp.hasMatch(value)
+                      return trimmedUserInputRegExp.hasMatch(value.trim())
                           ? null
                           : inputFormatHelpMsg;
                     }
@@ -65,7 +65,7 @@ class _UserInputFormState extends State<UserInputForm> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                             content: Text(
-                                "You enter: ${_userInputController.text}")),
+                                "You enter: ${_userInputController.text.trim()}")),
                       );
                     }
                   },
