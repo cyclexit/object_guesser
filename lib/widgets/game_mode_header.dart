@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:object_guesser/game/game_mode_info.dart';
+import 'package:object_guesser/models/game_mode_info.dart';
 
 class GameModeHeader extends StatelessWidget {
   final GameModeInfo gameModeInfo;

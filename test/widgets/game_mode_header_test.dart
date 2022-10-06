@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:object_guesser/game/game_modes.dart';
-import 'package:object_guesser/ui/widgets/game_mode_header.dart';
+import 'package:object_guesser/constants/game_modes.dart';
+import 'package:object_guesser/widgets/game_mode_header.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({Key? key}) : super(key: key);
