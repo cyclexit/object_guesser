@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:object_guesser/routes.dart';
+import 'package:object_guesser/config/routes.dart';
 
 void main() {
   runApp(const App());

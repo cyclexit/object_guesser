@@ -1,4 +1,4 @@
-import 'package:object_guesser/game/game_mode_info.dart';
+import 'package:object_guesser/models/game_mode_info.dart';
 
 const GameModeInfo multipleChoice = GameModeInfo(
     gameMode: "Multiple Choice",
