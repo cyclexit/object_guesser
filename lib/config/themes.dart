@@ -10,6 +10,8 @@ const blackColor = Color(0xFF2B2B2B);
 const textTheme = TextTheme(
     headline1: TextStyle(
         fontSize: 32.0, fontWeight: FontWeight.bold, color: whiteColor),
+    headline2: TextStyle(
+        fontSize: 20.0, fontWeight: FontWeight.bold, color: blackColor),
     subtitle1: TextStyle(
         fontSize: 16.0, fontWeight: FontWeight.bold, color: blackColor),
     bodyText1: TextStyle(fontSize: 10.0, color: blackColor),
@@ -22,6 +24,7 @@ ThemeData appTheme = ThemeData(
         seedColor: primaryColor,
         secondary: secondaryColor,
         tertiary: tertiaryColor,
+        shadow: blackColor.withOpacity(0.3),
         background: whiteColor),
     scaffoldBackgroundColor: whiteColor,
     textTheme: GoogleFonts.montserratTextTheme(textTheme),
