@@ -19,11 +19,6 @@ class InputQuiz extends Quiz {
   });
 
   @override
-  Future<double> submit(double duration) async {
-    return 0.0;
-  }
-
-  @override
   String get answer {
     return _answer;
   }

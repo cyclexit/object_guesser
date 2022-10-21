@@ -22,11 +22,6 @@ class SelectionQuiz extends Quiz {
       required this.correctAnswer});
 
   @override
-  Future<double> submit(double duration) async {
-    return 0.0;
-  }
-
-  @override
   List<Selection>? get answer {
     return _answer;
   }

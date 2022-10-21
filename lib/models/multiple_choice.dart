@@ -17,11 +17,6 @@ class MultipleChoiceQuiz extends Quiz {
       required this.correctAnswer});
 
   @override
-  Future<double> submit(double duration) async {
-    return 0.0;
-  }
-
-  @override
   Label? get answer {
     return _answer;
   }
