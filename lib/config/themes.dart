@@ -14,9 +14,9 @@ const textTheme = TextTheme(
         fontSize: 20.0, fontWeight: FontWeight.bold, color: blackColor),
     subtitle1: TextStyle(
         fontSize: 16.0, fontWeight: FontWeight.bold, color: blackColor),
-    bodyText1: TextStyle(fontSize: 10.0, color: blackColor),
+    bodyText1: TextStyle(fontSize: 12.0, color: blackColor),
     bodyText2: TextStyle(
-        fontSize: 10.0, fontWeight: FontWeight.w300, color: secondaryColor),
+        fontSize: 12.0, fontWeight: FontWeight.w300, color: secondaryColor),
     button: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold));
 
 ThemeData appTheme = ThemeData(
