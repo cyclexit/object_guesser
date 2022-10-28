@@ -23,6 +23,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> widgetOptions = <Widget>[
+      // TODO: implement the callback here
+      //       1. randomly generate 3 questions (one for each type)
+      //       2. randomly select the category (label) for each question
+      //       3. pick the temporary local image
       Button(
           text: "Play",
           handlePress: (() => Navigator.pushNamed(context, '/quiz'))),
