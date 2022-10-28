@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   final String text;
-  final IconData? icon = null;
+  final IconData? icon;
   final VoidCallback handlePress;
 
   const Button(
-      {super.key, required this.text, icon, required this.handlePress});
+      {super.key, required this.text, this.icon, required this.handlePress});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class Button extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0),
+              padding: const EdgeInsets.symmetric(horizontal: 36.0),
               child: Text(text),
             ),
             if (icon != null) Icon(icon)
