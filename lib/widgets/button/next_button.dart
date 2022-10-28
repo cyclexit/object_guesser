@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/widgets/button/button.dart';
 
 void nextQuiz() {
+  // ignore: todo
   // TODO: implement this
 }
 

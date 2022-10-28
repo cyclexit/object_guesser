@@ -13,13 +13,6 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   static const TextStyle _optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static final List<Widget> _widgetOptions = <Widget>[
-    Button(text: "Play", handlePress: (() {})),
-    const Text(
-      'User Profile',
-      style: _optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,8 +22,18 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> widgetOptions = <Widget>[
+      Button(
+          text: "Play",
+          handlePress: (() => Navigator.pushNamed(context, '/quiz'))),
+      const Text(
+        'User Profile',
+        style: _optionStyle,
+      ),
+    ];
+
     return Scaffold(
-      body: Center(child: _widgetOptions[_selectedIndex]),
+      body: Center(child: widgetOptions[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
