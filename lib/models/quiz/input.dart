@@ -1,6 +1,6 @@
 import 'package:object_guesser/models/image.dart';
 import 'package:object_guesser/models/label.dart';
-import 'package:object_guesser/models/quiz.dart';
+import 'package:object_guesser/models/quiz/quiz.dart';
 
 class InputQuiz extends Quiz {
   String id;
