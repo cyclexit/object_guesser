@@ -12,6 +12,10 @@ class QuizPage extends StatefulWidget {
   State<QuizPage> createState() => _QuizPageState();
 }
 
+// TODO: in the initState function
+//       1. randomly generate 3 questions (one for each type)
+//       2. randomly select the category (label) for each question
+//       3. pick the temporary local image
 class _QuizPageState extends State<QuizPage> {
   final labels = const [
     Label(id: "id1", text: "dog"),
