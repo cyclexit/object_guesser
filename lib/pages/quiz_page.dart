@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quiz/quiz.dart';
-import 'package:object_guesser/widgets/category_text.dart';
+import 'package:object_guesser/widgets/quiz_type_text.dart';
 import 'package:object_guesser/widgets/choice_list.dart';
 import 'package:object_guesser/widgets/button/next_button.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
@@ -51,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const QuizTypeTooltip(quizTypeInfo: multipleChoice),
+                const QuizTypeText(quizTypeInfo: multipleChoice),
                 const SizedBox(
                   height: 15.0,
                 ),
