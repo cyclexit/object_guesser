@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:object_guesser/models/quiz_type_info.dart';
+import 'package:object_guesser/models/quiz/quiz_type_info.dart';
 
 class GameModeHeader extends StatelessWidget {
   final QuizTypeInfo gameModeInfo;
@@ -9,7 +9,7 @@ class GameModeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: gameModeInfo.gameModeDescription,
+      message: gameModeInfo.quizTypeDescription,
       triggerMode: TooltipTriggerMode.tap,
       child: Container(
           padding: const EdgeInsets.all(3.0),
@@ -20,7 +20,7 @@ class GameModeHeader extends StatelessWidget {
               ),
               borderRadius: const BorderRadius.all(Radius.circular(5))),
           child: Text(
-            gameModeInfo.gameMode,
+            gameModeInfo.quizType,
             style: const TextStyle(color: Colors.white),
           )),
     );

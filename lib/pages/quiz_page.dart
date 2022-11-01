@@ -51,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const CategoryText(category: "multiple choice"),
+                const QuizTypeTooltip(quizTypeInfo: multipleChoice),
                 const SizedBox(
                   height: 15.0,
                 ),
