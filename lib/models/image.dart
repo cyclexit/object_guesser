@@ -1,6 +1,6 @@
-class Image {
+class ImageData {
   String id;
   String url;
 
-  Image({required this.id, required this.url});
+  ImageData({required this.id, required this.url});
 }
