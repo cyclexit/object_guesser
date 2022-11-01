@@ -59,6 +59,7 @@ class _QuizPageState extends State<QuizPage> {
                 const SizedBox(
                   height: 30.0,
                 ),
+                // TODO: pass the next quiz function as the onPressed handler
                 const NextButton(),
                 const SizedBox(
                   height: 35.0,
