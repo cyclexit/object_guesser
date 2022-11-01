@@ -4,7 +4,7 @@ import 'package:object_guesser/models/quiz/quiz.dart';
 
 class Selection {
   Label label;
-  Image image;
+  ImageData image;
 
   Selection({required this.label, required this.image});
 }

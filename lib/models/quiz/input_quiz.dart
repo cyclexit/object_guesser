@@ -4,7 +4,7 @@ import 'package:object_guesser/models/quiz/quiz.dart';
 
 class InputQuiz extends Quiz {
   String id;
-  Image image;
+  ImageData image;
   String _answer = "";
 
   /// List of possible answer for the input.

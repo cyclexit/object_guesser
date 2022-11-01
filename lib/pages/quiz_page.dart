@@ -16,7 +16,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  static const int totalQuestions = 3;
+  static const int totalQuestions = 5;
   List<Quiz> quizList = [];
 
   final labels = const [

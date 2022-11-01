@@ -4,7 +4,7 @@ import 'package:object_guesser/models/quiz/quiz.dart';
 
 class MultipleChoiceQuiz extends Quiz {
   String id;
-  Image image;
+  ImageData image;
   List<Label> choices;
   Label? _answer;
 

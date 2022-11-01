@@ -16,7 +16,6 @@ const QuizTypeInfo select = QuizTypeInfo(
     quizTypeDescription:
         "Select the pictures which contain the object described by the label.");
 
-const List<Type> quizTypeList = [MultipleChoiceQuiz, InputQuiz, SelectionQuiz];
 const Map<Type, QuizTypeInfo> quizTypeInfoMap = {
   MultipleChoiceQuiz: multipleChoice,
   InputQuiz: input,
