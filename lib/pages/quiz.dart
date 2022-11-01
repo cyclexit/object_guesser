@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/label.dart';
+import 'package:object_guesser/models/quiz/quiz.dart';
 import 'package:object_guesser/widgets/category_text.dart';
 import 'package:object_guesser/widgets/choice_list.dart';
 import 'package:object_guesser/widgets/button/next_button.dart';
@@ -13,6 +16,9 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  static const int totalQuestions = 3;
+  List<Quiz> quizList = [];
+
   final labels = const [
     Label(id: "id1", text: "dog"),
     Label(id: "id2", text: "shih tzu"),

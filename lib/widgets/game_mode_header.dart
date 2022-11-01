@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:object_guesser/models/game_mode_info.dart';
+import 'package:object_guesser/models/quiz_type_info.dart';
 
 class GameModeHeader extends StatelessWidget {
-  final GameModeInfo gameModeInfo;
+  final QuizTypeInfo gameModeInfo;
   const GameModeHeader({Key? key, required this.gameModeInfo})
       : super(key: key);
 

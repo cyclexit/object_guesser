@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:object_guesser/constants/game_modes.dart';
+import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/widgets/game_mode_header.dart';
 
 class TestPage extends StatelessWidget {

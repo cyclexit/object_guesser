@@ -1,7 +1,7 @@
-class GameModeInfo {
+class QuizTypeInfo {
   final String gameMode;
   final String gameModeDescription;
 
-  const GameModeInfo(
+  const QuizTypeInfo(
       {required this.gameMode, required this.gameModeDescription});
 }
