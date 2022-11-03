@@ -1,1 +1,10 @@
 id, url
+cat-1.jpg, data/img/cat-1.jpg
+cat-2.jpg, data/img/cat-2.jpg
+cat-3.jpg, data/img/cat-3.jpg
+dog-1.jpg, data/img/dog-1.jpg
+dog-2.jpg, data/img/dog-2.jpg
+golden-retriever-1.jpg, data/img/golden-retriever-1.jpg
+golden-retriever-2.jpg, data/img/golden-retriever-2.jpg
+golden-retriever-3.jpg, data/img/golden-retriever-3.jpg
+shih-tzu-1.jpg, data/img/shih-tzu-1.jpg
