@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:object_guesser/services/generate_image.dart';
+import 'package:object_guesser/services/get_image.dart';
 
 // The about page is used for temporary UI components visualization during the
 // development.
@@ -12,7 +12,7 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: generateImage('data/img/dog-1.jpg'),
+        child: getImage('data/img/dog-1.jpg'),
       ),
     );
   }

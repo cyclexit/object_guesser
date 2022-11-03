@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Image generateImage(String url) {
+Image getImage(String url) {
   // ignore: todo
   // TODO: when the server and the database is done, get the image from the
   // Internet instead of asset.

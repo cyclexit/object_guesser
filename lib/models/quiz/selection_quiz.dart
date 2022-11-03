@@ -12,9 +12,8 @@ class Selection {
 class SelectionQuiz extends Quiz {
   String id;
   List<Selection> selections;
-  List<Selection>? _answer;
-
   List<Selection> correctAnswer;
+  List<Selection>? _answer;
 
   SelectionQuiz(
       {required this.id,

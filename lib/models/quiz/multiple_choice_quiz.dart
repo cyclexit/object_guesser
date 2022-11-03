@@ -6,9 +6,8 @@ class MultipleChoiceQuiz extends Quiz {
   String id;
   ImageData image;
   List<Label> choices;
-  Label? _answer;
-
   Label correctAnswer;
+  Label? _answer;
 
   MultipleChoiceQuiz(
       {required this.id,
