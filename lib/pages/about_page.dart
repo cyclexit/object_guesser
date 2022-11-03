@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:object_guesser/constants/quiz_types.dart';
-import 'package:object_guesser/widgets/quiz_type_text.dart';
+import 'package:object_guesser/services/generate_image.dart';
 
 // The about page is used for temporary UI components visualization during the
 // development.
@@ -13,15 +12,7 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            QuizTypeText(quizTypeInfo: multipleChoice),
-            QuizTypeText(quizTypeInfo: input),
-            QuizTypeText(quizTypeInfo: select),
-          ],
-        ),
+        child: generateImage('data/img/dog-1.jpg'),
       ),
     );
   }
