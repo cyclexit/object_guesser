@@ -4,8 +4,10 @@ import 'dart:math';
 import 'package:object_guesser/models/quiz/quiz.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 
-Quiz? generateOneQuiz() {
-  // TODO: implement this
+Quiz? getOneQuiz() {
+  // ignore: todo
+  // TODO: temporary function
+  //       remove this function when the sever is done
   switch (Random().nextInt(quizTypeInfoMap.length)) {
     case 0:
       return null;
@@ -19,7 +21,7 @@ Quiz? generateOneQuiz() {
   }
 }
 
-List<Quiz> generateQuizes(int totalQuiz) {
+List<Quiz> getQuizes(int totalQuiz) {
   List<Quiz> quizList = [];
   for (int i = 0; i < totalQuiz; ++i) {
     // quizList.add(quizTypeList[0]());
