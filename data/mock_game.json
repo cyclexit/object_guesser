@@ -1,7 +1,7 @@
 {
     "quizes": [
         {
-            "type": "multiple_choice",
+            "type": "Multiple Choice",
             "id": "1",
             "image": {
                 "id": "dog-1.jpg",
@@ -31,7 +31,7 @@
             }
         },
         {
-            "type": "input",
+            "type": "Input",
             "id": 2,
             "image": {
                 "id": "golden-retriever-1.jpg",
