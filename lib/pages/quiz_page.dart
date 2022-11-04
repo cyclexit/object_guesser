@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quiz/quiz.dart';
+import 'package:object_guesser/services/get_quizes.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 import 'package:object_guesser/widgets/choice_list.dart';
 import 'package:object_guesser/widgets/button/next_button.dart';
@@ -16,8 +18,9 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  static const int totalQuizes = 5;
-  List<Quiz> quizList = [];
+  static const int _totalQuizes = 5;
+  List<Quiz> _quizes = [];
+  final Logger _log = Logger();
 
   final labels = const [
     Label(id: "id1", text: "dog"),
@@ -31,18 +34,19 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   void initState() {
-    /**
-     * TODO:
-     * 1. randomly generate 3 questions (one for each type)
-     * 2. randomly select the category (label) for each question
-     * 3. pick the temporary local image
-     */
     super.initState();
+    Future<List<Quiz>> future = getQuizes(_totalQuizes);
+    future.then((value) {
+      _quizes = value;
+    }, onError: (error) {
+      _log.e(error.toString());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(), // debug only
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Padding(
         padding: const EdgeInsets.only(top: 160.0),
