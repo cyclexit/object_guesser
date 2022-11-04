@@ -1,6 +1,6 @@
 class ImageData {
-  String id;
-  String url;
+  final String id;
+  final String url;
 
   ImageData({required this.id, required this.url});
 

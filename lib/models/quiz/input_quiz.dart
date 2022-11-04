@@ -27,7 +27,7 @@ class InputQuiz extends Quiz {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "image": image,
+        "image": image.toJson(),
         "correctAnswers": correctAnswers ?? [],
         "_answer": _answer,
       };

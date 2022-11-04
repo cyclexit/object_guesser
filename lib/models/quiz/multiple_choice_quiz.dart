@@ -15,6 +15,22 @@ class MultipleChoiceQuiz extends Quiz {
       required this.choices,
       required this.correctAnswer});
 
+  MultipleChoiceQuiz.fromJson(Map<String, dynamic> json)
+      : id = json["id"]!,
+        image = ImageData.fromJson(json["image"]!),
+        choices = json["choices"]!
+            .map((labelJson) => Label.fromJson(labelJson!))
+            .toList(),
+        correctAnswer = Label.fromJson(json["correctAnswer"]!);
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "image": image.toJson(),
+        "choices": choices,
+        "correctAnswer": correctAnswer.toJson(),
+        "_answer": _answer!.toJson()
+      };
+
   @override
   Label? get answer {
     return _answer;
