@@ -17,7 +17,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   static const int totalQuestions = 5;
-  List<Quiz> quizList = [];
+  List<Quiz> _quizList = [];
 
   final labels = const [
     Label(id: "id1", text: "dog"),
@@ -31,13 +31,22 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   void initState() {
+    super.initState();
     /**
      * TODO:
      * 1. randomly generate 3 questions (one for each type)
      * 2. randomly select the category (label) for each question
      * 3. pick the temporary local image
      */
-    super.initState();
+     // not sure if this will work
+     _getFunction();
+  }
+
+  _getFunction() async {
+    var quizLlist = await getQuizes(totalQuestions);
+    setState({
+      _quizList = quizList;
+    })
   }
 
   @override
