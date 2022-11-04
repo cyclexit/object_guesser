@@ -29,6 +29,24 @@
                 "id": 1,
                 "text": "dog"
             }
+        },
+        {
+            "type": "input",
+            "id": 2,
+            "image": {
+                "id": "golden-retriever-1.jpg",
+                "url": "data/golden-retriever-1.jpg"
+            },
+            "correctAnswers": [
+                {
+                    "id": 1,
+                    "text": "dog"
+                },
+                {
+                    "id": 3,
+                    "text": "golden-retriever"
+                }
+            ]
         }
     ]
 }

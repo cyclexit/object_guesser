@@ -5,17 +5,17 @@ import 'package:object_guesser/models/quiz/quiz.dart';
 class InputQuiz extends Quiz {
   String id;
   ImageData image;
-  String _answer = "";
 
-  /// List of possible answer for the input.
-  /// This can be null since an Input Quiz
-  /// could be an `Unlabelled` Image.
-  List<Label>? correctAnswer;
+  // List of possible answer for the input.
+  // This can be null since an Input Quiz
+  // could be an `Unlabelled` Image.
+  List<Label>? correctAnswers;
+  String _answer = "";
 
   InputQuiz({
     required this.id,
     required this.image,
-    this.correctAnswer,
+    this.correctAnswers,
   });
 
   @override
