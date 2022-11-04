@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:object_guesser/models/image.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quiz/quiz.dart';
@@ -26,6 +24,13 @@ class InputQuiz extends Quiz {
         correctAnswers = json["correctAnswers"]!
             .map((labelJson) => Label.fromJson(labelJson))
             .toList();
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "image": image,
+        "correctAnswers": correctAnswers ?? [],
+        "_answer": _answer,
+      };
 
   @override
   String get answer {
