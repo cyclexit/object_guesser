@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 
+import 'package:object_guesser/log.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quiz/quiz.dart';
@@ -20,7 +20,6 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   static const int _totalQuizes = 5;
   List<Quiz> _quizes = [];
-  final Logger _log = Logger();
 
   final labels = const [
     Label(id: "id1", text: "dog"),
@@ -39,7 +38,7 @@ class _QuizPageState extends State<QuizPage> {
     future.then((value) {
       _quizes = value;
     }, onError: (error) {
-      _log.e(error.toString());
+      log.e(error.toString());
     });
   }
 

@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:logger/logger.dart';
+
+import 'package:object_guesser/log.dart';
 import 'package:object_guesser/models/quiz/quiz.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 
 Future<List<Quiz>> getQuizes(int totalQuizes) async {
-  Logger log = Logger();
-
   dynamic jsonData =
       jsonDecode(await rootBundle.loadString('data/mock_game.json'));
   if (jsonData["quizes"] == null) {
