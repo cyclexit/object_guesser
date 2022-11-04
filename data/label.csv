@@ -3,3 +3,5 @@ id, parent_label_id, root_id, name
 2, , 2, cat
 3, 1, 1, golden-retriever
 4, 1, 1, shih-tzu
+5, , 5, car
+6, , 6, shoe

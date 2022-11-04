@@ -1,0 +1,34 @@
+{
+    "quizes": [
+        {
+            "type": "multiple_choice",
+            "id": "1",
+            "image": {
+                "id": "dog-1.jpg",
+                "url": "data/dog-1.jpg"
+            },
+            "choices": [
+                {
+                    "id": 1,
+                    "text": "dog"
+                },
+                {
+                    "id": 2,
+                    "text": "cat"
+                },
+                {
+                    "id": 5,
+                    "text": "car"
+                },
+                {
+                    "id": 6,
+                    "text": "shoe"
+                }
+            ],
+            "correctAnswer": {
+                "id": 1,
+                "text": "dog"
+            }
+        }
+    ]
+}
