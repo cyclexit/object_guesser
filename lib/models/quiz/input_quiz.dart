@@ -21,7 +21,7 @@ class InputQuiz extends Quiz {
   InputQuiz.fromJson(Map<String, dynamic> json)
       : id = json['id']!.toString(),
         image = ImageData.fromJson(json["image"]),
-        correctAnswers = json["correctAnswers"]!
+        correctAnswers = List.from(json["correctAnswers"]!)
             .map((labelJson) => Label.fromJson(labelJson))
             .toList();
 

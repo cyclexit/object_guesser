@@ -18,7 +18,7 @@ class MultipleChoiceQuiz extends Quiz {
   MultipleChoiceQuiz.fromJson(Map<String, dynamic> json)
       : id = json["id"]!.toString(),
         image = ImageData.fromJson(json["image"]!),
-        choices = json["choices"]!
+        choices = List.from(json["choices"]!)
             .map((labelJson) => Label.fromJson(labelJson!))
             .toList(),
         correctAnswer = Label.fromJson(json["correctAnswer"]!);
