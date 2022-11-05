@@ -18,7 +18,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  static const int _totalQuizes = 5;
+  static const int _totalQuizes = 2;
   List<Quiz> _quizes = [];
 
   final labels = const [
@@ -37,8 +37,9 @@ class _QuizPageState extends State<QuizPage> {
     Future<List<Quiz>> future = getQuizes(_totalQuizes);
     future.then((value) {
       _quizes = value;
+      log.d(_quizes);
     }, onError: (error) {
-      log.e(error.toString());
+      log.e(error);
     });
   }
 

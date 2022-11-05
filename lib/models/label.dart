@@ -5,8 +5,8 @@ class Label {
   const Label({required this.id, required this.text});
 
   Label.fromJson(Map<String, dynamic> json)
-      : id = json["id"],
-        text = json["text"];
+      : id = json["id"]!.toString(),
+        text = json["text"]!.toString();
 
   Map<String, dynamic> toJson() => {
         "id": id,

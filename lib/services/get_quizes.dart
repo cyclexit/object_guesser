@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import 'package:object_guesser/log.dart';
+import 'package:object_guesser/models/quiz/input_quiz.dart';
+import 'package:object_guesser/models/quiz/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quiz/quiz.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 
@@ -15,21 +17,22 @@ Future<List<Quiz>> getQuizes(int totalQuizes) async {
     return [];
   }
   if (jsonData["quizes"].length != totalQuizes) {
-    log.e("Incorrect quiz number");
+    log.e("Incorrect quiz number ${jsonData["quizes"].length}, "
+        "should be $totalQuizes");
     return [];
   }
   List<Quiz> quizes = [];
-  dynamic quizData;
+  dynamic quizJsonData;
   for (int i = 0; i < jsonData["quizes"].length; ++i) {
-    quizData = jsonData["quizes"][i];
-    if (quizData["type"] == null) {
+    quizJsonData = jsonData["quizes"][i];
+    if (quizJsonData["type"] == null) {
       log.e("Quiz type is null");
       return [];
     }
-    if (quizData["type"] == multipleChoice.quizType) {
-      // TODO: use json to create an object
-    } else if (quizData["type"] == input.quizType) {
-      // TODO: use json to create an object
+    if (quizJsonData["type"] == multipleChoice.quizType) {
+      quizes.add(MultipleChoiceQuiz.fromJson(quizJsonData));
+    } else if (quizJsonData["type"] == input.quizType) {
+      quizes.add(InputQuiz.fromJson(quizJsonData));
     }
   }
   return quizes;
