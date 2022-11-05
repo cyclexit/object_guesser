@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:object_guesser/widgets/button/button.dart';
+import 'package:object_guesser/widgets/buttons/button.dart';
 
 void nextQuiz() {
   // ignore: todo

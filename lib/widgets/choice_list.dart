@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:object_guesser/models/label.dart';
-import 'package:object_guesser/widgets/button/choice_button.dart';
+import 'package:object_guesser/widgets/buttons/choice_button.dart';
 
 class ChoiceList extends StatefulWidget {
   final void Function(Label?) setAnswer;

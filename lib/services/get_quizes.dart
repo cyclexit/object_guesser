@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import 'package:object_guesser/log.dart';
-import 'package:object_guesser/models/quiz/input_quiz.dart';
-import 'package:object_guesser/models/quiz/multiple_choice_quiz.dart';
-import 'package:object_guesser/models/quiz/quiz.dart';
+import 'package:object_guesser/models/quizes/input_quiz.dart';
+import 'package:object_guesser/models/quizes/multiple_choice_quiz.dart';
+import 'package:object_guesser/models/quizes/quiz.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 
 Future<List<Quiz>> getQuizes(int totalQuizes) async {

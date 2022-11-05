@@ -1,7 +1,7 @@
-import 'package:object_guesser/models/quiz/multiple_choice_quiz.dart';
-import 'package:object_guesser/models/quiz/input_quiz.dart';
-import 'package:object_guesser/models/quiz/selection_quiz.dart';
-import 'package:object_guesser/models/quiz/quiz_type_info.dart';
+import 'package:object_guesser/models/quizes/multiple_choice_quiz.dart';
+import 'package:object_guesser/models/quizes/input_quiz.dart';
+import 'package:object_guesser/models/quizes/selection_quiz.dart';
+import 'package:object_guesser/models/quizes/quiz_type_info.dart';
 
 const QuizTypeInfo multipleChoice = QuizTypeInfo(
     quizType: "Multiple Choice",

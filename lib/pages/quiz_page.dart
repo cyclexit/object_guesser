@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/log.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/label.dart';
-import 'package:object_guesser/models/quiz/input_quiz.dart';
-import 'package:object_guesser/models/quiz/multiple_choice_quiz.dart';
-import 'package:object_guesser/models/quiz/quiz.dart';
+import 'package:object_guesser/models/quizes/input_quiz.dart';
+import 'package:object_guesser/models/quizes/multiple_choice_quiz.dart';
+import 'package:object_guesser/models/quizes/quiz.dart';
 import 'package:object_guesser/services/get_quizes.dart';
+import 'package:object_guesser/widgets/buttons/button.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 import 'package:object_guesser/widgets/choice_list.dart';
-import 'package:object_guesser/widgets/button/next_button.dart';
+import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
 
 class QuizPage extends StatefulWidget {
