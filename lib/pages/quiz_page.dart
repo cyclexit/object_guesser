@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/log.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/label.dart';
+import 'package:object_guesser/models/quiz/input_quiz.dart';
+import 'package:object_guesser/models/quiz/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quiz/quiz.dart';
 import 'package:object_guesser/services/get_quizes.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
@@ -20,16 +22,23 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   static const int _totalQuizes = 2;
   List<Quiz> _quizes = [];
-
-  final labels = const [
-    Label(id: "id1", text: "dog"),
-    Label(id: "id2", text: "shih tzu"),
-    Label(id: "id3", text: "cat"),
-    Label(id: "id4", text: "horse"),
-  ];
+  bool _isDataReady = false;
+  late int _idx;
 
   void setAnswer(Label? choice) {}
   void submitAnswer() {}
+
+  Widget _updateUserAnswerArea() {
+    Type quizType = _quizes[_idx].runtimeType;
+    if (quizType == MultipleChoiceQuiz) {
+      MultipleChoiceQuiz quiz = _quizes[_idx] as MultipleChoiceQuiz;
+      return ChoiceList(setAnswer: setAnswer, choices: quiz.choices);
+    } else if (quizType == InputQuiz) {
+      // TODO: implement the user typing input form
+      return const SizedBox(height: 0);
+    }
+    return const SizedBox(height: 0);
+  }
 
   @override
   void initState() {
@@ -37,7 +46,11 @@ class _QuizPageState extends State<QuizPage> {
     Future<List<Quiz>> future = getQuizes(_totalQuizes);
     future.then((value) {
       _quizes = value;
-      log.d(_quizes);
+      setState(() {
+        _idx = 0;
+        _isDataReady = true;
+      });
+      // log.d(_quizes);
     }, onError: (error) {
       log.e(error);
     });
@@ -55,11 +68,15 @@ class _QuizPageState extends State<QuizPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const QuizTypeText(quizTypeInfo: multipleChoice),
+                if (_isDataReady)
+                  QuizTypeText(
+                      quizTypeInfo:
+                          quizTypeInfoMap[_quizes[_idx].runtimeType]!),
                 const SizedBox(
                   height: 15.0,
                 ),
-                ChoiceList(setAnswer: setAnswer, choices: labels),
+                // TODO: update this part based on the question type
+                if (_isDataReady) _updateUserAnswerArea(),
                 const SizedBox(
                   height: 30.0,
                 ),
