@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     List<Widget> widgetOptions = <Widget>[
       Button(
           text: "Play",
-          handlePress: (() => Navigator.pushNamed(context, '/quiz'))),
+          onPressed: (() => Navigator.pushNamed(context, '/quiz'))),
       const Text(
         'User Profile',
         style: _optionStyle,
