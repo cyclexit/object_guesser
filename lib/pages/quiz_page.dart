@@ -58,48 +58,59 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget page = !_isDataReady || _idx < _totalQuizes
-        ? QuizContainer(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (_isDataReady)
-                    QuizTypeText(
-                        quizTypeInfo:
-                            quizTypeInfoMap[_quizes[_idx].runtimeType]!),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  // TODO: update this part based on the question type
-                  if (_isDataReady) _updateUserAnswerArea(),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  // TODO: pass the next quiz function as the onPressed handler
-                  Button(
-                      text: "Next",
-                      icon: Icons.arrow_forward,
-                      onPressed: (() => setState(() {
-                            ++_idx;
-                          }))),
-                  const SizedBox(
-                    height: 35.0,
-                  ),
-                ]),
-          )
-        : const Center(
-            child: Text(
+    Widget page;
+    if (!_isDataReady) {
+      page = Scaffold(
+          appBar: AppBar(),
+          body: const Center(
+              child: Text(
+            "Loading....",
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          )));
+    } else if (_idx < _totalQuizes) {
+      page = Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          body: Padding(
+            padding: const EdgeInsets.only(top: 160.0),
+            child: QuizContainer(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (_isDataReady)
+                      QuizTypeText(
+                          quizTypeInfo:
+                              quizTypeInfoMap[_quizes[_idx].runtimeType]!),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    // TODO: update this part based on the question type
+                    if (_isDataReady) _updateUserAnswerArea(),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    // TODO: pass the next quiz function as the onPressed handler
+                    Button(
+                        text: "Next",
+                        icon: Icons.arrow_forward,
+                        onPressed: (() => setState(() {
+                              ++_idx;
+                            }))),
+                    const SizedBox(
+                      height: 35.0,
+                    ),
+                  ]),
+            ),
+          ));
+    } else {
+      page = Scaffold(
+          appBar: AppBar(),
+          body: const Center(
+              child: Text(
             "Finish the quiz!!!",
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ));
-    return Scaffold(
-      appBar: AppBar(), // debug only
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 160.0),
-        child: page,
-      ),
-    );
+          )));
+    }
+    return page;
   }
 }
