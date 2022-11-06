@@ -58,9 +58,8 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget page;
     if (!_isDataReady) {
-      page = Scaffold(
+      return Scaffold(
           appBar: AppBar(),
           body: const Center(
               child: Text(
@@ -68,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           )));
     } else if (_idx < _totalQuizes) {
-      page = Scaffold(
+      return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.primary,
           body: Padding(
             padding: const EdgeInsets.only(top: 160.0),
@@ -84,12 +83,10 @@ class _QuizPageState extends State<QuizPage> {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    // TODO: update this part based on the question type
                     if (_isDataReady) _updateUserAnswerArea(),
                     const SizedBox(
                       height: 30.0,
                     ),
-                    // TODO: pass the next quiz function as the onPressed handler
                     Button(
                         text: "Next",
                         icon: Icons.arrow_forward,
@@ -103,7 +100,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ));
     } else {
-      page = Scaffold(
+      return Scaffold(
           appBar: AppBar(),
           body: const Center(
               child: Text(
@@ -111,6 +108,5 @@ class _QuizPageState extends State<QuizPage> {
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           )));
     }
-    return page;
   }
 }
