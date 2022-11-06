@@ -77,14 +77,14 @@ class _QuizPageState extends State<QuizPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if (_isDataReady)
-                      QuizTypeText(
-                          quizTypeInfo:
-                              quizTypeInfoMap[_quizes[_idx].runtimeType]!),
+                    // TODO: display the image here
+                    QuizTypeText(
+                        quizTypeInfo:
+                            quizTypeInfoMap[_quizes[_idx].runtimeType]!),
                     const SizedBox(
                       height: 15.0,
                     ),
-                    if (_isDataReady) _updateUserAnswerArea(),
+                    _updateUserAnswerArea(),
                     const SizedBox(
                       height: 30.0,
                     ),
