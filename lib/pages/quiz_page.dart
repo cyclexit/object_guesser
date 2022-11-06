@@ -6,6 +6,7 @@ import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quizes/input_quiz.dart';
 import 'package:object_guesser/models/quizes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizes/quiz.dart';
+import 'package:object_guesser/services/get_image.dart';
 import 'package:object_guesser/services/get_quizes.dart';
 import 'package:object_guesser/widgets/buttons/button.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
@@ -29,13 +30,24 @@ class _QuizPageState extends State<QuizPage> {
   void setAnswer(Label? choice) {}
   void submitAnswer() {}
 
+  Widget _updateImageArea() {
+    Type quizType = _quizes[_idx].runtimeType;
+    if (quizType == MultipleChoiceQuiz) {
+      MultipleChoiceQuiz quiz = _quizes[_idx] as MultipleChoiceQuiz;
+      return getImage(quiz.image.url);
+    } else if (quizType == InputQuiz) {
+      InputQuiz quiz = _quizes[_idx] as InputQuiz;
+      return getImage(quiz.image.url);
+    }
+    return const SizedBox(height: 0);
+  }
+
   Widget _updateUserAnswerArea() {
     Type quizType = _quizes[_idx].runtimeType;
     if (quizType == MultipleChoiceQuiz) {
       MultipleChoiceQuiz quiz = _quizes[_idx] as MultipleChoiceQuiz;
       return ChoiceList(setAnswer: setAnswer, choices: quiz.choices);
     } else if (quizType == InputQuiz) {
-      // TODO: implement the user typing input form
       return const UserInputForm();
     }
     return const SizedBox(height: 0);
@@ -78,6 +90,7 @@ class _QuizPageState extends State<QuizPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // TODO: display the image here
+                    _updateImageArea(),
                     QuizTypeText(
                         quizTypeInfo:
                             quizTypeInfoMap[_quizes[_idx].runtimeType]!),

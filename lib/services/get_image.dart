@@ -7,5 +7,9 @@ Image getImage(String url) {
 
   // ignore: todo
   // TODO: find a way to keep the image original aspect ratio
-  return Image.asset(url);
+  return Image.asset(
+    url,
+    height: 200,
+    width: 200,
+  );
 }
