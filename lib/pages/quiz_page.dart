@@ -83,23 +83,23 @@ class _QuizPageState extends State<QuizPage> {
       return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.primary,
           body: Padding(
-            padding: const EdgeInsets.only(top: 160.0),
+            padding: const EdgeInsets.only(top: 120.0),
             child: QuizContainer(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // TODO: display the image here
                     _updateImageArea(),
+                    const SizedBox(height: 20),
                     QuizTypeText(
                         quizTypeInfo:
                             quizTypeInfoMap[_quizes[_idx].runtimeType]!),
                     const SizedBox(
-                      height: 15.0,
+                      height: 20.0,
                     ),
                     _updateUserAnswerArea(),
                     const SizedBox(
-                      height: 30.0,
+                      height: 20.0,
                     ),
                     Button(
                         text: "Next",
@@ -110,7 +110,7 @@ class _QuizPageState extends State<QuizPage> {
                               ++_idx;
                             }))),
                     const SizedBox(
-                      height: 35.0,
+                      height: 20.0,
                     ),
                   ]),
             ),
