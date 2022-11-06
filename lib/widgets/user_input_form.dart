@@ -15,16 +15,23 @@ class _UserInputFormState extends State<UserInputForm> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: _userInputController,
-      validator: (String? value) {
-        if (value != null) {
-          return trimmedUserInputRegExp.hasMatch(value.trim())
-              ? null
-              : inputFormatHelpMsg;
-        }
-        return null;
-      },
-    );
+    return Form(
+        key: _formKey,
+        child: TextFormField(
+          controller: _userInputController,
+          validator: (String? value) {
+            if (value != null) {
+              return trimmedUserInputRegExp.hasMatch(value.trim())
+                  ? null
+                  : inputFormatHelpMsg;
+            }
+            return null;
+          },
+          autocorrect: true, // this may be a patch for user typos
+          decoration: const InputDecoration(
+            border: UnderlineInputBorder(),
+            labelText: 'Type your answer',
+          ),
+        ));
   }
 }

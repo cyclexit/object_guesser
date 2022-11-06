@@ -11,6 +11,7 @@ import 'package:object_guesser/widgets/buttons/button.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 import 'package:object_guesser/widgets/choice_list.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
+import 'package:object_guesser/widgets/user_input_form.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -35,7 +36,7 @@ class _QuizPageState extends State<QuizPage> {
       return ChoiceList(setAnswer: setAnswer, choices: quiz.choices);
     } else if (quizType == InputQuiz) {
       // TODO: implement the user typing input form
-      return const Text("Sorry not yet...");
+      return const UserInputForm();
     }
     return const SizedBox(height: 0);
   }
@@ -90,6 +91,8 @@ class _QuizPageState extends State<QuizPage> {
                     Button(
                         text: "Next",
                         icon: Icons.arrow_forward,
+                        // TODO: state management
+                        // for the input quiz, do the user input validation here
                         onPressed: (() => setState(() {
                               ++_idx;
                             }))),
