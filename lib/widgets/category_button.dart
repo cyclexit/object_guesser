@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 
 import 'package:object_guesser/config/themes.dart';
 import 'package:object_guesser/models/category.dart';
+import 'package:object_guesser/pages/quiz_page.dart';
 
 class CategoryButton extends StatelessWidget {
   final Category category;
 
   const CategoryButton({super.key, required this.category});
 
-  // ignore: todo
-  // TODO: on press function, route to quiz screen
-  void handlePress() {}
+  void handlePress(BuildContext context) {
+    Navigator.of(context).pushNamed(QuizPage.routeName, arguments: category);
+  }
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
     return ElevatedButton(
-        onPressed: handlePress,
+        onPressed: () => handlePress(context),
         style: ElevatedButton.styleFrom(
           foregroundColor: blackColor,
           padding: const EdgeInsets.all(10.0),
