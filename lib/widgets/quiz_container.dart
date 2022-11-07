@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:object_guesser/config/themes.dart';
 
 class QuizContainer extends StatelessWidget {
@@ -10,6 +11,7 @@ class QuizContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: FractionalOffset.bottomCenter,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 14.0),
       decoration: BoxDecoration(
@@ -24,7 +26,7 @@ class QuizContainer extends StatelessWidget {
           ],
           borderRadius:
               const BorderRadius.vertical(top: Radius.circular(30.0))),
-      child: SafeArea(
+      child: SingleChildScrollView(
         child: child,
       ),
     );

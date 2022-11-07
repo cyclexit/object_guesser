@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:object_guesser/constants/game_modes.dart';
-import 'package:object_guesser/widgets/game_mode_header.dart';
+import 'package:object_guesser/constants/quiz_types.dart';
+import 'package:object_guesser/widgets/quiz_type_text.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({Key? key}) : super(key: key);
@@ -15,11 +15,11 @@ class TestPage extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              GameModeHeader(gameModeInfo: multipleChoice),
+              QuizTypeText(quizTypeInfo: multipleChoice),
               SizedBox(height: 5),
-              GameModeHeader(gameModeInfo: input),
+              QuizTypeText(quizTypeInfo: input),
               SizedBox(height: 5),
-              GameModeHeader(gameModeInfo: select)
+              QuizTypeText(quizTypeInfo: select)
             ]),
       ),
     );
@@ -31,24 +31,24 @@ Widget createTestPage() {
 }
 
 void main() {
-  group("GameModeHeader widget tests\n", () {
+  group("QuizTypeText widget tests\n", () {
     testWidgets("Find by gameMode", (tester) async {
       await tester.pumpWidget(createTestPage());
-      expect(find.byType(GameModeHeader), findsNWidgets(3));
-      expect(find.widgetWithText(GameModeHeader, multipleChoice.gameMode),
+      expect(find.byType(QuizTypeText), findsNWidgets(3));
+      expect(find.widgetWithText(QuizTypeText, multipleChoice.quizType),
           findsOneWidget);
       expect(
-          find.widgetWithText(GameModeHeader, input.gameMode), findsOneWidget);
+          find.widgetWithText(QuizTypeText, input.quizType), findsOneWidget);
       expect(
-          find.widgetWithText(GameModeHeader, select.gameMode), findsOneWidget);
+          find.widgetWithText(QuizTypeText, select.quizType), findsOneWidget);
     });
 
     testWidgets("Find by gameModeDescription", (tester) async {
       await tester.pumpWidget(createTestPage());
       expect(
-          find.byTooltip(multipleChoice.gameModeDescription), findsOneWidget);
-      expect(find.byTooltip(input.gameModeDescription), findsOneWidget);
-      expect(find.byTooltip(select.gameModeDescription), findsOneWidget);
+          find.byTooltip(multipleChoice.quizTypeDescription), findsOneWidget);
+      expect(find.byTooltip(input.quizTypeDescription), findsOneWidget);
+      expect(find.byTooltip(select.quizTypeDescription), findsOneWidget);
     });
   });
 }

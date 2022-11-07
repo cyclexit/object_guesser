@@ -1,4 +1,4 @@
-class Quiz {
+abstract class Quiz {
   /// Get the Answer for the Quiz
   get answer {}
 

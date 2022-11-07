@@ -1,0 +1,52 @@
+{
+    "quizes": [
+        {
+            "type": "Multiple Choice",
+            "id": "1",
+            "image": {
+                "id": "dog-1.jpg",
+                "url": "data/img/dog-1.jpg"
+            },
+            "choices": [
+                {
+                    "id": 1,
+                    "text": "dog"
+                },
+                {
+                    "id": 2,
+                    "text": "cat"
+                },
+                {
+                    "id": 5,
+                    "text": "car"
+                },
+                {
+                    "id": 6,
+                    "text": "shoe"
+                }
+            ],
+            "correctAnswer": {
+                "id": 1,
+                "text": "dog"
+            }
+        },
+        {
+            "type": "Input",
+            "id": 2,
+            "image": {
+                "id": "golden-retriever-1.jpg",
+                "url": "data/img/golden-retriever-1.jpg"
+            },
+            "correctAnswers": [
+                {
+                    "id": 1,
+                    "text": "dog"
+                },
+                {
+                    "id": 3,
+                    "text": "golden-retriever"
+                }
+            ]
+        }
+    ]
+}
