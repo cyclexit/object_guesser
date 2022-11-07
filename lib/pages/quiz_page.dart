@@ -8,7 +8,7 @@ import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/services/get_image.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
-import 'package:object_guesser/widgets/buttons/button.dart';
+import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 import 'package:object_guesser/widgets/choice_list.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
@@ -29,6 +29,12 @@ class _QuizPageState extends State<QuizPage> {
 
   void setAnswer(Label? choice) {}
   void submitAnswer() {}
+
+  void handleNextQuiz() {
+    setState(() {
+      ++_idx;
+    });
+  }
 
   Widget _updateImageArea() {
     Type quizType = _quizzes[_idx].runtimeType;
@@ -64,7 +70,6 @@ class _QuizPageState extends State<QuizPage> {
         _idx = 0;
         _isDataReady = true;
       });
-      // log.d(_quizes);
     }, onError: (error) {
       log.e(error);
     });
@@ -102,14 +107,7 @@ class _QuizPageState extends State<QuizPage> {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    Button(
-                        text: "Next",
-                        icon: Icons.arrow_forward,
-                        // TODO: state management
-                        // for the input quiz, do the user input validation here
-                        onPressed: (() => setState(() {
-                              ++_idx;
-                            }))),
+                    NextButton(handlePress: handleNextQuiz),
                     const SizedBox(
                       height: 20.0,
                     ),

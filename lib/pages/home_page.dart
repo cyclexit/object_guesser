@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:object_guesser/widgets/buttons/button.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -24,9 +22,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> widgetOptions = <Widget>[
-      Button(
-          text: "Play",
-          onPressed: (() => Navigator.pushNamed(context, '/quiz'))),
+      ElevatedButton(
+          onPressed: (() => Navigator.pushNamed(context, '/quiz')),
+          child: const Text("play")),
       const Text(
         'User Profile',
         style: _optionStyle,
