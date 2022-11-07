@@ -24,10 +24,10 @@ class MultipleChoice extends StatelessWidget {
         height: 30.0,
       ),
       getImage(quiz.image.url),
-      // const SizedBox(
-      //   height: 15.0,
-      // ),
-      ChoiceList(setAnswer: setAnswer, choices: quiz.choices)
+      const SizedBox(
+        height: 15.0,
+      ),
+      Center(child: ChoiceList(setAnswer: setAnswer, choices: quiz.choices))
     ]);
   }
 }
