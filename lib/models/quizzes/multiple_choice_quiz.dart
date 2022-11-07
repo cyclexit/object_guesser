@@ -1,6 +1,6 @@
 import 'package:object_guesser/models/image.dart';
 import 'package:object_guesser/models/label.dart';
-import 'package:object_guesser/models/quizes/quiz.dart';
+import 'package:object_guesser/models/quizzes/quiz.dart';
 
 class MultipleChoiceQuiz extends Quiz {
   String id;
