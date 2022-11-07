@@ -4,8 +4,8 @@ import 'package:object_guesser/pages/home_page.dart';
 import 'package:object_guesser/pages/quiz_page.dart';
 
 var appRoutes = {
-  '/': (context) => const LoginPage(),
-  '/about': (context) => const AboutPage(),
-  '/home': (context) => const HomePage(),
-  QuizPage.routeName: (context) => const QuizPage()
+  HomePage.routeName: (context) => const HomePage(),
+  AboutPage.routeName: (context) => const AboutPage(),
+  QuizPage.routeName: (context) => const QuizPage(),
+  LoginPage.routeName: (context) => const LoginPage(),
 };
