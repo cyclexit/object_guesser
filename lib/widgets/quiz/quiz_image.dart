@@ -3,8 +3,14 @@ import 'package:object_guesser/models/image.dart';
 
 class QuizImage extends StatelessWidget {
   final ImageData image;
+  final double height;
+  final double width;
 
-  const QuizImage({super.key, required this.image});
+  const QuizImage(
+      {super.key,
+      required this.image,
+      this.height = 375.0,
+      this.width = 375.0});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +18,8 @@ class QuizImage extends StatelessWidget {
       borderRadius: BorderRadius.circular(10.0),
       child: Image.asset(
         image.url,
-        height: 375,
-        width: 375,
+        height: height,
+        width: width,
         fit: BoxFit.cover,
       ),
     );
