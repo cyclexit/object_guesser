@@ -11,24 +11,21 @@ class QuizContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: FractionalOffset.bottomCenter,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 14.0),
-      decoration: BoxDecoration(
-          color: color ?? whiteColor,
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).colorScheme.shadow,
-              spreadRadius: 0,
-              blurRadius: 12,
-              offset: const Offset(0, -15),
-            )
-          ],
-          borderRadius:
-              const BorderRadius.vertical(top: Radius.circular(30.0))),
-      child: SingleChildScrollView(
-        child: child,
-      ),
-    );
+        alignment: FractionalOffset.bottomCenter,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        decoration: BoxDecoration(
+            color: color ?? whiteColor,
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.shadow,
+                spreadRadius: 0,
+                blurRadius: 12,
+                offset: const Offset(0, -15),
+              )
+            ],
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(30.0))),
+        child: child);
   }
 }
