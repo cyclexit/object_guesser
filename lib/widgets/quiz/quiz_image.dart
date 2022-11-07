@@ -9,8 +9,8 @@ class QuizImage extends StatelessWidget {
   const QuizImage(
       {super.key,
       required this.image,
-      this.height = 375.0,
-      this.width = 375.0});
+      this.height = 275.0,
+      this.width = 275.0});
 
   @override
   Widget build(BuildContext context) {

@@ -26,6 +26,6 @@ class QuizContainer extends StatelessWidget {
             ],
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(30.0))),
-        child: child);
+        child: SingleChildScrollView(child: child));
   }
 }
