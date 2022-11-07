@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:object_guesser/models/category.dart';
@@ -55,18 +54,5 @@ class HomePage extends StatelessWidget {
         ]),
       ),
     ));
-=======
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-          onPressed: (() => Navigator.pushNamed(context, '/quiz')),
-          child: const Text("play")),
-    );
->>>>>>> master
   }
 }
