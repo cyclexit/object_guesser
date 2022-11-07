@@ -35,20 +35,17 @@ void main() {
     testWidgets("Find by gameMode", (tester) async {
       await tester.pumpWidget(createTestPage());
       expect(find.byType(QuizTypeText), findsNWidgets(3));
-      expect(find.widgetWithText(QuizTypeText, multipleChoice.quizType),
+      expect(find.widgetWithText(QuizTypeText, multipleChoice.type),
           findsOneWidget);
-      expect(
-          find.widgetWithText(QuizTypeText, input.quizType), findsOneWidget);
-      expect(
-          find.widgetWithText(QuizTypeText, select.quizType), findsOneWidget);
+      expect(find.widgetWithText(QuizTypeText, input.type), findsOneWidget);
+      expect(find.widgetWithText(QuizTypeText, select.type), findsOneWidget);
     });
 
     testWidgets("Find by gameModeDescription", (tester) async {
       await tester.pumpWidget(createTestPage());
-      expect(
-          find.byTooltip(multipleChoice.quizTypeDescription), findsOneWidget);
-      expect(find.byTooltip(input.quizTypeDescription), findsOneWidget);
-      expect(find.byTooltip(select.quizTypeDescription), findsOneWidget);
+      expect(find.byTooltip(multipleChoice.description), findsOneWidget);
+      expect(find.byTooltip(input.description), findsOneWidget);
+      expect(find.byTooltip(select.description), findsOneWidget);
     });
   });
 }
