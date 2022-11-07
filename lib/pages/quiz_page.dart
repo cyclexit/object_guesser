@@ -5,7 +5,7 @@ import 'package:object_guesser/log.dart';
 import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
-import 'package:object_guesser/pages/home_page.dart';
+import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/quiz/input_area.dart';
@@ -95,7 +95,7 @@ class _QuizPageState extends State<QuizPage> {
                         ?.apply(color: whiteColor)),
                 ElevatedButton(
                     onPressed: () =>
-                        Navigator.pushNamed(context, HomePage.routeName),
+                        Navigator.pushNamed(context, MainPage.routeName),
                     child: const Text("go back home"))
               ]));
     }
