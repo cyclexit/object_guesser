@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
-import 'package:object_guesser/services/get_image.dart';
 import 'package:object_guesser/widgets/choice_list.dart';
+import 'package:object_guesser/widgets/quiz/quiz_image.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 
 class MultipleChoice extends StatelessWidget {
@@ -19,15 +19,18 @@ class MultipleChoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      const SizedBox(
+        height: 15.0,
+      ),
       const QuizTypeText(quizTypeInfo: multipleChoice),
       const SizedBox(
         height: 30.0,
       ),
-      getImage(quiz.image.url),
+      QuizImage(image: quiz.image),
       const SizedBox(
         height: 15.0,
       ),
-      Center(child: ChoiceList(setAnswer: setAnswer, choices: quiz.choices))
+      ChoiceList(setAnswer: setAnswer, choices: quiz.choices)
     ]);
   }
 }
