@@ -74,7 +74,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Text(widget.category.name,
                 style: Theme.of(context)
                     .textTheme
-                    .headline2
+                    .subtitle1
                     ?.apply(color: whiteColor)),
           ),
           Expanded(
