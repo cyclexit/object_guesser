@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/log.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/label.dart';
-import 'package:object_guesser/models/quizes/input_quiz.dart';
-import 'package:object_guesser/models/quizes/multiple_choice_quiz.dart';
-import 'package:object_guesser/models/quizes/quiz.dart';
+import 'package:object_guesser/models/quizzes/input_quiz.dart';
+import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
+import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/services/get_image.dart';
-import 'package:object_guesser/services/get_quizes.dart';
+import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/button.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 import 'package:object_guesser/widgets/choice_list.dart';
@@ -22,8 +22,8 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  static const int _totalQuizes = 2;
-  List<Quiz> _quizes = [];
+  static const int _totalQuizzes = 2;
+  List<Quiz> _quizzes = [];
   bool _isDataReady = false;
   late int _idx;
 
@@ -31,21 +31,21 @@ class _QuizPageState extends State<QuizPage> {
   void submitAnswer() {}
 
   Widget _updateImageArea() {
-    Type quizType = _quizes[_idx].runtimeType;
+    Type quizType = _quizzes[_idx].runtimeType;
     if (quizType == MultipleChoiceQuiz) {
-      MultipleChoiceQuiz quiz = _quizes[_idx] as MultipleChoiceQuiz;
+      MultipleChoiceQuiz quiz = _quizzes[_idx] as MultipleChoiceQuiz;
       return getImage(quiz.image.url);
     } else if (quizType == InputQuiz) {
-      InputQuiz quiz = _quizes[_idx] as InputQuiz;
+      InputQuiz quiz = _quizzes[_idx] as InputQuiz;
       return getImage(quiz.image.url);
     }
     return const SizedBox(height: 0);
   }
 
   Widget _updateUserAnswerArea() {
-    Type quizType = _quizes[_idx].runtimeType;
+    Type quizType = _quizzes[_idx].runtimeType;
     if (quizType == MultipleChoiceQuiz) {
-      MultipleChoiceQuiz quiz = _quizes[_idx] as MultipleChoiceQuiz;
+      MultipleChoiceQuiz quiz = _quizzes[_idx] as MultipleChoiceQuiz;
       return ChoiceList(setAnswer: setAnswer, choices: quiz.choices);
     } else if (quizType == InputQuiz) {
       return const UserInputForm();
@@ -56,9 +56,10 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
-    Future<List<Quiz>> future = getQuizes(_totalQuizes);
+    Future<List<Quiz>> future = getQuizzes(_totalQuizzes);
     future.then((value) {
-      _quizes = value;
+      print(value);
+      _quizzes = value;
       setState(() {
         _idx = 0;
         _isDataReady = true;
@@ -79,7 +80,7 @@ class _QuizPageState extends State<QuizPage> {
             "Loading....",
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           )));
-    } else if (_idx < _totalQuizes) {
+    } else if (_idx < _totalQuizzes) {
       return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.primary,
           body: Padding(
@@ -93,7 +94,7 @@ class _QuizPageState extends State<QuizPage> {
                     const SizedBox(height: 20),
                     QuizTypeText(
                         quizTypeInfo:
-                            quizTypeInfoMap[_quizes[_idx].runtimeType]!),
+                            quizTypeInfoMap[_quizzes[_idx].runtimeType]!),
                     const SizedBox(
                       height: 20.0,
                     ),

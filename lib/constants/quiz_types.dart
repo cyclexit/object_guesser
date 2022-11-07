@@ -1,19 +1,18 @@
-import 'package:object_guesser/models/quizes/multiple_choice_quiz.dart';
-import 'package:object_guesser/models/quizes/input_quiz.dart';
-import 'package:object_guesser/models/quizes/selection_quiz.dart';
-import 'package:object_guesser/models/quizes/quiz_type_info.dart';
+import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
+import 'package:object_guesser/models/quizzes/input_quiz.dart';
+import 'package:object_guesser/models/quizzes/selection_quiz.dart';
+import 'package:object_guesser/models/quizzes/quiz_type_info.dart';
 
 const QuizTypeInfo multipleChoice = QuizTypeInfo(
-    quizType: "Multiple Choice",
-    quizTypeDescription: "Select the best answer.");
+    type: "Multiple Choice", description: "Select the best answer.");
 
 const QuizTypeInfo input = QuizTypeInfo(
-    quizType: "Input",
-    quizTypeDescription: "Enter the most specific label for the picture;");
+    type: "Input",
+    description: "Enter the most specific label for the picture;");
 
 const QuizTypeInfo select = QuizTypeInfo(
-    quizType: "Select",
-    quizTypeDescription:
+    type: "Select",
+    description:
         "Select the pictures which contain the object described by the label.");
 
 const Map<Type, QuizTypeInfo> quizTypeInfoMap = {
