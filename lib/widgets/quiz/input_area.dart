@@ -28,8 +28,6 @@ class InputArea extends StatelessWidget {
       const SizedBox(
         height: 15.0,
       ),
-      // Hongyi: Bandaid for now to make the input quiz look similar to multiple
-      //         choice quiz
       const Padding(
         padding: EdgeInsets.only(bottom: 100),
         child: UserInputForm(),

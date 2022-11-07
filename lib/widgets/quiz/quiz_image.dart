@@ -6,7 +6,6 @@ class QuizImage extends StatelessWidget {
   final double height;
   final double width;
 
-  // Hongyi: Make size smaller to adapt to the Android
   const QuizImage(
       {super.key,
       required this.image,
