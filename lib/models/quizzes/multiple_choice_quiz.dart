@@ -38,6 +38,10 @@ class MultipleChoiceQuiz extends Quiz {
 
   @override
   set answer(dynamic answer) {
-    _answer = answer as Label;
+    if (answer == null) {
+      _answer = null;
+    } else {
+      _answer = answer as Label;
+    }
   }
 }

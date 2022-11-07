@@ -7,5 +7,5 @@ var appRoutes = {
   '/': (context) => const LoginPage(),
   '/about': (context) => const AboutPage(),
   '/home': (context) => const HomePage(),
-  '/quiz': (context) => const QuizPage()
+  QuizPage.routeName: (context) => const QuizPage()
 };

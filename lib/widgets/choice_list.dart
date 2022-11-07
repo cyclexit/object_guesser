@@ -33,6 +33,8 @@ class _ChoiceListState extends State<ChoiceList> {
   Widget build(BuildContext context) {
     return GridView(
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 175 / 80,
