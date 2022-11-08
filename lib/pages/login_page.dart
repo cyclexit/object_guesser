@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:object_guesser/pages/main_page.dart';
 
 const _heightGap = SizedBox(
   height: 10,
@@ -20,7 +21,7 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (route) => false),
+                      context, MainPage.routeName, (route) => false),
                   child: const Text("Login"),
                 ),
                 _heightGap,
