@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import 'package:object_guesser/log.dart';
+import 'package:object_guesser/models/category.dart';
 import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 
-Future<List<Quiz>> getQuizzes(int totalQuizzes) async {
+Future<List<Quiz>> getQuizzes(int totalQuizzes, Category category) async {
   // Future: use totalQuizzes to query the quizzes data from sever first
   dynamic jsonData =
       jsonDecode(await rootBundle.loadString('data/mock_game.json'));
