@@ -28,10 +28,7 @@ class InputArea extends StatelessWidget {
       const SizedBox(
         height: 15.0,
       ),
-      const Padding(
-        padding: EdgeInsets.only(bottom: 100),
-        child: UserInputForm(),
-      ),
+      const UserInputForm(),
     ]);
   }
 }
