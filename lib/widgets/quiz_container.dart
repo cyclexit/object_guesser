@@ -30,7 +30,7 @@ class QuizContainer extends StatelessWidget {
             builder: (context, constraints) => SingleChildScrollView(
                 child: ConstrainedBox(
                     constraints:
-                        BoxConstraints(maxHeight: constraints.maxHeight),
+                        BoxConstraints(minHeight: constraints.maxHeight),
                     child: child))));
   }
 }
