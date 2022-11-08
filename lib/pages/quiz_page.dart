@@ -9,7 +9,7 @@ import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/area/input_area.dart';
-import 'package:object_guesser/widgets/area/multiple_choice.dart';
+import 'package:object_guesser/widgets/area/multiple_choice_area.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
 
 class QuizPage extends StatefulWidget {
@@ -38,7 +38,7 @@ class _QuizPageState extends State<QuizPage> {
   Widget _updateQuiz() {
     Type quizType = _quizzes[_idx].runtimeType;
     if (quizType == MultipleChoiceQuiz) {
-      return MultipleChoice(quiz: _quizzes[_idx] as MultipleChoiceQuiz);
+      return MultipleChoiceArea(quiz: _quizzes[_idx] as MultipleChoiceQuiz);
     } else if (quizType == InputQuiz) {
       return InputArea(quiz: _quizzes[_idx] as InputQuiz);
     }
