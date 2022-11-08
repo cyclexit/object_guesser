@@ -111,8 +111,8 @@ class _QuizPageState extends State<QuizPage> {
                         .headline2
                         ?.apply(color: whiteColor)),
                 ElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, MainPage.routeName),
+                    onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                        context, '/home', (route) => false),
                     child: const Text("go back home"))
               ]));
     }
