@@ -26,9 +26,6 @@ class QuizContainer extends StatelessWidget {
             ],
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(30.0))),
-        child: LayoutBuilder(
-            builder: (context, constraints) => ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: constraints.maxHeight),
-                child: child)));
+        child: child);
   }
 }
