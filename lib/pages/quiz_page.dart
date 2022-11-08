@@ -86,10 +86,14 @@ class _QuizPageState extends State<QuizPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                       _updateQuiz(),
-                      const SizedBox(
-                        height: 30.0,
+                      Expanded(
+                        child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 50.0),
+                              child: NextButton(handlePress: _handleNextQuiz),
+                            )),
                       ),
-                      NextButton(handlePress: _handleNextQuiz),
                     ]))),
           ),
         ],
