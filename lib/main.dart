@@ -20,6 +20,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       theme: appTheme,
       routes: appRoutes,
+      onGenerateRoute: generateRoute,
     );
   }
 }
