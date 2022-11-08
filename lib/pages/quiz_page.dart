@@ -9,6 +9,7 @@ import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
+import 'package:object_guesser/widgets/quiz/input_area.dart';
 import 'package:object_guesser/widgets/quiz/multiple_choice.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
 
@@ -39,7 +40,9 @@ class _QuizPageState extends State<QuizPage> {
     Type quizType = _quizzes[_idx].runtimeType;
     if (quizType == MultipleChoiceQuiz) {
       return MultipleChoice(quiz: _quizzes[_idx] as MultipleChoiceQuiz);
-    } else if (quizType == InputQuiz) {}
+    } else if (quizType == InputQuiz) {
+      return InputArea(quiz: _quizzes[_idx] as InputQuiz);
+    }
     return Container();
   }
 
