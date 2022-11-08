@@ -6,7 +6,6 @@ import 'package:object_guesser/models/category.dart';
 import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
-import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/quiz/multiple_choice.dart';
