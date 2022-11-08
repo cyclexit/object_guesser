@@ -16,19 +16,21 @@ class InputArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      const SizedBox(
-        height: 15.0,
-      ),
-      const QuizTypeText(quizTypeInfo: input),
-      const SizedBox(
-        height: 30.0,
-      ),
-      QuizImage(image: quiz.image),
-      const SizedBox(
-        height: 15.0,
-      ),
-      const UserInputForm(),
-    ]);
+    return SingleChildScrollView(
+      child: Column(children: [
+        const SizedBox(
+          height: 15.0,
+        ),
+        const QuizTypeText(quizTypeInfo: input),
+        const SizedBox(
+          height: 30.0,
+        ),
+        QuizImage(image: quiz.image),
+        const SizedBox(
+          height: 15.0,
+        ),
+        const UserInputForm(),
+      ]),
+    );
   }
 }
