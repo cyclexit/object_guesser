@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/quizzes/input_quiz.dart';
+import 'package:object_guesser/widgets/area/scrollable_area.dart';
 import 'package:object_guesser/widgets/quiz_image.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 import 'package:object_guesser/widgets/user_input_form.dart';
@@ -16,21 +17,9 @@ class InputArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(children: [
-        const SizedBox(
-          height: 15.0,
-        ),
-        const QuizTypeText(quizTypeInfo: input),
-        const SizedBox(
-          height: 30.0,
-        ),
-        QuizImage(image: quiz.image),
-        const SizedBox(
-          height: 15.0,
-        ),
-        const UserInputForm(),
-      ]),
-    );
+    return ScrollableArea(
+        top: const QuizTypeText(quizTypeInfo: input),
+        middle: QuizImage(image: quiz.image),
+        bottom: const UserInputForm());
   }
 }
