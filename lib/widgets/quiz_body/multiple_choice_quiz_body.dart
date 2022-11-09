@@ -7,10 +7,10 @@ import 'package:object_guesser/widgets/choice_list.dart';
 import 'package:object_guesser/widgets/quiz_body/quiz_image.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 
-class MultipleChoice extends StatelessWidget {
+class MultipleChoiceQuizBody extends StatelessWidget {
   final MultipleChoiceQuiz quiz;
 
-  const MultipleChoice({super.key, required this.quiz});
+  const MultipleChoiceQuizBody({super.key, required this.quiz});
 
   void setAnswer(Label? choice) {
     quiz.answer = choice;
