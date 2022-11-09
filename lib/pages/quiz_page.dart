@@ -9,8 +9,8 @@ import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
-import 'package:object_guesser/widgets/quiz/input_area.dart';
-import 'package:object_guesser/widgets/quiz/multiple_choice.dart';
+import 'package:object_guesser/widgets/quiz_body/input_area.dart';
+import 'package:object_guesser/widgets/quiz_body/multiple_choice.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
 
 class QuizPage extends StatefulWidget {
