@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-
 import 'package:object_guesser/constants/quiz_types.dart';
-import 'package:object_guesser/models/label.dart';
-import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
-import 'package:object_guesser/widgets/choice_list.dart';
+import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/widgets/quiz_body/quiz_body.dart';
 import 'package:object_guesser/widgets/quiz_image.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
+import 'package:object_guesser/widgets/user_input_form.dart';
 
-class MultipleChoiceQuizBody extends StatelessWidget {
-  final MultipleChoiceQuiz quiz;
+class InputBody extends StatelessWidget {
+  final InputQuiz quiz;
 
-  const MultipleChoiceQuizBody({super.key, required this.quiz});
+  const InputBody({super.key, required this.quiz});
 
-  void setAnswer(Label? choice) {
-    quiz.answer = choice;
+  void setAnswer(String? userInput) {
+    quiz.answer = userInput;
   }
 
   @override
@@ -22,7 +20,7 @@ class MultipleChoiceQuizBody extends StatelessWidget {
     return QuizBody(
       quizType: const QuizTypeText(quizTypeInfo: multipleChoice),
       quizImage: QuizImage(image: quiz.image),
-      bottomArea: ChoiceList(setAnswer: setAnswer, choices: quiz.choices),
+      bottomArea: const UserInputForm(),
     );
   }
 }

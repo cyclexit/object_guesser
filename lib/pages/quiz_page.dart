@@ -9,8 +9,8 @@ import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
-import 'package:object_guesser/widgets/quiz_body/input_quiz_body.dart';
-import 'package:object_guesser/widgets/quiz_body/multiple_choice_quiz_body.dart';
+import 'package:object_guesser/widgets/quiz_body/input_body.dart';
+import 'package:object_guesser/widgets/quiz_body/multiple_choice_body.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
 
 class QuizPage extends StatefulWidget {
@@ -39,9 +39,9 @@ class _QuizPageState extends State<QuizPage> {
   Widget _updateQuiz() {
     Type quizType = _quizzes[_idx].runtimeType;
     if (quizType == MultipleChoiceQuiz) {
-      return MultipleChoiceQuizBody(quiz: _quizzes[_idx] as MultipleChoiceQuiz);
+      return MultipleChoiceBody(quiz: _quizzes[_idx] as MultipleChoiceQuiz);
     } else if (quizType == InputQuiz) {
-      return InputQuizBody(quiz: _quizzes[_idx] as InputQuiz);
+      return InputBody(quiz: _quizzes[_idx] as InputQuiz);
     }
     return Container();
   }
