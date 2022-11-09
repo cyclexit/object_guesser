@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class QuizBody extends StatelessWidget {
-  final Widget quizType;
-  final Widget quizImage;
+  final Widget type;
+  final Widget image;
   final Widget bottomArea;
 
   const QuizBody(
       {super.key,
-      required this.quizType,
-      required this.quizImage,
+      required this.type,
+      required this.image,
       required this.bottomArea});
 
   @override
@@ -17,11 +17,11 @@ class QuizBody extends StatelessWidget {
       const SizedBox(
         height: 15.0,
       ),
-      quizType,
+      type,
       const SizedBox(
         height: 30.0,
       ),
-      quizImage,
+      image,
       const SizedBox(
         height: 15.0,
       ),
