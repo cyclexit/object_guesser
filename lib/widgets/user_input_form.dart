@@ -14,9 +14,16 @@ class _UserInputFormState extends State<UserInputForm> {
   final _userInputController = TextEditingController();
 
   @override
+  void dispose() {
+    _userInputController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: TextFormField(
           controller: _userInputController,
           validator: (String? value) {
