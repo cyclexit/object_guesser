@@ -37,13 +37,11 @@ class _UserInputFormState extends State<UserInputForm> {
             return null;
           },
           onChanged: (val) {
-            // log.d("onChanged: User input: $val");
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
             }
           },
           onSaved: (val) {
-            // log.d("onSaved: User input: $val");
             widget.onSaved!(val);
           },
           autocorrect: true, // this may be a patch for user typos

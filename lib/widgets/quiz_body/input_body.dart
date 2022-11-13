@@ -13,7 +13,6 @@ class InputBody extends StatelessWidget {
   const InputBody({super.key, required this.quiz});
 
   void setAnswer(String? userInput) {
-    // log.d("setAnswer: $userInput");
     quiz.answer = userInput;
   }
 
