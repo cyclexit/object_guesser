@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/widgets/quiz_body/quiz_body.dart';
@@ -20,7 +21,7 @@ class InputBody extends StatelessWidget {
     return QuizBody(
       type: const QuizTypeText(quizTypeInfo: multipleChoice),
       image: QuizImage(image: quiz.image),
-      bottomArea: const UserInputForm(),
+      bottomArea: UserInputForm(onSaved: setAnswer),
     );
   }
 }
