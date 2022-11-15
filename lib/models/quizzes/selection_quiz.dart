@@ -2,31 +2,44 @@ import 'package:object_guesser/models/image.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 
-class Selection {
-  Label label;
-  ImageData image;
-
-  Selection({required this.label, required this.image});
-}
-
 class SelectionQuiz extends Quiz {
   String id;
-  List<Selection> selections;
-  List<Selection> correctAnswer;
-  List<Selection>? _answer;
+  Label label;
+  List<ImageData> selections;
+  List<ImageData> correctAnswers;
+  List<ImageData>? _answer;
 
   SelectionQuiz(
       {required this.id,
+      required this.label,
       required this.selections,
-      required this.correctAnswer});
+      required this.correctAnswers});
+
+  SelectionQuiz.fromJson(Map<String, dynamic> json)
+      : id = json["id"].toString(),
+        label = Label.fromJson(json["label"]),
+        selections = List.from(json["selections"]!)
+            .map((selection) => ImageData.fromJson(selection))
+            .toList(),
+        correctAnswers = List.from(json["correctAnswers"]!)
+            .map((selection) => ImageData.fromJson(selection))
+            .toList();
+
+  Map<String, dynamic> toJSON() => {
+        "id": id,
+        "label": label.toJson(),
+        "selections": selections,
+        "correctAnswers": correctAnswers,
+        "answer": _answer ?? [],
+      };
 
   @override
-  List<Selection>? get answer {
+  List<ImageData>? get answer {
     return _answer;
   }
 
   @override
   set answer(dynamic answer) {
-    _answer = answer as List<Selection>;
+    _answer = answer as List<ImageData>;
   }
 }

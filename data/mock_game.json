@@ -47,6 +47,78 @@
 					"text": "golden-retriever"
 				}
 			]
+		},
+		{
+			"type": "Select",
+			"id": 3,
+			"label": {
+				"id": 1,
+				"text": "dog"
+			},
+			"selections": [
+				{
+					"id": "golden-retriever-1",
+					"url": "https://pbs.twimg.com/profile_images/712754973403062272/H_mpnF6m_400x400.jpg"
+				},
+				{
+					"id": "golden-retriever-2",
+					"url": "https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/d5/fd/86/d5fd86ef-a64a-f450-cea9-a02f4f4b9631/source/256x256bb.jpg"
+				},
+				{
+					"id": "golden-retriever-3",
+					"url": "https://m.media-amazon.com/images/I/711eUHrO9CL._CR0,354,1103,1103_UX256.jpg"
+				},
+				{
+					"id": "dog-1",
+					"url": "https://news.artnet.com/app/news-upload/2018/02/image-256x256.jpg"
+				},
+				{
+					"id": "dog-2",
+					"url": "https://4.bp.blogspot.com/-ZM952rOb-ko/W_rYUo0fk4I/AAAAAAACAAc/mb9sTnP7JKEyXloO8VKAvBKJcNPO--FqACLcBGAs/s1600/cute-dogs-256-09.jpg"
+				},
+				{
+					"id": "cat-1",
+					"url": "https://avatarfiles.alphacoders.com/125/125899.jpg"
+				},
+				{
+					"id": "cat-2",
+					"url": "https://avatars.slack-edge.com/2015-12-15/16744084547_0ce07b9b66de11dfc9c5_512.png"
+				},
+				{
+					"id": "cat-3",
+					"url": "https://avatarfiles.alphacoders.com/124/124420.jpg"
+				},
+				{
+					"id": "shih-tzu-1",
+					"url": "https://image.petmd.com/files/styles/863x625/public/2020-11/picture-of-shih-tzu-dog.jpg"
+				}
+			],
+			"correctAnswers": [
+				{
+					"id": "golden-retriever-1",
+					"url": "https://pbs.twimg.com/profile_images/712754973403062272/H_mpnF6m_400x400.jpg"
+				},
+				{
+					"id": "golden-retriever-2",
+					"url": "https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/d5/fd/86/d5fd86ef-a64a-f450-cea9-a02f4f4b9631/source/256x256bb.jpg"
+				},
+				{
+					"id": "golden-retriever-3",
+					"url": "https://m.media-amazon.com/images/I/711eUHrO9CL._CR0,354,1103,1103_UX256.jpg"
+				},
+				{
+					"id": "dog-1",
+					"url": "https://news.artnet.com/app/news-upload/2018/02/image-256x256.jpg"
+				},
+				{
+					"id": "dog-2",
+					"url": "https://4.bp.blogspot.com/-ZM952rOb-ko/W_rYUo0fk4I/AAAAAAACAAc/mb9sTnP7JKEyXloO8VKAvBKJcNPO--FqACLcBGAs/s1600/cute-dogs-256-09.jpg"
+				},
+				{
+					"id": "shih-tzu-1",
+					"url": "https://image.petmd.com/files/styles/863x625/public/2020-11/picture-of-shih-tzu-dog.jpg"
+				}
+			]
 		}
 	]
 }
