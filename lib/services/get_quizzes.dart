@@ -7,6 +7,7 @@ import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
+import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 
 Future<List<Quiz>> getQuizzes(int totalQuizzes, Category category) async {
   // Future: use totalQuizzes to query the quizzes data from sever first
@@ -33,6 +34,8 @@ Future<List<Quiz>> getQuizzes(int totalQuizzes, Category category) async {
       quizzes.add(MultipleChoiceQuiz.fromJson(quizJsonData));
     } else if (quizJsonData["type"] == input.type) {
       quizzes.add(InputQuiz.fromJson(quizJsonData));
+    } else if (quizJsonData["type"] == select.type) {
+      quizzes.add(SelectionQuiz.fromJson(quizJsonData));
     }
   }
   return quizzes;
