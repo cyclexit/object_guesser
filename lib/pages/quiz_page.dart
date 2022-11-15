@@ -6,11 +6,13 @@ import 'package:object_guesser/models/category.dart';
 import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
+import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/quiz_body/input_body.dart';
 import 'package:object_guesser/widgets/quiz_body/multiple_choice_body.dart';
+import 'package:object_guesser/widgets/quiz_body/selection_body.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
 
 class QuizPage extends StatefulWidget {
@@ -24,7 +26,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  static const int _totalQuizzes = 2;
+  static const int _totalQuizzes = 3;
 
   List<Quiz> _quizzes = [];
   bool _isDataReady = false;
@@ -42,6 +44,8 @@ class _QuizPageState extends State<QuizPage> {
       return MultipleChoiceBody(quiz: _quizzes[_idx] as MultipleChoiceQuiz);
     } else if (quizType == InputQuiz) {
       return InputBody(quiz: _quizzes[_idx] as InputQuiz);
+    } else if (quizType == SelectionQuiz) {
+      return SelectionBody(quiz: _quizzes[_idx] as SelectionQuiz);
     }
     return Container();
   }
