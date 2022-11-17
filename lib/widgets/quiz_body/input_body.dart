@@ -19,7 +19,7 @@ class InputBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return QuizBody(
-      type: const QuizTypeText(quizTypeInfo: multipleChoice),
+      type: const QuizTypeText(quizTypeInfo: input),
       image: QuizImage(image: quiz.image),
       bottomArea: UserInputForm(onSaved: setAnswer),
     );
