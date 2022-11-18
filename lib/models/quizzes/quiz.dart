@@ -4,4 +4,8 @@ abstract class Quiz {
 
   /// Set the Answer for the Quiz
   set answer(dynamic answer) {}
+
+  bool isAnswerSet();
+
+  int getPoints();
 }
