@@ -43,7 +43,7 @@ class InputQuiz extends Quiz {
   Map<String, dynamic> toJson() => {
         "id": id,
         "image": image.toJson(),
-        "correctAnswers": correctAnswers ?? [],
+        "correct_answers": correctAnswers ?? [],
         "_answer": _answer,
       };
 
@@ -54,14 +54,12 @@ class InputQuiz extends Quiz {
 
   @override
   set answer(dynamic answer) {
-    // ignore: todo
-    // TODO: validate input
     _answer = answer as String;
   }
 
   @override
   bool isAnswerSet() {
-    return _answer.isEmpty;
+    return _answer.isNotEmpty;
   }
 
   @override
