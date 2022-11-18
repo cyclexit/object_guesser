@@ -9,50 +9,61 @@
 			},
 			"choices": [
 				{
-					"id": 1,
+					"id": "1",
 					"text": "dog"
 				},
 				{
-					"id": 2,
+					"id": "2",
 					"text": "cat"
 				},
 				{
-					"id": 5,
+					"id": "5",
 					"text": "car"
 				},
 				{
-					"id": 6,
+					"id": "6",
 					"text": "shoe"
 				}
 			],
-			"correctAnswer": {
-				"id": 1,
-				"text": "dog"
-			}
+			"correct_answers": [
+				{
+					"label": {
+						"id": "1",
+						"text": "dog"
+					},
+					"points": 100
+				}
+			]
 		},
 		{
 			"type": "Input",
-			"id": 2,
+			"id": "2",
 			"image": {
 				"id": "golden-retriever-1.jpg",
 				"url": "https://pbs.twimg.com/profile_images/712754973403062272/H_mpnF6m_400x400.jpg"
 			},
-			"correctAnswers": [
+			"correct_answers": [
 				{
-					"id": 1,
-					"text": "dog"
+					"label": {
+						"id": "1",
+						"text": "dog"
+					},
+					"points": 100
 				},
 				{
-					"id": 3,
-					"text": "golden-retriever"
+					"label": {
+						"id": "3",
+						"text": "golden-retriever"
+					},
+					"points": 200
 				}
 			]
 		},
 		{
 			"type": "Select",
-			"id": 3,
+			"id": "3",
 			"label": {
-				"id": 1,
+				"id": "1",
 				"text": "dog"
 			},
 			"selections": [
@@ -93,30 +104,48 @@
 					"url": "https://image.petmd.com/files/styles/863x625/public/2020-11/picture-of-shih-tzu-dog.jpg"
 				}
 			],
-			"correctAnswers": [
+			"correct_answers": [
 				{
-					"id": "golden-retriever-1",
-					"url": "https://pbs.twimg.com/profile_images/712754973403062272/H_mpnF6m_400x400.jpg"
+					"image": {
+						"id": "golden-retriever-1",
+						"url": "https://pbs.twimg.com/profile_images/712754973403062272/H_mpnF6m_400x400.jpg"
+					},
+					"points": 50
 				},
 				{
-					"id": "golden-retriever-2",
-					"url": "https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/d5/fd/86/d5fd86ef-a64a-f450-cea9-a02f4f4b9631/source/256x256bb.jpg"
+					"image": {
+						"id": "golden-retriever-2",
+						"url": "https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/d5/fd/86/d5fd86ef-a64a-f450-cea9-a02f4f4b9631/source/256x256bb.jpg"
+					},
+					"points": 50
 				},
 				{
-					"id": "golden-retriever-3",
-					"url": "https://m.media-amazon.com/images/I/711eUHrO9CL._CR0,354,1103,1103_UX256.jpg"
+					"image": {
+						"id": "golden-retriever-3",
+						"url": "https://m.media-amazon.com/images/I/711eUHrO9CL._CR0,354,1103,1103_UX256.jpg"
+					},
+					"points": 50
 				},
 				{
-					"id": "dog-1",
-					"url": "https://news.artnet.com/app/news-upload/2018/02/image-256x256.jpg"
+					"image": {
+						"id": "dog-1",
+						"url": "https://news.artnet.com/app/news-upload/2018/02/image-256x256.jpg"
+					},
+					"points": 50
 				},
 				{
-					"id": "dog-2",
-					"url": "https://4.bp.blogspot.com/-ZM952rOb-ko/W_rYUo0fk4I/AAAAAAACAAc/mb9sTnP7JKEyXloO8VKAvBKJcNPO--FqACLcBGAs/s1600/cute-dogs-256-09.jpg"
+					"image": {
+						"id": "dog-2",
+						"url": "https://4.bp.blogspot.com/-ZM952rOb-ko/W_rYUo0fk4I/AAAAAAACAAc/mb9sTnP7JKEyXloO8VKAvBKJcNPO--FqACLcBGAs/s1600/cute-dogs-256-09.jpg"
+					},
+					"points": 50
 				},
 				{
-					"id": "shih-tzu-1",
-					"url": "https://image.petmd.com/files/styles/863x625/public/2020-11/picture-of-shih-tzu-dog.jpg"
+					"image": {
+						"id": "shih-tzu-1",
+						"url": "https://image.petmd.com/files/styles/863x625/public/2020-11/picture-of-shih-tzu-dog.jpg"
+					},
+					"points": 50
 				}
 			]
 		}
