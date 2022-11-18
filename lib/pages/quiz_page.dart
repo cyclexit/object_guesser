@@ -50,6 +50,14 @@ class _QuizPageState extends State<QuizPage> {
     return Container();
   }
 
+  int _calculateScore() {
+    int score = 0;
+    for (var quiz in _quizzes) {
+      score += quiz.getPoints();
+    }
+    return score;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -112,6 +120,11 @@ class _QuizPageState extends State<QuizPage> {
                     style: Theme.of(context)
                         .textTheme
                         .headline2
+                        ?.apply(color: whiteColor)),
+                Text(_calculateScore().toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
                         ?.apply(color: whiteColor)),
                 ElevatedButton(
                     onPressed: () => Navigator.pushNamedAndRemoveUntil(

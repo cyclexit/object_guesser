@@ -2,11 +2,22 @@ import 'package:object_guesser/models/image.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 
+class SelectionAnswer {
+  final ImageData image;
+  final int points;
+
+  SelectionAnswer({required this.image, required this.points});
+
+  SelectionAnswer.fromJson(Map<String, dynamic> json)
+      : image = ImageData.fromJson(json["image"]),
+        points = json["points"];
+}
+
 class SelectionQuiz extends Quiz {
   String id;
   Label label;
   List<ImageData> selections;
-  List<ImageData> correctAnswers;
+  Map<String, SelectionAnswer> correctAnswers;
   List<ImageData>? _answer;
 
   SelectionQuiz(
@@ -21,15 +32,16 @@ class SelectionQuiz extends Quiz {
         selections = List.from(json["selections"]!)
             .map((selection) => ImageData.fromJson(selection))
             .toList(),
-        correctAnswers = List.from(json["correctAnswers"]!)
-            .map((selection) => ImageData.fromJson(selection))
-            .toList();
+        correctAnswers = {
+          for (var jsonAnswer in List.from(json["correct_answers"]!))
+            jsonAnswer["image"]["id"]: SelectionAnswer.fromJson(jsonAnswer)
+        };
 
   Map<String, dynamic> toJSON() => {
         "id": id,
         "label": label.toJson(),
         "selections": selections,
-        "correctAnswers": correctAnswers,
+        "correct_answers": correctAnswers.entries.toList(),
         "answer": _answer ?? [],
       };
 
@@ -41,5 +53,24 @@ class SelectionQuiz extends Quiz {
   @override
   set answer(dynamic answer) {
     _answer = answer as List<ImageData>;
+  }
+
+  @override
+  bool isAnswerSet() {
+    return _answer != null && _answer!.isNotEmpty;
+  }
+
+  @override
+  int getPoints() {
+    int points = 0;
+    if (isAnswerSet()) {
+      for (var selectedAnswer in answer!) {
+        var correctAnswer = correctAnswers[selectedAnswer.id];
+        if (correctAnswer != null) {
+          points += correctAnswer.points;
+        }
+      }
+    }
+    return points;
   }
 }
