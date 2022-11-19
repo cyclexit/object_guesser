@@ -14,6 +14,7 @@ import 'package:object_guesser/widgets/quiz_body/input_body.dart';
 import 'package:object_guesser/widgets/quiz_body/multiple_choice_body.dart';
 import 'package:object_guesser/widgets/quiz_body/selection_body.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
+import 'package:object_guesser/widgets/quiz_header.dart';
 
 class QuizPage extends StatefulWidget {
   static const routeName = '/quiz';
@@ -31,23 +32,46 @@ class _QuizPageState extends State<QuizPage> {
   List<Quiz> _quizzes = [];
   bool _isDataReady = false;
   int _idx = 0;
+  int _points = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future<List<Quiz>> future = getQuizzes(_totalQuizzes, widget.category);
+    future.then((value) {
+      setState(() {
+        _quizzes = [...value, ...value, ...value, value[0]];
+        _isDataReady = true;
+      });
+    }, onError: (error) {
+      log.e(error);
+    });
+  }
 
   void _handleNextQuiz() {
     setState(() {
-      ++_idx;
+      _points += _quizzes[_idx].getPoints();
+      _idx++;
     });
   }
 
   Widget _updateQuiz() {
     Type quizType = _quizzes[_idx].runtimeType;
-    if (quizType == MultipleChoiceQuiz) {
-      return MultipleChoiceBody(quiz: _quizzes[_idx] as MultipleChoiceQuiz);
-    } else if (quizType == InputQuiz) {
-      return InputBody(quiz: _quizzes[_idx] as InputQuiz);
-    } else if (quizType == SelectionQuiz) {
-      return SelectionBody(quiz: _quizzes[_idx] as SelectionQuiz);
+    Quiz quiz = _quizzes[_idx];
+
+    switch (quizType) {
+      case MultipleChoiceQuiz:
+        return MultipleChoiceBody(quiz: quiz as MultipleChoiceQuiz);
+      case InputQuiz:
+        return InputBody(quiz: quiz as InputQuiz);
+      case SelectionQuiz:
+        return SelectionBody(quiz: quiz as SelectionQuiz);
     }
     return Container();
+  }
+
+  void _exitQuiz(BuildContext context) {
+    Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
 
   int _calculateScore() {
@@ -56,20 +80,6 @@ class _QuizPageState extends State<QuizPage> {
       score += quiz.getPoints();
     }
     return score;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Future<List<Quiz>> future = getQuizzes(_totalQuizzes, widget.category);
-    future.then((value) {
-      _quizzes = value;
-      setState(() {
-        _isDataReady = true;
-      });
-    }, onError: (error) {
-      log.e(error);
-    });
   }
 
   @override
@@ -82,30 +92,34 @@ class _QuizPageState extends State<QuizPage> {
         "Loading....",
         style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
       ));
-    } else if (_idx < _totalQuizzes) {
+    } else if (_idx < _quizzes.length) {
       body = Column(
         children: [
           SafeArea(
-            child: Text(widget.category.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    ?.apply(color: whiteColor)),
-          ),
+              bottom: false,
+              child: Column(
+                children: [
+                  QuizHeader(
+                    category: widget.category,
+                    exitQuiz: () => _exitQuiz(context),
+                    points: _points,
+                  ),
+                  const SizedBox(height: 12.0),
+                ],
+              )),
+          const SizedBox(height: 16.0),
           Expanded(
-            child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: QuizContainer(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                      _updateQuiz(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 50.0),
-                        child: NextButton(handlePress: _handleNextQuiz),
-                      ),
-                    ]))),
+            child: QuizContainer(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                  _updateQuiz(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 50.0),
+                    child: NextButton(handlePress: _handleNextQuiz),
+                  ),
+                ])),
           ),
         ],
       );
@@ -127,8 +141,7 @@ class _QuizPageState extends State<QuizPage> {
                         .subtitle1
                         ?.apply(color: whiteColor)),
                 ElevatedButton(
-                    onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                        context, MainPage.routeName, (route) => false),
+                    onPressed: () => _exitQuiz(context),
                     child: const Text("go back home"))
               ]));
     }
