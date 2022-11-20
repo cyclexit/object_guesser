@@ -6,6 +6,7 @@ const secondaryColor = Color(0xFFAA96FC);
 const tertiaryColor = Color(0xFFF6D094);
 const whiteColor = Color(0xFFF5FAFB);
 const blackColor = Color(0xFF2B2B2B);
+const greenColor = Color(0xFF66AA4F);
 
 const textTheme = TextTheme(
     headline1: TextStyle(
