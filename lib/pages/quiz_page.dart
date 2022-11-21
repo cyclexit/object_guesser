@@ -10,6 +10,7 @@ import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
+import 'package:object_guesser/widgets/progress_bar.dart';
 import 'package:object_guesser/widgets/quiz_body/input_body.dart';
 import 'package:object_guesser/widgets/quiz_body/multiple_choice_body.dart';
 import 'package:object_guesser/widgets/quiz_body/selection_body.dart';
@@ -40,7 +41,7 @@ class _QuizPageState extends State<QuizPage> {
     Future<List<Quiz>> future = getQuizzes(_totalQuizzes, widget.category);
     future.then((value) {
       setState(() {
-        _quizzes = [...value, ...value, ...value, value[0]];
+        _quizzes = [...value];
         _isDataReady = true;
       });
     }, onError: (error) {
@@ -105,6 +106,7 @@ class _QuizPageState extends State<QuizPage> {
                     points: _points,
                   ),
                   const SizedBox(height: 12.0),
+                  ProgressBar(quizzes: _quizzes, index: _idx)
                 ],
               )),
           const SizedBox(height: 16.0),
