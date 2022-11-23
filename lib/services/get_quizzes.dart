@@ -30,7 +30,6 @@ Future<List<Quiz>> getQuizzes(int totalQuizzes, Category category) async {
       log.e("Quiz type is null");
       return [];
     }
-    log.d(quizJsonData["type"]);
     if (quizJsonData["type"] == multipleChoice.type) {
       quizzes.add(MultipleChoiceQuiz.fromJson(quizJsonData));
     } else if (quizJsonData["type"] == input.type) {
