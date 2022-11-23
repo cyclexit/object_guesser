@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:object_guesser/log.dart';
+import 'package:object_guesser/constants/category_icons.dart';
 import 'package:object_guesser/models/category.dart';
+import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/pages/error_page.dart';
 import 'package:object_guesser/pages/loading_page.dart';
 import 'package:object_guesser/services/firestore_service.dart';
@@ -11,12 +11,15 @@ import 'package:object_guesser/widgets/category_button.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static const categories = [
-    Category(id: "id", name: "Animals", icon: FontAwesomeIcons.otter),
-    Category(id: "id", name: "Vegetables", icon: FontAwesomeIcons.carrot),
-    Category(id: "id", name: "Utensils", icon: FontAwesomeIcons.utensils),
-    Category(id: "id", name: "Tools", icon: FontAwesomeIcons.toolbox),
-  ];
+  List<Widget> _buildCategoryButtons(List<Label> categoryList) {
+    List<Widget> buttons = [];
+    for (final item in categoryList) {
+      buttons.add(CategoryButton(
+          category: Category(
+              id: "id", name: item.name, icon: categoryIconMap[item.name]!)));
+    }
+    return buttons;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,6 @@ class HomePage extends StatelessWidget {
             return ErrorPage(errorMessage: snapshot.error.toString());
           } else if (snapshot.hasData) {
             final categoryList = snapshot.data!;
-            log.d(categoryList);
 
             return Scaffold(
                 body: SafeArea(
@@ -55,20 +57,7 @@ class HomePage extends StatelessWidget {
                                 childAspectRatio: 1,
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10),
-                        children: [
-                          CategoryButton(
-                            category: categories[0],
-                          ),
-                          CategoryButton(
-                            category: categories[1],
-                          ),
-                          CategoryButton(
-                            category: categories[2],
-                          ),
-                          CategoryButton(
-                            category: categories[3],
-                          ),
-                        ],
+                        children: _buildCategoryButtons(categoryList),
                       )
                     ]),
               ),
