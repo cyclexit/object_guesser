@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A category is a root label in the label hierarchy.
 class Category {
   final String id;
   final String name;
