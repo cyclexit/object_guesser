@@ -68,7 +68,7 @@ class InputQuiz extends Quiz {
       return 50;
     } else if (isAnswerSet()) {
       for (var correctAnswer in correctAnswers!) {
-        if (correctAnswer.label.text == answer) {
+        if (correctAnswer.label.name == answer) {
           return correctAnswer.points;
         }
       }

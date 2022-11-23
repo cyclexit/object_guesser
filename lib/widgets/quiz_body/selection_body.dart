@@ -52,7 +52,7 @@ class _SelectionBodyState extends State<SelectionBody> {
             .toList(),
       ),
       bottomArea: Text(
-        widget.quiz.label.text,
+        widget.quiz.label.name,
         style: Theme.of(context).textTheme.headline1?.apply(color: blackColor),
       ),
     );
