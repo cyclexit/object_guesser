@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:object_guesser/constants/category_icons.dart';
 import 'package:object_guesser/models/category.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/pages/error_page.dart';
@@ -13,10 +12,8 @@ class HomePage extends StatelessWidget {
 
   List<Widget> _buildCategoryButtons(List<Label> categoryList) {
     List<Widget> buttons = [];
-    for (final item in categoryList) {
-      buttons.add(CategoryButton(
-          category: Category(
-              id: "id", name: item.name, icon: categoryIconMap[item.name]!)));
+    for (final label in categoryList) {
+      buttons.add(CategoryButton(category: Category.fromLabel(label)));
     }
     return buttons;
   }
