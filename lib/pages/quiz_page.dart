@@ -7,6 +7,7 @@ import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
+import 'package:object_guesser/pages/loading_page.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
@@ -88,11 +89,7 @@ class _QuizPageState extends State<QuizPage> {
     Widget body;
 
     if (!_isDataReady) {
-      body = const Center(
-          child: Text(
-        "Loading....",
-        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-      ));
+      body = const LoadingPage();
     } else if (_idx < _quizzes.length) {
       body = Column(
         children: [

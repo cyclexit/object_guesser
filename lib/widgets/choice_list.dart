@@ -45,7 +45,7 @@ class _ChoiceListState extends State<ChoiceList> {
         var choice = entry.value;
 
         return ChoiceButton(
-            text: choice.text,
+            text: choice.name,
             active: index == _selectedIndex,
             onPressed: () => _onChoiceSelect(index));
       }).toList(),
