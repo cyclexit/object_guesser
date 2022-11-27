@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:object_guesser/pages/main_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const _heightGap = SizedBox(
-  height: 10,
-);
+import 'package:object_guesser/services/auth.dart';
+import 'package:object_guesser/widgets/buttons/login_button.dart';
 
 class LoginPage extends StatelessWidget {
   static const routeName = '/login';
@@ -21,16 +20,15 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 Image.asset('assets/icon/icon.png'),
                 const SizedBox(height: 50),
-                ElevatedButton(
-                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                      context, MainPage.routeName, (route) => false),
-                  child: const Text("Login"),
-                ),
-                _heightGap,
-                ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, '/about'),
-                  child: const Text("About"),
-                ),
+                LoginButton(
+                    text: "Sign in with Google",
+                    iconData: FontAwesomeIcons.google,
+                    loginMethod: AuthService().googleLogin),
+                const SizedBox(height: 20),
+                LoginButton(
+                    text: "Sign in as Guest",
+                    iconData: Icons.person,
+                    loginMethod: AuthService().anonymousLogin),
               ]),
         ),
       ),
