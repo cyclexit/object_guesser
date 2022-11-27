@@ -19,6 +19,8 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                Image.asset('assets/icon/icon.png'),
+                const SizedBox(height: 50),
                 ElevatedButton(
                   onPressed: () => Navigator.pushNamedAndRemoveUntil(
                       context, MainPage.routeName, (route) => false),
