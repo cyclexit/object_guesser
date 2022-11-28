@@ -31,7 +31,6 @@ class HomePage extends StatelessWidget {
             return ErrorPage(errorMessage: snapshot.error.toString());
           } else if (snapshot.hasData) {
             final categoryList = snapshot.data!;
-
             return Scaffold(
                 body: SafeArea(
               child: Padding(
