@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
               // const SizedBox(height: 20),
               LoginButton(
                   text: "Sign in as Guest",
-                  iconData: Icons.person,
+                  iconData: FluentIcons.person_12_filled,
                   loginMethod: AuthService().anonymousLogin),
             ]),
       ),

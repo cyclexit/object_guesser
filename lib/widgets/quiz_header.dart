@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:object_guesser/config/themes.dart';
@@ -28,7 +29,7 @@ class QuizHeader extends StatelessWidget {
             child: GestureDetector(
               onTap: exitQuiz,
               child: const Icon(
-                Icons.close,
+                FluentIcons.dismiss_12_filled,
                 color: whiteColor,
                 size: 24.0,
               ),
