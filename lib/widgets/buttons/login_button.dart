@@ -15,7 +15,8 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
+      constraints: const BoxConstraints(minWidth: 250.0),
+      margin: const EdgeInsets.only(bottom: 5),
       child: ElevatedButton.icon(
         icon: Icon(
           iconData,
