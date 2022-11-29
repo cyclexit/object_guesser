@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:object_guesser/config/object_guesser_icons.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:object_guesser/config/themes.dart';
 
 import 'package:object_guesser/services/auth.dart';
@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const Icon(
-                ObjectGuesserIcons.logo,
+                FluentIcons.box_search_20_filled,
                 color: whiteColor,
                 size: 128.0,
               ),
