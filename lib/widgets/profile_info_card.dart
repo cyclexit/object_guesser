@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:object_guesser/config/themes.dart';
 
@@ -37,7 +38,7 @@ class ProfileInfoCard extends StatelessWidget {
                       )
                     : const Center(
                         child: Icon(
-                          Icons.person,
+                          FluentIcons.person_12_filled,
                           color: whiteColor,
                           size: 64.0,
                         ),

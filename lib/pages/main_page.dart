@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:object_guesser/pages/error_page.dart';
 import 'package:object_guesser/pages/home_page.dart';
@@ -62,13 +63,13 @@ class _MainPageState extends State<MainPage> {
                     items: const [
                       BottomNavigationBarItem(
                           icon: Icon(
-                            Icons.home_rounded,
+                            FluentIcons.home_12_filled,
                             size: 32,
                           ),
                           label: 'home'),
                       BottomNavigationBarItem(
                         icon: Icon(
-                          Icons.person,
+                          FluentIcons.person_12_filled,
                           size: 32,
                         ),
                         label: 'profile',

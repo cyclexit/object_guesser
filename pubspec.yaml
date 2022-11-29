@@ -43,6 +43,7 @@ dependencies:
   # ui
   cupertino_icons: ^1.0.2
   font_awesome_flutter: 10.2.1
+  fluentui_system_icons: ^1.1.186
   google_fonts: ^3.0.1
 
   # log and debug
@@ -90,11 +91,7 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family:  ObjectGuesser
-      fonts:
-        - asset: assets/fonts/ObjectGuesser.ttf
-  #
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
