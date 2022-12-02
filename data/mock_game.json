@@ -10,36 +10,25 @@
 			"choices": [
 				{
 					"id": "1",
-					"parent_id": "1",
-					"root_id": "1",
 					"name": "dog"
 				},
 				{
 					"id": "2",
-					"parent_id": "1",
-					"root_id": "1",
 					"name": "cat"
 				},
 				{
 					"id": "5",
-					"parent_id": "1",
-					"root_id": "1",
 					"name": "car"
 				},
 				{
 					"id": "6",
-					"parent_id": "1",
-					"root_id": "1",
 					"name": "shoe"
 				}
 			],
 			"correct_answers": [
 				{
 					"label": {
-						"id": "1",
-						"parent_id": "1",
-						"root_id": "1",
-						"name": "dog"
+						"id": "1"
 					},
 					"points": 100
 				}
@@ -56,8 +45,6 @@
 				{
 					"label": {
 						"id": "1",
-						"parent_id": "1",
-						"root_id": "1",
 						"name": "dog"
 					},
 					"points": 100
@@ -65,8 +52,6 @@
 				{
 					"label": {
 						"id": "3",
-						"parent_id": "1",
-						"root_id": "1",
 						"name": "golden-retriever"
 					},
 					"points": 200
@@ -78,8 +63,6 @@
 			"id": "3",
 			"label": {
 				"id": "1",
-				"parent_id": "1",
-				"root_id": "1",
 				"name": "dog"
 			},
 			"selections": [
