@@ -26,14 +26,22 @@ class _QuizBuilders {
 
   Future<MultipleChoiceQuiz?> buildMultipleChoice(String quizId) async {
     final ref = _db.collection(_Collections.multipleChoiceQuizzes).doc(quizId);
+    final quiz = await ref.get().then((value) => value.data());
+    log.d(quiz);
     return null;
   }
 
   Future<InputQuiz?> buildInput(String quizId) async {
+    final ref = _db.collection(_Collections.inputQuizzes).doc(quizId);
+    final quiz = await ref.get().then((value) => value.data());
+    log.d(quiz);
     return null;
   }
 
   Future<SelectionQuiz?> buildSelection(String quizId) async {
+    final ref = _db.collection(_Collections.selectionQuizzes).doc(quizId);
+    final quiz = await ref.get().then((value) => value.data());
+    log.d(quiz);
     return null;
   }
 }
@@ -79,6 +87,7 @@ class FirestoreService {
     for (int i = 0; i < totalQuizzes; ++i) {
       final quizId = game["quizzes"][i]["id"];
       final quizCollection = game["quizzes"][i]["collection"];
+      _quizBuilderMap[quizCollection]!.call(quizId);
     }
     return quizList;
   }
