@@ -9,6 +9,7 @@ import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 import 'package:object_guesser/pages/loading_page.dart';
 import 'package:object_guesser/pages/main_page.dart';
+import 'package:object_guesser/services/firestore_service.dart';
 import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/progress_bar.dart';
@@ -48,6 +49,10 @@ class _QuizPageState extends State<QuizPage> {
     }, onError: (error) {
       log.e(error);
     });
+
+    // debug only
+    final f2 = FirestoreService().getQuizzes(_totalQuizzes, widget.category);
+    f2.then((value) => null);
   }
 
   void _handleNextQuiz() {
