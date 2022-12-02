@@ -33,7 +33,7 @@ class _QuizBuilders {
   Future<MultipleChoiceQuiz?> buildMultipleChoice(String quizId) async {
     var ref = _db.collection(_Collections.multipleChoiceQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
-    log.d(quiz);
+    // log.d(quiz);
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
@@ -67,7 +67,7 @@ class _QuizBuilders {
       }
     }
     quizJson["correct_answers"] = correctAnswers;
-    log.d(quizJson);
+    // log.d(quizJson);
 
     return MultipleChoiceQuiz.fromJson(quizJson);
   }
@@ -112,10 +112,43 @@ class _QuizBuilders {
   }
 
   Future<SelectionQuiz?> buildSelection(String quizId) async {
-    final ref = _db.collection(_Collections.selectionQuizzes).doc(quizId);
+    var ref = _db.collection(_Collections.selectionQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
-    // log.d(quiz);
-    return null;
+    log.d(quiz);
+
+    Map<String, dynamic> quizJson = {};
+    quizJson["id"] = quizId;
+
+    ref = _db.collection(_Collections.labels).doc(quiz!["label_id"]);
+    final label = await ref.get().then((value) => value.data());
+    quizJson["label"] = label;
+
+    var imageQuery = _db
+        .collection(_Collections.images)
+        .where("id", whereIn: quiz["selections"]);
+    final imageQuerySnapshot = await imageQuery.get();
+    Map<String, dynamic> allImages = {};
+    for (var element in imageQuerySnapshot.docs) {
+      final data = element.data();
+      allImages[data["id"]] = data;
+    }
+    List<dynamic> selections = [];
+    for (final selectedImgId in quiz["selections"]) {
+      selections.add(allImages[selectedImgId]);
+    }
+    quizJson["selections"] = selections;
+
+    List<Map<String, dynamic>> correctAnswers = [];
+    for (final ans in quiz["correct_answers"]) {
+      Map<String, dynamic> ansObj = {};
+      ansObj["points"] = ans["points"];
+      ansObj["image"] = allImages[ans["image_id"]];
+      correctAnswers.add(ansObj);
+    }
+    quizJson["correct_answers"] = correctAnswers;
+    log.d(quizJson);
+
+    return SelectionQuiz.fromJson(quizJson);
   }
 }
 
