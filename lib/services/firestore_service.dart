@@ -25,6 +25,7 @@ class _QuizBuilders {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future<MultipleChoiceQuiz?> buildMultipleChoice(String quizId) async {
+    final ref = _db.collection(_Collections.multipleChoiceQuizzes).doc(quizId);
     return null;
   }
 
@@ -39,6 +40,11 @@ class _QuizBuilders {
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final Map<String, Future<Quiz?> Function(String quizId)> _quizBuilderMap = {
+    _Collections.multipleChoiceQuizzes: _QuizBuilders().buildMultipleChoice,
+    _Collections.inputQuizzes: _QuizBuilders().buildInput,
+    _Collections.selectionQuizzes: _QuizBuilders().buildSelection,
+  };
 
   /// A category is a label with `root_id` and `parent_id` equal to the its own
   /// `id`.
