@@ -24,21 +24,58 @@ class _Collections {
 class _QuizBuilders {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  /// NOTE: Currentlu, we construct the whole Json data and then de-serialize
+  /// NOTE: Currently, we construct the whole Json data and then de-serialize
   /// it with fromJson constructor. There are two disadvantages: (1) hard for
   /// debugging if the fromJson constructor has trouble; (2) performance issue.
 
+  /// NOTE: Try to use multi-threading to enhance the performance
+
   Future<MultipleChoiceQuiz?> buildMultipleChoice(String quizId) async {
-    final ref = _db.collection(_Collections.multipleChoiceQuizzes).doc(quizId);
+    var ref = _db.collection(_Collections.multipleChoiceQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
     log.d(quiz);
-    return null;
+
+    Map<String, dynamic> quizJson = {};
+    quizJson["id"] = quizId;
+
+    ref = _db.collection(_Collections.images).doc(quiz!["image_id"]);
+    final image = await ref.get().then((value) => value.data());
+    quizJson["image"] = image;
+
+    var labelQuery = _db
+        .collection(_Collections.labels)
+        .where("id", whereIn: quiz["choices"]);
+    final labelQuerySnapshot = await labelQuery.get();
+    Map<String, dynamic> choiceLabels = {};
+    for (var element in labelQuerySnapshot.docs) {
+      final data = element.data();
+      choiceLabels[data["id"]] = data;
+    }
+    List<dynamic> choices = [];
+    for (final choiceLabelId in quiz["choices"]) {
+      choices.add(choiceLabels[choiceLabelId]);
+    }
+    quizJson["choices"] = choices;
+
+    List<Map<String, dynamic>> correctAnswers = [];
+    for (final ans in quiz["correct_answers"]) {
+      if (choiceLabels.keys.contains(ans["label_id"])) {
+        Map<String, dynamic> ansObj = {};
+        ansObj["points"] = ans["points"];
+        ansObj["label"] = choiceLabels[ans["label_id"]];
+        correctAnswers.add(ansObj);
+      }
+    }
+    quizJson["correct_answers"] = correctAnswers;
+    log.d(quizJson);
+
+    return MultipleChoiceQuiz.fromJson(quizJson);
   }
 
   Future<InputQuiz?> buildInput(String quizId) async {
     var ref = _db.collection(_Collections.inputQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
-    log.d(quiz);
+    // log.d(quiz);
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
@@ -69,7 +106,7 @@ class _QuizBuilders {
       correctAnswers.add(ansObj);
     }
     quizJson["correct_answers"] = correctAnswers;
-    log.d(quizJson);
+    // log.d(quizJson);
 
     return InputQuiz.fromJson(quizJson);
   }
@@ -77,7 +114,7 @@ class _QuizBuilders {
   Future<SelectionQuiz?> buildSelection(String quizId) async {
     final ref = _db.collection(_Collections.selectionQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
-    log.d(quiz);
+    // log.d(quiz);
     return null;
   }
 }
