@@ -10,7 +10,6 @@ import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 import 'package:object_guesser/pages/loading_page.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/firestore_service.dart';
-import 'package:object_guesser/services/get_quizzes.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/progress_bar.dart';
 import 'package:object_guesser/widgets/quiz_body/input_body.dart';
