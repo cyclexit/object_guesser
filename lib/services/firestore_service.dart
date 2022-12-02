@@ -24,6 +24,10 @@ class _Collections {
 class _QuizBuilders {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  /// NOTE: Currentlu, we construct the whole Json data and then de-serialize
+  /// it with fromJson constructor. There are two disadvantages: (1) hard for
+  /// debugging if the fromJson constructor has trouble; (2) performance issue.
+
   Future<MultipleChoiceQuiz?> buildMultipleChoice(String quizId) async {
     final ref = _db.collection(_Collections.multipleChoiceQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
@@ -32,10 +36,42 @@ class _QuizBuilders {
   }
 
   Future<InputQuiz?> buildInput(String quizId) async {
-    final ref = _db.collection(_Collections.inputQuizzes).doc(quizId);
+    var ref = _db.collection(_Collections.inputQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
     log.d(quiz);
-    return null;
+
+    Map<String, dynamic> quizJson = {};
+    quizJson["id"] = quizId;
+
+    ref = _db.collection(_Collections.images).doc(quiz!["image_id"]);
+    final image = await ref.get().then((value) => value.data());
+    quizJson["image"] = image;
+
+    // NOTE: simplify the storage of correct_answers in the database
+    List<Map<String, dynamic>> correctAnswers = [];
+    List<String> correctLabelIds = [];
+    for (final ans in quiz["correct_answers"]) {
+      correctLabelIds.add(ans["label_id"]);
+    }
+    final labelQuery = _db
+        .collection(_Collections.labels)
+        .where("id", whereIn: correctLabelIds);
+    final labelQuerySnapshot = await labelQuery.get();
+    Map<String, dynamic> correctLabels = {};
+    for (var element in labelQuerySnapshot.docs) {
+      final data = element.data();
+      correctLabels[data["id"]] = data;
+    }
+    for (final ans in quiz["correct_answers"]) {
+      Map<String, dynamic> ansObj = {};
+      ansObj["points"] = ans["points"];
+      ansObj["label"] = correctLabels[ans["label_id"]];
+      correctAnswers.add(ansObj);
+    }
+    quizJson["correct_answers"] = correctAnswers;
+    log.d(quizJson);
+
+    return InputQuiz.fromJson(quizJson);
   }
 
   Future<SelectionQuiz?> buildSelection(String quizId) async {
