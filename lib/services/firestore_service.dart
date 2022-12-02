@@ -30,7 +30,7 @@ class _QuizBuilders {
 
   /// NOTE: Try to use multi-threading to enhance the performance
 
-  Future<MultipleChoiceQuiz?> buildMultipleChoice(String quizId) async {
+  Future<MultipleChoiceQuiz> buildMultipleChoice(String quizId) async {
     var ref = _db.collection(_Collections.multipleChoiceQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
     // log.d(quiz);
@@ -72,7 +72,7 @@ class _QuizBuilders {
     return MultipleChoiceQuiz.fromJson(quizJson);
   }
 
-  Future<InputQuiz?> buildInput(String quizId) async {
+  Future<InputQuiz> buildInput(String quizId) async {
     var ref = _db.collection(_Collections.inputQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
     // log.d(quiz);
@@ -111,7 +111,7 @@ class _QuizBuilders {
     return InputQuiz.fromJson(quizJson);
   }
 
-  Future<SelectionQuiz?> buildSelection(String quizId) async {
+  Future<SelectionQuiz> buildSelection(String quizId) async {
     var ref = _db.collection(_Collections.selectionQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
     log.d(quiz);
@@ -154,7 +154,7 @@ class _QuizBuilders {
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final Map<String, Future<Quiz?> Function(String quizId)> _quizBuilderMap = {
+  final Map<String, Future<Quiz> Function(String quizId)> _quizBuilderMap = {
     _Collections.multipleChoiceQuizzes: _QuizBuilders().buildMultipleChoice,
     _Collections.inputQuizzes: _QuizBuilders().buildInput,
     _Collections.selectionQuizzes: _QuizBuilders().buildSelection,
@@ -193,7 +193,7 @@ class FirestoreService {
     for (int i = 0; i < totalQuizzes; ++i) {
       final quizId = game["quizzes"][i]["id"];
       final quizCollection = game["quizzes"][i]["collection"];
-      _quizBuilderMap[quizCollection]!.call(quizId);
+      quizList.add(await _quizBuilderMap[quizCollection]!.call(quizId));
     }
     return quizList;
   }
