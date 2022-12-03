@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:object_guesser/config/themes.dart';
 import 'package:object_guesser/log.dart';
+import 'package:object_guesser/config/themes.dart';
 import 'package:object_guesser/models/category.dart';
 import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
@@ -9,7 +9,7 @@ import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 import 'package:object_guesser/pages/loading_page.dart';
 import 'package:object_guesser/pages/main_page.dart';
-import 'package:object_guesser/services/get_quizzes.dart';
+import 'package:object_guesser/services/firestore_service.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/progress_bar.dart';
 import 'package:object_guesser/widgets/quiz_body/input_body.dart';
@@ -29,6 +29,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  // NOTE: keep _totalQuizzes small for dev
   static const int _totalQuizzes = 3;
 
   List<Quiz> _quizzes = [];
@@ -39,10 +40,11 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
-    Future<List<Quiz>> future = getQuizzes(_totalQuizzes, widget.category);
+    Future<List<Quiz>> future =
+        FirestoreService().getQuizzes(_totalQuizzes, widget.category);
     future.then((value) {
       setState(() {
-        _quizzes = [...value];
+        _quizzes = value;
         _isDataReady = true;
       });
     }, onError: (error) {

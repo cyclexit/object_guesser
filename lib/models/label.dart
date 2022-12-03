@@ -6,7 +6,7 @@ class Label {
 
   Label.fromJson(Map<String, dynamic> json)
       : id = json["id"],
-        name = json["name"] ?? "";
+        name = json["name"] != null ? json["name"].replaceAll("_", " ") : "";
 
   Map<String, dynamic> toJson() => {
         "id": id,
