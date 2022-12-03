@@ -9,9 +9,15 @@ class GameRecord {
 
   GameRecord({required this.gameId, required this.timestamp});
 
+  /// `Timestamp` is Firestore specific type. This conversion works with
+  /// Firestore API calls, but cannot be normally converted from JSON text or
+  /// to JSON text. Hence, no unit test can be created for this class.
   GameRecord.fromJson(Map<String, dynamic> json)
       : gameId = json["game_id"] ?? "",
-        timestamp = json["timestamp"] ?? Timestamp(0, 0);
+        timestamp = json["timestamp"] as Timestamp;
+
+  Map<String, dynamic> toJson() =>
+      {"game_id": gameId, "timestamp": timestamp.toString()};
 }
 
 class UserGameHistory {
@@ -27,4 +33,7 @@ class UserGameHistory {
                 .map((recordJson) => GameRecord.fromJson(recordJson))
                 .toList()
             : [];
+
+  Map<String, dynamic> toJson() =>
+      {"uid": uid, "game_records": gameRecords.map((e) => e.toJson()).toList()};
 }
