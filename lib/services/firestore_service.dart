@@ -2,6 +2,7 @@
 
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:object_guesser/log.dart';
 import 'package:object_guesser/models/category.dart';
@@ -10,6 +11,7 @@ import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
+import 'package:object_guesser/models/user/user_game_history.dart';
 import 'package:object_guesser/models/user/user_quiz_record.dart';
 import 'package:object_guesser/services/auth.dart';
 
@@ -233,5 +235,20 @@ class FirestoreService {
     }
     final ref = _db.collection(FirestoreCollections.userQuizRecords).doc();
     return ref.set(userQuizRecord.toJson(), SetOptions(merge: true));
+  }
+
+  Stream<UserGameHistory> streamUserGameHistory() {
+    return AuthService().userStream.switchMap((user) {
+      if (user != null) {
+        final ref =
+            _db.collection(FirestoreCollections.userGameHistory).doc(user.uid);
+        return ref
+            .snapshots()
+            .map((event) => UserGameHistory.fromJson(event.data()!));
+      } else {
+        log.e("User is null!");
+        return Stream.fromIterable([UserGameHistory()]);
+      }
+    });
   }
 }
