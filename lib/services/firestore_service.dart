@@ -115,7 +115,7 @@ class _QuizBuilders {
   Future<SelectionQuiz> buildSelection(String quizId) async {
     var ref = _db.collection(FirestoreCollections.selectionQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
-    log.d(quiz);
+    // log.d(quiz);
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
@@ -147,7 +147,7 @@ class _QuizBuilders {
       correctAnswers.add(ansObj);
     }
     quizJson["correct_answers"] = correctAnswers;
-    log.d(quizJson);
+    // log.d(quizJson);
 
     return SelectionQuiz.fromJson(quizJson);
   }
