@@ -10,6 +10,8 @@ import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
+import 'package:object_guesser/models/user/user_quiz_record.dart';
+import 'package:object_guesser/services/auth.dart';
 
 class FirestoreCollections {
   static const String images = "images";
@@ -207,5 +209,14 @@ class FirestoreService {
     return quizList;
   }
 
-  Future<void> uploadUserQuizRecord(Quiz quiz) async {}
+  Future<void> uploadUserQuizRecord(
+      String quizId, Type quizType, int points) async {
+    UserQuizRecord userQuizRecord = UserQuizRecord(
+        uid: AuthService().user!.uid,
+        quizId: quizId,
+        quizCollection: _quizTypeToCollection[quizType]!,
+        points: points);
+    final ref = _db.collection(FirestoreCollections.userQuizRecords).doc();
+    return ref.set(userQuizRecord.toJson(), SetOptions(merge: true));
+  }
 }
