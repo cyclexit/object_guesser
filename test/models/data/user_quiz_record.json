@@ -1,0 +1,33 @@
+{
+    "records": [
+        {
+            "uid": "1234",
+            "quiz_id": "5678",
+            "quiz_collection": "multiple_choice_quizzes",
+            "points": 100,
+            "user_answer": {
+                "id": "aaaa",
+                "name": "Rodger"
+            }
+        },
+        {
+            "uid": "abcd",
+            "quiz_id": "efgh",
+            "quiz_collection": "input_quizzes",
+            "points": 100,
+            "user_answer": "Rodger"
+        },
+        {
+            "uid": "ABCD",
+            "quiz_id": "EFGH",
+            "quiz_collection": "selection_quizzes",
+            "points": 100,
+            "user_answer": [
+                {
+                    "id": "xyz",
+                    "url": "www.google.com"
+                }
+            ]
+        }
+    ]
+}
