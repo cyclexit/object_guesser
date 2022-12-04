@@ -252,4 +252,16 @@ class FirestoreService {
       }
     });
   }
+
+  Future<void> updateUserGameHistory(String gameId) async {
+    final user = AuthService().user;
+    final ref =
+        _db.collection(FirestoreCollections.userGameHistory).doc(user!.uid);
+    GameRecord gameRecord =
+        GameRecord(gameId: gameId, timestamp: Timestamp.now());
+    Map<String, dynamic> data = {
+      "game_records": FieldValue.arrayUnion([gameRecord.toJson()])
+    };
+    return ref.set(data, SetOptions(merge: true));
+  }
 }

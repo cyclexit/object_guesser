@@ -81,7 +81,7 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _exitQuiz(BuildContext context) {
-    /// TODO (Firestore) : update `UserGameHistory` here.
+    FirestoreService().updateUserGameHistory(_gameId);
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
 
