@@ -53,6 +53,7 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _handleNextQuiz() {
+    /// TODO (Firestore) : upload the `UserQuizRecord` here.
     setState(() {
       _points += _quizzes[_idx].getPoints();
       _idx++;
@@ -75,6 +76,7 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _exitQuiz(BuildContext context) {
+    /// TODO (Firestore) : update `UserGameHistory` here.
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
 
