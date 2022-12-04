@@ -210,12 +210,26 @@ class FirestoreService {
   }
 
   Future<void> uploadUserQuizRecord(
-      String quizId, Type quizType, int points) async {
+      String quizId, Type quizType, int points, dynamic answer) async {
     UserQuizRecord userQuizRecord = UserQuizRecord(
         uid: AuthService().user!.uid,
         quizId: quizId,
         quizCollection: _quizTypeToCollection[quizType]!,
         points: points);
+    switch (quizType) {
+      case MultipleChoiceQuiz:
+        userQuizRecord.multipleChoiceAnswer = answer;
+        break;
+      case InputQuiz:
+        userQuizRecord.inputAnswer = answer;
+        break;
+      case SelectionQuiz:
+        userQuizRecord.selectionAnswer = answer;
+        break;
+      default:
+        log.e("Unkown quiz type!");
+        break;
+    }
     final ref = _db.collection(FirestoreCollections.userQuizRecords).doc();
     return ref.set(userQuizRecord.toJson(), SetOptions(merge: true));
   }

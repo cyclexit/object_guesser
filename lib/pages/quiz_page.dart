@@ -53,7 +53,11 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _handleNextQuiz() {
-    /// TODO (Firestore) : upload the `UserQuizRecord` here.
+    FirestoreService().uploadUserQuizRecord(
+        _quizzes[_idx].id,
+        _quizzes[_idx].runtimeType,
+        _quizzes[_idx].getPoints(),
+        _quizzes[_idx].answer);
     setState(() {
       _points += _quizzes[_idx].getPoints();
       _idx++;
@@ -72,6 +76,7 @@ class _QuizPageState extends State<QuizPage> {
       case SelectionQuiz:
         return SelectionBody(quiz: quiz as SelectionQuiz);
     }
+    log.e("Unkown quiz type!");
     return Container();
   }
 
