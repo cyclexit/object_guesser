@@ -19,7 +19,14 @@ class FirestoreCollections {
   static const String inputQuizzes = "input_quizzes";
   static const String selectionQuizzes = "selection_quizzes";
   static const String games = "games";
+  static const String userQuizRecords = "user_quiz_records";
 }
+
+const Map<Type, String> _quizTypeToCollection = {
+  MultipleChoiceQuiz: FirestoreCollections.multipleChoiceQuizzes,
+  InputQuiz: FirestoreCollections.inputQuizzes,
+  SelectionQuiz: FirestoreCollections.selectionQuizzes
+};
 
 class _QuizBuilders {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -199,4 +206,6 @@ class FirestoreService {
     }
     return quizList;
   }
+
+  Future<void> uploadUserQuizRecord(Quiz quiz) async {}
 }
