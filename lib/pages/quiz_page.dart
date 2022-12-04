@@ -22,8 +22,6 @@ class QuizPage extends StatefulWidget {
   static const routeName = '/quiz';
   final Category category;
 
-  /// TODO: add `gameId` here
-
   const QuizPage({super.key, required this.category});
 
   @override
