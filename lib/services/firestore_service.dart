@@ -22,6 +22,7 @@ class FirestoreCollections {
   static const String selectionQuizzes = "selection_quizzes";
   static const String games = "games";
   static const String userQuizRecords = "user_quiz_records";
+  static const String userGameHistory = "user_game_history";
 }
 
 const Map<Type, String> _quizTypeToCollection = {
