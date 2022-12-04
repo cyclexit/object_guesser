@@ -11,7 +11,7 @@ import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 
-class _Collections {
+class FirestoreCollections {
   static const String images = "images";
   static const String labels = "labels";
   static const String imageLabelRecords = "image_label_records";
@@ -31,19 +31,20 @@ class _QuizBuilders {
   /// NOTE: Try to use multi-threading to enhance the performance
 
   Future<MultipleChoiceQuiz> buildMultipleChoice(String quizId) async {
-    var ref = _db.collection(_Collections.multipleChoiceQuizzes).doc(quizId);
+    var ref =
+        _db.collection(FirestoreCollections.multipleChoiceQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
     // log.d(quiz);
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
 
-    ref = _db.collection(_Collections.images).doc(quiz!["image_id"]);
+    ref = _db.collection(FirestoreCollections.images).doc(quiz!["image_id"]);
     final image = await ref.get().then((value) => value.data());
     quizJson["image"] = image;
 
     var labelQuery = _db
-        .collection(_Collections.labels)
+        .collection(FirestoreCollections.labels)
         .where("id", whereIn: quiz["choices"]);
     final labelQuerySnapshot = await labelQuery.get();
     Map<String, dynamic> choiceLabels = {};
@@ -73,14 +74,14 @@ class _QuizBuilders {
   }
 
   Future<InputQuiz> buildInput(String quizId) async {
-    var ref = _db.collection(_Collections.inputQuizzes).doc(quizId);
+    var ref = _db.collection(FirestoreCollections.inputQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
     // log.d(quiz);
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
 
-    ref = _db.collection(_Collections.images).doc(quiz!["image_id"]);
+    ref = _db.collection(FirestoreCollections.images).doc(quiz!["image_id"]);
     final image = await ref.get().then((value) => value.data());
     quizJson["image"] = image;
 
@@ -91,7 +92,7 @@ class _QuizBuilders {
       correctLabelIds.add(ans["label_id"]);
     }
     final labelQuery = _db
-        .collection(_Collections.labels)
+        .collection(FirestoreCollections.labels)
         .where("id", whereIn: correctLabelIds);
     final labelQuerySnapshot = await labelQuery.get();
     Map<String, dynamic> correctLabels = {};
@@ -112,19 +113,19 @@ class _QuizBuilders {
   }
 
   Future<SelectionQuiz> buildSelection(String quizId) async {
-    var ref = _db.collection(_Collections.selectionQuizzes).doc(quizId);
+    var ref = _db.collection(FirestoreCollections.selectionQuizzes).doc(quizId);
     final quiz = await ref.get().then((value) => value.data());
     log.d(quiz);
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
 
-    ref = _db.collection(_Collections.labels).doc(quiz!["label_id"]);
+    ref = _db.collection(FirestoreCollections.labels).doc(quiz!["label_id"]);
     final label = await ref.get().then((value) => value.data());
     quizJson["label"] = label;
 
     var imageQuery = _db
-        .collection(_Collections.images)
+        .collection(FirestoreCollections.images)
         .where("id", whereIn: quiz["selections"]);
     final imageQuerySnapshot = await imageQuery.get();
     Map<String, dynamic> allImages = {};
@@ -155,9 +156,10 @@ class _QuizBuilders {
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final Map<String, Future<Quiz> Function(String quizId)> _quizBuilderMap = {
-    _Collections.multipleChoiceQuizzes: _QuizBuilders().buildMultipleChoice,
-    _Collections.inputQuizzes: _QuizBuilders().buildInput,
-    _Collections.selectionQuizzes: _QuizBuilders().buildSelection,
+    FirestoreCollections.multipleChoiceQuizzes:
+        _QuizBuilders().buildMultipleChoice,
+    FirestoreCollections.inputQuizzes: _QuizBuilders().buildInput,
+    FirestoreCollections.selectionQuizzes: _QuizBuilders().buildSelection,
   };
 
   /// A category is a label with `root_id` and `parent_id` equal to the its own
