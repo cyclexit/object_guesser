@@ -7,49 +7,51 @@ class UserQuizRecord {
   final String quizId;
   final String quizCollection;
   final int points;
-  final dynamic userAnswer;
 
-  UserQuizRecord(
-      {required this.uid,
-      required this.quizId,
-      required this.quizCollection,
-      required this.points,
-      required this.userAnswer});
+  /// This is not a good way to handle the situation...
+  Label? multipleChoiceAnswer;
+  String? inputAnswer;
+  List<ImageData>? selectionAnswer;
+
+  UserQuizRecord({
+    required this.uid,
+    required this.quizId,
+    required this.quizCollection,
+    required this.points,
+  });
 
   UserQuizRecord.fromJson(Map<String, dynamic> json)
       : uid = json["uid"],
         quizId = json["quiz_id"],
         quizCollection = json["quiz_collection"],
-        points = json["points"],
-        userAnswer = {
-          if (json["quiz_collection"] ==
-              FirestoreCollections.multipleChoiceQuizzes)
-            Label.fromJson(json["user_answer"])
-          else if (json["quiz_collection"] == FirestoreCollections.inputQuizzes)
-            json["user_answer"] as String
-          else if (json["quiz_collection"] ==
-              FirestoreCollections.selectionQuizzes)
-            List.from(json["user_answer"]!)
-                .map((img) => ImageData.fromJson(img))
-                .toList()
-          else
-            "Error: unkown quiz type"
-        };
+        points = json["points"] {
+    if (quizCollection == FirestoreCollections.multipleChoiceQuizzes) {
+      multipleChoiceAnswer = Label.fromJson(json["user_answer"]);
+    } else if (quizCollection == FirestoreCollections.inputQuizzes) {
+      inputAnswer = json["user_answer"] as String;
+    } else if (quizCollection == FirestoreCollections.selectionQuizzes) {
+      selectionAnswer = List.from(json["user_answer"]!)
+          .map((img) => ImageData.fromJson(img))
+          .toList();
+    }
+  }
 
-  Map<String, dynamic> toJson() => {
-        "uid": uid,
-        "quiz_id": quizId,
-        "quiz_collection": quizCollection,
-        "points": points,
-        "user_answer": {
-          if (quizCollection == FirestoreCollections.multipleChoiceQuizzes)
-            (userAnswer as Label).toJson()
-          else if (quizCollection == FirestoreCollections.inputQuizzes)
-            userAnswer as String
-          else if (quizCollection == FirestoreCollections.selectionQuizzes)
-            (userAnswer as List<ImageData>).map((img) => img.toJson()).toList()
-          else
-            "Error: unkown quiz type"
-        }
-      };
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = {};
+    json["uid"] = uid;
+    json["quiz_id"] = quizId;
+    json["quiz_collection"] = quizCollection;
+    json["points"] = points;
+    if (quizCollection == FirestoreCollections.multipleChoiceQuizzes) {
+      json["user_answer"] = multipleChoiceAnswer!.toJson();
+    } else if (quizCollection == FirestoreCollections.inputQuizzes) {
+      json["user_answer"] = inputAnswer!;
+    } else if (quizCollection == FirestoreCollections.selectionQuizzes) {
+      json["user_answer"] =
+          selectionAnswer!.map((img) => img.toJson()).toList();
+    } else {
+      json["user_answer"] = null;
+    }
+    return json;
+  }
 }
