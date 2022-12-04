@@ -34,6 +34,7 @@ class _QuizPageState extends State<QuizPage> {
   // NOTE: keep _totalQuizzes small for dev
   static const int _totalQuizzes = 3;
 
+  String _gameId = "";
   List<Quiz> _quizzes = [];
   bool _isDataReady = false;
   int _idx = 0;
@@ -42,11 +43,10 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
-    Future<List<Quiz>> future =
-        FirestoreService().getQuizzes(_totalQuizzes, widget.category);
-    future.then((value) {
+    FirestoreService().getQuizzes(_totalQuizzes, widget.category).then((value) {
+      _gameId = value["game_id"];
       setState(() {
-        _quizzes = value;
+        _quizzes = value["quizzes"];
         _isDataReady = true;
       });
     }, onError: (error) {

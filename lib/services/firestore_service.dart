@@ -189,7 +189,8 @@ class FirestoreService {
     return categories;
   }
 
-  Future<List<Quiz>> getQuizzes(int totalQuizzes, Category category) async {
+  Future<Map<String, dynamic>> getQuizzes(
+      int totalQuizzes, Category category) async {
     // NOTE: assume the user can play the same game more than once.
     final ref =
         _db.collection("games").where("category_id", isEqualTo: category.id);
@@ -200,7 +201,7 @@ class FirestoreService {
     if (quizzes.length < totalQuizzes) {
       log.e(
           "Not enough quizzes for this game.Need $totalQuizzes, but only has ${quizzes.length}");
-      return [];
+      return {};
     }
 
     List<Quiz> quizList = [];
@@ -209,7 +210,7 @@ class FirestoreService {
       final quizCollection = game["quizzes"][i]["collection"];
       quizList.add(await _quizBuilderMap[quizCollection]!.call(quizId));
     }
-    return quizList;
+    return {"game_id": game["id"] as String, "quizzes": quizList};
   }
 
   Future<void> uploadUserQuizRecord(
