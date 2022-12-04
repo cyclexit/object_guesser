@@ -257,11 +257,19 @@ class FirestoreService {
     final user = AuthService().user;
     final ref =
         _db.collection(FirestoreCollections.userGameHistory).doc(user!.uid);
-    GameRecord gameRecord =
-        GameRecord(gameId: gameId, timestamp: Timestamp.now());
-    Map<String, dynamic> data = {
-      "game_records": FieldValue.arrayUnion([gameRecord.toJson()])
-    };
-    return ref.set(data, SetOptions(merge: true));
+    if (!(await ref.get()).exists) {
+      ref.set({"game_records": []}, SetOptions(merge: true));
+    }
+    return ref.update({
+      "game_records": FieldValue.arrayUnion([
+        {"game_id": gameId, "timestamp": Timestamp.now()}
+      ])
+    });
+    // GameRecord gameRecord =
+    //     GameRecord(gameId: gameId, timestamp: Timestamp.now());
+    // Map<String, dynamic> data = {
+    //   "game_records": FieldValue.arrayUnion([gameRecord.toJson()])
+    // };
+    // return ref.set(data, SetOptions(merge: true));
   }
 }

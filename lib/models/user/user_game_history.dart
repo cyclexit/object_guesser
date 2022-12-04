@@ -16,6 +16,9 @@ class GameRecord {
       : gameId = json["game_id"] ?? "",
         timestamp = json["timestamp"] as Timestamp;
 
+  /// WARNING: Because `Timestamp` does not have toJson function implemented,
+  /// this toJson CANNOT be used when the app try to upload the data to the
+  /// database! This function is just for debug purpose.
   Map<String, dynamic> toJson() =>
       {"game_id": gameId, "timestamp": timestamp.toString()};
 }
