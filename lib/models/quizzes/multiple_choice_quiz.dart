@@ -16,28 +16,27 @@ class MultipleChoiceAnswer {
 }
 
 class MultipleChoiceQuiz extends Quiz {
-  String id;
   ImageData image;
   List<Label> choices;
   Map<String, MultipleChoiceAnswer> correctAnswers;
   Label? _answer;
 
   MultipleChoiceQuiz(
-      {required this.id,
+      {required super.id,
       required this.image,
       required this.choices,
       required this.correctAnswers});
 
   MultipleChoiceQuiz.fromJson(Map<String, dynamic> json)
-      : id = json["id"]!.toString(),
-        image = ImageData.fromJson(json["image"]!),
+      : image = ImageData.fromJson(json["image"]!),
         choices = List.from(json["choices"]!)
             .map((labelJson) => Label.fromJson(labelJson!))
             .toList(),
         correctAnswers = {
           for (var jsonAnswer in List.from(json["correct_answers"]!))
             jsonAnswer["label"]["id"]: MultipleChoiceAnswer.fromJson(jsonAnswer)
-        };
+        },
+        super(id: json["id"].toString());
 
   Map<String, dynamic> toJson() => {
         "id": id,

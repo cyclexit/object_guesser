@@ -16,7 +16,6 @@ class InputAnswer {
 }
 
 class InputQuiz extends Quiz {
-  String id;
   ImageData image;
 
   // List of possible answer for the input.
@@ -26,19 +25,19 @@ class InputQuiz extends Quiz {
   String _answer = "";
 
   InputQuiz({
-    required this.id,
+    required super.id,
     required this.image,
     this.correctAnswers,
   });
 
   InputQuiz.fromJson(Map<String, dynamic> json)
-      : id = json['id']!.toString(),
-        image = ImageData.fromJson(json["image"]),
+      : image = ImageData.fromJson(json["image"]),
         correctAnswers = json["correct_answers"] != null
             ? List.from(json["correct_answers"]!)
                 .map((labelJson) => InputAnswer.fromJson(labelJson))
                 .toList()
-            : null;
+            : null,
+        super(id: json["id"].toString());
 
   Map<String, dynamic> toJson() => {
         "id": id,

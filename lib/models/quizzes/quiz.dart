@@ -1,4 +1,8 @@
 abstract class Quiz {
+  final String id;
+
+  Quiz({required this.id});
+
   /// Get the Answer for the Quiz
   get answer {}
 
