@@ -14,28 +14,27 @@ class SelectionAnswer {
 }
 
 class SelectionQuiz extends Quiz {
-  String id;
   Label label;
   List<ImageData> selections;
   Map<String, SelectionAnswer> correctAnswers;
   List<ImageData>? _answer;
 
   SelectionQuiz(
-      {required this.id,
+      {required super.id,
       required this.label,
       required this.selections,
       required this.correctAnswers});
 
   SelectionQuiz.fromJson(Map<String, dynamic> json)
-      : id = json["id"].toString(),
-        label = Label.fromJson(json["label"]),
+      : label = Label.fromJson(json["label"]),
         selections = List.from(json["selections"]!)
             .map((selection) => ImageData.fromJson(selection))
             .toList(),
         correctAnswers = {
           for (var jsonAnswer in List.from(json["correct_answers"]!))
             jsonAnswer["image"]["id"]: SelectionAnswer.fromJson(jsonAnswer)
-        };
+        },
+        super(id: json["id"].toString());
 
   Map<String, dynamic> toJSON() => {
         "id": id,

@@ -2,6 +2,7 @@
 
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:object_guesser/log.dart';
 import 'package:object_guesser/models/category.dart';
@@ -10,6 +11,9 @@ import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
+import 'package:object_guesser/models/user/user_game_history.dart';
+import 'package:object_guesser/models/user/user_quiz_record.dart';
+import 'package:object_guesser/services/auth.dart';
 
 class FirestoreCollections {
   static const String images = "images";
@@ -19,7 +23,15 @@ class FirestoreCollections {
   static const String inputQuizzes = "input_quizzes";
   static const String selectionQuizzes = "selection_quizzes";
   static const String games = "games";
+  static const String userQuizRecords = "user_quiz_records";
+  static const String userGameHistory = "user_game_history";
 }
+
+const Map<Type, String> _quizTypeToCollection = {
+  MultipleChoiceQuiz: FirestoreCollections.multipleChoiceQuizzes,
+  InputQuiz: FirestoreCollections.inputQuizzes,
+  SelectionQuiz: FirestoreCollections.selectionQuizzes
+};
 
 class _QuizBuilders {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -177,7 +189,8 @@ class FirestoreService {
     return categories;
   }
 
-  Future<List<Quiz>> getQuizzes(int totalQuizzes, Category category) async {
+  Future<Map<String, dynamic>> getQuizzes(
+      int totalQuizzes, Category category) async {
     // NOTE: assume the user can play the same game more than once.
     final ref =
         _db.collection("games").where("category_id", isEqualTo: category.id);
@@ -188,7 +201,7 @@ class FirestoreService {
     if (quizzes.length < totalQuizzes) {
       log.e(
           "Not enough quizzes for this game.Need $totalQuizzes, but only has ${quizzes.length}");
-      return [];
+      return {};
     }
 
     List<Quiz> quizList = [];
@@ -197,6 +210,65 @@ class FirestoreService {
       final quizCollection = game["quizzes"][i]["collection"];
       quizList.add(await _quizBuilderMap[quizCollection]!.call(quizId));
     }
-    return quizList;
+    return {"game_id": game["id"] as String, "quizzes": quizList};
+  }
+
+  Future<void> uploadUserQuizRecord(String quizId, Type quizType, int points,
+      dynamic answer, Timestamp finishTime) async {
+    UserQuizRecord userQuizRecord = UserQuizRecord(
+        uid: AuthService().user!.uid,
+        quizId: quizId,
+        quizCollection: _quizTypeToCollection[quizType]!,
+        points: points,
+        timestamp: finishTime);
+    switch (quizType) {
+      case MultipleChoiceQuiz:
+        userQuizRecord.multipleChoiceAnswer = answer;
+        break;
+      case InputQuiz:
+        userQuizRecord.inputAnswer = answer;
+        break;
+      case SelectionQuiz:
+        userQuizRecord.selectionAnswer = answer;
+        break;
+      default:
+        log.e("Unkown quiz type!");
+        break;
+    }
+    final ref = _db.collection(FirestoreCollections.userQuizRecords).doc();
+    return ref.set(userQuizRecord.toJson(), SetOptions(merge: true));
+  }
+
+  Stream<UserGameHistory> streamUserGameHistory() {
+    return AuthService().userStream.switchMap((user) {
+      if (user != null) {
+        final ref =
+            _db.collection(FirestoreCollections.userGameHistory).doc(user.uid);
+        return ref
+            .snapshots()
+            .map((event) => UserGameHistory.fromJson(event.data()!));
+      } else {
+        log.e("User is null!");
+        return Stream.fromIterable([UserGameHistory()]);
+      }
+    });
+  }
+
+  Future<void> updateUserGameHistory(
+      String gameId, int gamePoints, Timestamp finishTime) async {
+    final user = AuthService().user;
+    final ref =
+        _db.collection(FirestoreCollections.userGameHistory).doc(user!.uid);
+    if (!(await ref.get()).exists) {
+      ref.set(UserGameHistory(uid: user.uid).toJson(), SetOptions(merge: true));
+    }
+    return ref.update({
+      "total_points": FieldValue.increment(gamePoints),
+      "game_records": FieldValue.arrayUnion([
+        GameRecord(
+                gameId: gameId, gamePoints: gamePoints, timestamp: finishTime)
+            .toJson()
+      ])
+    });
   }
 }

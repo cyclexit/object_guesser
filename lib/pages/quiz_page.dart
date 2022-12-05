@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:object_guesser/log.dart';
@@ -32,20 +33,18 @@ class _QuizPageState extends State<QuizPage> {
   // NOTE: keep _totalQuizzes small for dev
   static const int _totalQuizzes = 3;
 
+  String _gameId = "";
   List<Quiz> _quizzes = [];
-  bool _isDataReady = false;
   int _idx = 0;
   int _points = 0;
 
   @override
   void initState() {
     super.initState();
-    Future<List<Quiz>> future =
-        FirestoreService().getQuizzes(_totalQuizzes, widget.category);
-    future.then((value) {
+    FirestoreService().getQuizzes(_totalQuizzes, widget.category).then((value) {
+      _gameId = value["game_id"];
       setState(() {
-        _quizzes = value;
-        _isDataReady = true;
+        _quizzes = value["quizzes"];
       });
     }, onError: (error) {
       log.e(error);
@@ -53,14 +52,13 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _handleNextQuiz() {
-    /// TODO (Firestore) : upload the `UserQuizRecord` here.
     setState(() {
       _points += _quizzes[_idx].getPoints();
       _idx++;
     });
   }
 
-  Widget _updateQuiz() {
+  Widget _updateQuizBody() {
     Type quizType = _quizzes[_idx].runtimeType;
     Quiz quiz = _quizzes[_idx];
 
@@ -72,11 +70,17 @@ class _QuizPageState extends State<QuizPage> {
       case SelectionQuiz:
         return SelectionBody(quiz: quiz as SelectionQuiz);
     }
+    log.e("Unkown quiz type!");
     return Container();
   }
 
   void _exitQuiz(BuildContext context) {
-    /// TODO (Firestore) : update `UserGameHistory` here.
+    Timestamp finishTime = Timestamp.now();
+    for (final quiz in _quizzes) {
+      FirestoreService().uploadUserQuizRecord(
+          quiz.id, quiz.runtimeType, quiz.getPoints(), quiz.answer, finishTime);
+    }
+    FirestoreService().updateUserGameHistory(_gameId, _points, finishTime);
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
 
@@ -92,7 +96,7 @@ class _QuizPageState extends State<QuizPage> {
   Widget build(BuildContext context) {
     Widget body;
 
-    if (!_isDataReady) {
+    if (_quizzes.isEmpty) {
       body = const LoadingPage();
     } else if (_idx < _quizzes.length) {
       body = Column(
@@ -117,7 +121,7 @@ class _QuizPageState extends State<QuizPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                  _updateQuiz(),
+                  _updateQuizBody(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 50.0),
                     child: NextButton(handlePress: _handleNextQuiz),
