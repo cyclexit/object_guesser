@@ -80,7 +80,7 @@ class _QuizPageState extends State<QuizPage> {
       FirestoreService().uploadUserQuizRecord(
           quiz.id, quiz.runtimeType, quiz.getPoints(), quiz.answer, finishTime);
     }
-    FirestoreService().updateUserGameHistory(_gameId, finishTime);
+    FirestoreService().updateUserGameHistory(_gameId, _points, finishTime);
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
 

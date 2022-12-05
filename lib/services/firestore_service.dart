@@ -220,7 +220,7 @@ class FirestoreService {
         quizId: quizId,
         quizCollection: _quizTypeToCollection[quizType]!,
         points: points,
-        timestamp: Timestamp.now());
+        timestamp: finishTime);
     switch (quizType) {
       case MultipleChoiceQuiz:
         userQuizRecord.multipleChoiceAnswer = answer;
@@ -255,7 +255,7 @@ class FirestoreService {
   }
 
   Future<void> updateUserGameHistory(
-      String gameId, Timestamp finishTime) async {
+      String gameId, int gamePoints, Timestamp finishTime) async {
     final user = AuthService().user;
     final ref =
         _db.collection(FirestoreCollections.userGameHistory).doc(user!.uid);
@@ -264,7 +264,9 @@ class FirestoreService {
     }
     return ref.update({
       "game_records": FieldValue.arrayUnion([
-        {"game_id": gameId, "timestamp": Timestamp.now()}
+        GameRecord(
+                gameId: gameId, gamePoints: gamePoints, timestamp: finishTime)
+            .toJson()
       ])
     });
   }
