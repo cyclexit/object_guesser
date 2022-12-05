@@ -36,9 +36,15 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           ProfileInfoCard(user: user!),
           const Spacer(),
-          Text("Total games: ${userGameHistory.gameRecords.length}"),
+          Text(
+            "Total games: ${userGameHistory.gameRecords.length}",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           const Spacer(),
-          Text("Total points: ${userGameHistory.totalPoints}"),
+          Text(
+            "Total points: ${userGameHistory.totalPoints}",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           const Spacer(),
           ElevatedButton(
               onPressed: _signOut,
