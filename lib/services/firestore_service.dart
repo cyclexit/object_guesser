@@ -213,8 +213,8 @@ class FirestoreService {
     return {"game_id": game["id"] as String, "quizzes": quizList};
   }
 
-  Future<void> uploadUserQuizRecord(
-      String quizId, Type quizType, int points, dynamic answer) async {
+  Future<void> uploadUserQuizRecord(String quizId, Type quizType, int points,
+      dynamic answer, Timestamp finishTime) async {
     UserQuizRecord userQuizRecord = UserQuizRecord(
         uid: AuthService().user!.uid,
         quizId: quizId,
@@ -254,7 +254,8 @@ class FirestoreService {
     });
   }
 
-  Future<void> updateUserGameHistory(String gameId) async {
+  Future<void> updateUserGameHistory(
+      String gameId, Timestamp finishTime) async {
     final user = AuthService().user;
     final ref =
         _db.collection(FirestoreCollections.userGameHistory).doc(user!.uid);
@@ -266,11 +267,5 @@ class FirestoreService {
         {"game_id": gameId, "timestamp": Timestamp.now()}
       ])
     });
-    // GameRecord gameRecord =
-    //     GameRecord(gameId: gameId, timestamp: Timestamp.now());
-    // Map<String, dynamic> data = {
-    //   "game_records": FieldValue.arrayUnion([gameRecord.toJson()])
-    // };
-    // return ref.set(data, SetOptions(merge: true));
   }
 }

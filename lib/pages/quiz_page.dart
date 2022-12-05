@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:object_guesser/log.dart';
@@ -51,11 +52,6 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _handleNextQuiz() {
-    FirestoreService().uploadUserQuizRecord(
-        _quizzes[_idx].id,
-        _quizzes[_idx].runtimeType,
-        _quizzes[_idx].getPoints(),
-        _quizzes[_idx].answer);
     setState(() {
       _points += _quizzes[_idx].getPoints();
       _idx++;
@@ -79,7 +75,12 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _exitQuiz(BuildContext context) {
-    FirestoreService().updateUserGameHistory(_gameId);
+    Timestamp finishTime = Timestamp.now();
+    for (final quiz in _quizzes) {
+      FirestoreService().uploadUserQuizRecord(
+          quiz.id, quiz.runtimeType, quiz.getPoints(), quiz.answer, finishTime);
+    }
+    FirestoreService().updateUserGameHistory(_gameId, finishTime);
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
 
