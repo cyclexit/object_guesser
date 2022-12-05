@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:object_guesser/models/user/user_game_history.dart';
 
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/auth.dart';
 import 'package:object_guesser/widgets/profile_info_card.dart';
+import 'package:object_guesser/widgets/profile_stats_card.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -23,6 +26,12 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = AuthService().user;
+    final UserGameHistory userGameHistory =
+        Provider.of<UserGameHistory>(context);
+
+    var totalPoints = userGameHistory.totalPoints;
+    var totalGames = userGameHistory.gameRecords.length;
+
     return SafeArea(
         child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -30,7 +39,19 @@ class _ProfilePageState extends State<ProfilePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Text(
+            "Your Profile",
+            style: Theme.of(context).textTheme.headline2,
+          ),
+          const SizedBox(height: 12.0),
           ProfileInfoCard(user: user!),
+          const SizedBox(height: 30.0),
+          Text(
+            "Stats",
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          const SizedBox(height: 12.0),
+          ProfileStatsCard(totalPoints: totalPoints, totalGames: totalGames),
           const Spacer(),
           ElevatedButton(
               onPressed: _signOut,

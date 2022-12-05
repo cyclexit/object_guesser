@@ -1,0 +1,84 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/material.dart';
+import 'package:object_guesser/config/themes.dart';
+
+class ProfileStatsCard extends StatelessWidget {
+  final int totalPoints;
+  final int totalGames;
+
+  const ProfileStatsCard(
+      {super.key, required this.totalPoints, required this.totalGames});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: whiteColor,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.shadow.withOpacity(0.1),
+            spreadRadius: -4,
+            blurRadius: 25,
+            offset: const Offset(0, 8), // changes position of shadow
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ProfileStat(
+              text: "total games",
+              stat: totalGames,
+              icon: FluentIcons.games_16_filled),
+          const SizedBox(width: 20.0),
+          ProfileStat(
+              text: "total points",
+              stat: totalPoints,
+              icon: FluentIcons.star_16_filled),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileStat extends StatelessWidget {
+  final String text;
+  final int stat;
+  final IconData icon;
+
+  const ProfileStat(
+      {super.key, required this.text, required this.stat, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: Theme.of(context).colorScheme.primary,
+          size: 48.0,
+        ),
+        const SizedBox(width: 10.0),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              text.toUpperCase(),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontWeight: FontWeight.w900,
+                  color: Theme.of(context).colorScheme.secondary),
+            ),
+            Text(
+              "$stat",
+              style: Theme.of(context).textTheme.headline2,
+            )
+          ],
+        )
+      ],
+    );
+  }
+}
