@@ -64,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
-  Widget _updateQuiz() {
+  Widget _updateQuizBody() {
     Type quizType = _quizzes[_idx].runtimeType;
     Quiz quiz = _quizzes[_idx];
 
@@ -122,7 +122,7 @@ class _QuizPageState extends State<QuizPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                  _updateQuiz(),
+                  _updateQuizBody(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 50.0),
                     child: NextButton(handlePress: _handleNextQuiz),
