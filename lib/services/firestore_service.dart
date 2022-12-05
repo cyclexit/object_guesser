@@ -260,9 +260,10 @@ class FirestoreService {
     final ref =
         _db.collection(FirestoreCollections.userGameHistory).doc(user!.uid);
     if (!(await ref.get()).exists) {
-      ref.set({"game_records": []}, SetOptions(merge: true));
+      ref.set(UserGameHistory(uid: user.uid).toJson(), SetOptions(merge: true));
     }
     return ref.update({
+      "total_points": FieldValue.increment(gamePoints),
       "game_records": FieldValue.arrayUnion([
         GameRecord(
                 gameId: gameId, gamePoints: gamePoints, timestamp: finishTime)
