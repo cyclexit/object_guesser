@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'package:object_guesser/models/user/user_game_history.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/auth.dart';
 import 'package:object_guesser/widgets/profile_info_card.dart';
@@ -23,6 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = AuthService().user;
+    final UserGameHistory userGameHistory =
+        Provider.of<UserGameHistory>(context);
     return SafeArea(
         child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -31,6 +35,10 @@ class _ProfilePageState extends State<ProfilePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ProfileInfoCard(user: user!),
+          const Spacer(),
+          Text("Total games: ${userGameHistory.gameRecords.length}"),
+          const Spacer(),
+          Text("Total points: ${userGameHistory.totalPoints}"),
           const Spacer(),
           ElevatedButton(
               onPressed: _signOut,
