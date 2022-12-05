@@ -219,7 +219,8 @@ class FirestoreService {
         uid: AuthService().user!.uid,
         quizId: quizId,
         quizCollection: _quizTypeToCollection[quizType]!,
-        points: points);
+        points: points,
+        timestamp: Timestamp.now());
     switch (quizType) {
       case MultipleChoiceQuiz:
         userQuizRecord.multipleChoiceAnswer = answer;
