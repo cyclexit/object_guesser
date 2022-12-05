@@ -34,7 +34,6 @@ class _QuizPageState extends State<QuizPage> {
 
   String _gameId = "";
   List<Quiz> _quizzes = [];
-  bool _isDataReady = false;
   int _idx = 0;
   int _points = 0;
 
@@ -45,7 +44,6 @@ class _QuizPageState extends State<QuizPage> {
       _gameId = value["game_id"];
       setState(() {
         _quizzes = value["quizzes"];
-        _isDataReady = true;
       });
     }, onError: (error) {
       log.e(error);
@@ -97,7 +95,7 @@ class _QuizPageState extends State<QuizPage> {
   Widget build(BuildContext context) {
     Widget body;
 
-    if (!_isDataReady) {
+    if (_quizzes.isEmpty) {
       body = const LoadingPage();
     } else if (_idx < _quizzes.length) {
       body = Column(
