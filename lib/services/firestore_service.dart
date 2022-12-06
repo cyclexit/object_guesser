@@ -273,4 +273,10 @@ class FirestoreService {
       ])
     });
   }
+
+  Future<void> updateImageLabelRecords(List<Quiz> quizzes) async {
+    // TODO: implement this
+    // 1. user weight calculation
+    // 2. find the correct image label record if exists; or create a new image label record
+  }
 }

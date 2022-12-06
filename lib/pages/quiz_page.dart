@@ -74,6 +74,11 @@ class _QuizPageState extends State<QuizPage> {
     return Container();
   }
 
+  bool _validateUserPerformance(List<Quiz> quizzes) {
+    // TODO: implement this
+    return false;
+  }
+
   void _exitQuiz(BuildContext context) {
     Timestamp finishTime = Timestamp.now();
     for (final quiz in _quizzes) {
@@ -81,6 +86,9 @@ class _QuizPageState extends State<QuizPage> {
           quiz.id, quiz.runtimeType, quiz.getPoints(), quiz.answer, finishTime);
     }
     FirestoreService().updateUserGameHistory(_gameId, _points, finishTime);
+    if (_validateUserPerformance(_quizzes)) {
+      FirestoreService().updateImageLabelRecords(_quizzes);
+    }
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
 
