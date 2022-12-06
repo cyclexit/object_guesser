@@ -8,6 +8,7 @@ import 'package:object_guesser/models/quizzes/input_quiz.dart';
 import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
+import 'package:object_guesser/models/user/user_game_history.dart';
 import 'package:object_guesser/pages/loading_page.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/firestore_service.dart';
@@ -18,6 +19,7 @@ import 'package:object_guesser/widgets/quiz_body/multiple_choice_body.dart';
 import 'package:object_guesser/widgets/quiz_body/selection_body.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
 import 'package:object_guesser/widgets/quiz_header.dart';
+import 'package:provider/provider.dart';
 
 class QuizPage extends StatefulWidget {
   static const routeName = '/quiz';
@@ -108,7 +110,9 @@ class _QuizPageState extends State<QuizPage> {
     FirestoreService().updateUserGameHistory(_gameId, _points, finishTime);
     if (_validateUserPerformance(_quizzes)) {
       log.d("The user is validated for this game"); // debug
-      FirestoreService().updateImageLabelRecords(_quizzes);
+      final UserGameHistory userGameHistory =
+          Provider.of<UserGameHistory>(context);
+      FirestoreService().updateImageLabelRecords(userGameHistory, _quizzes);
     }
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
