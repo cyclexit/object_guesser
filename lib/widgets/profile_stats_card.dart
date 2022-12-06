@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:object_guesser/config/themes.dart';
 
 class ProfileStatsCard extends StatelessWidget {
-  final int totalPoints;
+  final int averagePoints;
   final int totalGames;
 
   const ProfileStatsCard(
-      {super.key, required this.totalPoints, required this.totalGames});
+      {super.key, required this.averagePoints, required this.totalGames});
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +26,16 @@ class ProfileStatsCard extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(20.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ProfileStat(
-              text: "total games",
+              text: "total\ngames",
               stat: totalGames,
               icon: FluentIcons.games_16_filled),
-          const SizedBox(width: 20.0),
           ProfileStat(
-              text: "total points",
-              stat: totalPoints,
+              text: "average\npoints",
+              stat: averagePoints,
               icon: FluentIcons.star_16_filled),
         ],
       ),
@@ -46,7 +45,7 @@ class ProfileStatsCard extends StatelessWidget {
 
 class ProfileStat extends StatelessWidget {
   final String text;
-  final int stat;
+  final num stat;
   final IconData icon;
 
   const ProfileStat(
@@ -61,7 +60,7 @@ class ProfileStat extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
           size: 48.0,
         ),
-        const SizedBox(width: 10.0),
+        const SizedBox(width: 15.0),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,6 +70,7 @@ class ProfileStat extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontWeight: FontWeight.w900,
                   color: Theme.of(context).colorScheme.secondary),
+              softWrap: true,
             ),
             Text(
               "$stat",

@@ -29,8 +29,8 @@ class _ProfilePageState extends State<ProfilePage> {
     final UserGameHistory userGameHistory =
         Provider.of<UserGameHistory>(context);
 
-    var totalPoints = userGameHistory.totalPoints;
-    var totalGames = userGameHistory.gameRecords.length;
+    final totalGames = userGameHistory.gameRecords.length;
+    final averagePoints = (userGameHistory.totalPoints / totalGames).round();
 
     return SafeArea(
         child: Padding(
@@ -51,7 +51,8 @@ class _ProfilePageState extends State<ProfilePage> {
             style: Theme.of(context).textTheme.subtitle1,
           ),
           const SizedBox(height: 12.0),
-          ProfileStatsCard(totalPoints: totalPoints, totalGames: totalGames),
+          ProfileStatsCard(
+              averagePoints: averagePoints, totalGames: totalGames),
           const Spacer(),
           ElevatedButton(
               onPressed: _signOut,
