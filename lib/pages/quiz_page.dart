@@ -74,6 +74,13 @@ class _QuizPageState extends State<QuizPage> {
     return Container();
   }
 
+  /// Validate the user performance in this game.
+  ///
+  /// Calculate the points acquired by the user for `MultipleChoiceQuiz` and
+  /// `SelectionQuiz` as `userValidationPoints`.
+  ///
+  /// If `userValidationPoints` / `totalMaxPoints` >= 0.5, then the user game
+  /// performance is considered as valid.
   bool _validateUserPerformance(List<Quiz> quizzes) {
     const double validationRatio = 0.5;
     int totalMaxPoints = 0;
@@ -100,6 +107,7 @@ class _QuizPageState extends State<QuizPage> {
     }
     FirestoreService().updateUserGameHistory(_gameId, _points, finishTime);
     if (_validateUserPerformance(_quizzes)) {
+      log.d("The user is validated for this game"); // debug
       FirestoreService().updateImageLabelRecords(_quizzes);
     }
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
