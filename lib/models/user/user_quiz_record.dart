@@ -46,11 +46,14 @@ class UserQuizRecord {
     json["quiz_collection"] = quizCollection;
     json["points"] = points;
     json["timestamp"] = timestamp;
-    if (quizCollection == FirestoreCollections.multipleChoiceQuizzes) {
+    if (quizCollection == FirestoreCollections.multipleChoiceQuizzes &&
+        multipleChoiceAnswer != null) {
       json["user_answer"] = multipleChoiceAnswer!.toJson();
-    } else if (quizCollection == FirestoreCollections.inputQuizzes) {
+    } else if (quizCollection == FirestoreCollections.inputQuizzes &&
+        inputAnswer != null) {
       json["user_answer"] = inputAnswer!;
-    } else if (quizCollection == FirestoreCollections.selectionQuizzes) {
+    } else if (quizCollection == FirestoreCollections.selectionQuizzes &&
+        selectionAnswer != null) {
       json["user_answer"] =
           selectionAnswer!.map((img) => img.toJson()).toList();
     } else {
