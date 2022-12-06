@@ -339,10 +339,6 @@ class FirestoreService {
   /// Update the `ImageLabelRecords` with the user answers of `InputQuiz`.
   /// The weight is calculated by (user average points / 1000).
   Future<void> updateImageLabelRecords(final List<Quiz> quizzes) async {
-    // 1. user weight calculation
-    // 2. check the user input: transform the wordnet label name and compare with the user answer
-    // 3. find the correct image label record if exists; or create a new image label record
-    // 4. update the records
     const double userContributionRatio = 1 / 1000;
     final UserGameHistory userGameHistory = await _getUserGameHistory();
 
