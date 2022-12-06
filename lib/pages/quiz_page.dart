@@ -75,8 +75,21 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   bool _validateUserPerformance(List<Quiz> quizzes) {
-    // TODO: implement this
-    return false;
+    const double validationRatio = 0.5;
+    int totalMaxPoints = 0;
+    int userValidationPoints = 0;
+    for (final quiz in quizzes) {
+      if (quiz.runtimeType == MultipleChoiceQuiz) {
+        final q = quiz as MultipleChoiceQuiz;
+        totalMaxPoints += q.maxPoints;
+        userValidationPoints += q.getPoints();
+      } else if (quiz.runtimeType == SelectionQuiz) {
+        final q = quiz as SelectionQuiz;
+        totalMaxPoints += q.maxPoints;
+        userValidationPoints += q.getPoints();
+      }
+    }
+    return (userValidationPoints / totalMaxPoints) >= validationRatio;
   }
 
   void _exitQuiz(BuildContext context) {
