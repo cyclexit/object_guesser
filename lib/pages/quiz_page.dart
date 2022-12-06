@@ -31,7 +31,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   // NOTE: keep _totalQuizzes small for dev
-  static const int _totalQuizzes = 3;
+  static const int _totalQuizzes = 10;
 
   String _gameId = "";
   List<Quiz> _quizzes = [];

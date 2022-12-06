@@ -13,6 +13,10 @@ class ChoiceButton extends StatelessWidget {
       required this.onPressed,
       this.active = false});
 
+  String adjustText(String text) {
+    return text.length >= 8 ? text.replaceAll(" ", "\n") : text;
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -23,7 +27,12 @@ class ChoiceButton extends StatelessWidget {
           foregroundColor: active ? whiteColor : blackColor,
           backgroundColor: active ? theme.colorScheme.primary : whiteColor,
           elevation: active ? 0 : 5.0),
-      child: Text(text),
+      child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            adjustText(text),
+            textAlign: TextAlign.center,
+          )),
     );
   }
 }
