@@ -328,15 +328,24 @@ class FirestoreService {
     }
   }
 
+  Future<UserGameHistory> _getUserGameHistory() async {
+    final ref = _db
+        .collection(FirestoreCollections.userGameHistory)
+        .doc(AuthService().user!.uid);
+    final json = await ref.get().then((value) => value.data());
+    return UserGameHistory.fromJson(json!);
+  }
+
   /// Update the `ImageLabelRecords` with the user answers of `InputQuiz`.
   /// The weight is calculated by (user average points / 1000).
-  Future<void> updateImageLabelRecords(
-      final UserGameHistory userGameHistory, final List<Quiz> quizzes) async {
+  Future<void> updateImageLabelRecords(final List<Quiz> quizzes) async {
     // 1. user weight calculation
     // 2. check the user input: transform the wordnet label name and compare with the user answer
     // 3. find the correct image label record if exists; or create a new image label record
     // 4. update the records
     const double userContributionRatio = 1 / 1000;
+    final UserGameHistory userGameHistory = await _getUserGameHistory();
+
     for (final quiz in quizzes) {
       if (quiz.runtimeType == InputQuiz) {
         final q = quiz as InputQuiz;

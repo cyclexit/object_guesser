@@ -110,9 +110,7 @@ class _QuizPageState extends State<QuizPage> {
     FirestoreService().updateUserGameHistory(_gameId, _points, finishTime);
     if (_validateUserPerformance(_quizzes)) {
       log.d("The user is validated for this game"); // debug
-      final UserGameHistory userGameHistory =
-          Provider.of<UserGameHistory>(context);
-      FirestoreService().updateImageLabelRecords(userGameHistory, _quizzes);
+      FirestoreService().updateImageLabelRecords(_quizzes);
     }
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
