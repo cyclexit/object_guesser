@@ -50,8 +50,9 @@ class _QuizBuilders {
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
+    quizJson["max_points"] = quiz!["max_points"];
 
-    ref = _db.collection(FirestoreCollections.images).doc(quiz!["image_id"]);
+    ref = _db.collection(FirestoreCollections.images).doc(quiz["image_id"]);
     final image = await ref.get().then((value) => value.data());
     quizJson["image"] = image;
 
@@ -131,8 +132,9 @@ class _QuizBuilders {
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
+    quizJson["max_points"] = quiz!["max_points"];
 
-    ref = _db.collection(FirestoreCollections.labels).doc(quiz!["label_id"]);
+    ref = _db.collection(FirestoreCollections.labels).doc(quiz["label_id"]);
     final label = await ref.get().then((value) => value.data());
     quizJson["label"] = label;
 

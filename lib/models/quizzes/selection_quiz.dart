@@ -14,16 +14,18 @@ class SelectionAnswer {
 }
 
 class SelectionQuiz extends Quiz {
-  Label label;
-  List<ImageData> selections;
-  Map<String, SelectionAnswer> correctAnswers;
+  final Label label;
+  final List<ImageData> selections;
+  final Map<String, SelectionAnswer> correctAnswers;
+  final int maxPoints;
   List<ImageData>? _answer;
 
   SelectionQuiz(
       {required super.id,
       required this.label,
       required this.selections,
-      required this.correctAnswers});
+      required this.correctAnswers,
+      required this.maxPoints});
 
   SelectionQuiz.fromJson(Map<String, dynamic> json)
       : label = Label.fromJson(json["label"]),
@@ -34,6 +36,7 @@ class SelectionQuiz extends Quiz {
           for (var jsonAnswer in List.from(json["correct_answers"]!))
             jsonAnswer["image"]["id"]: SelectionAnswer.fromJson(jsonAnswer)
         },
+        maxPoints = json["max_points"],
         super(id: json["id"].toString());
 
   Map<String, dynamic> toJSON() => {
@@ -41,6 +44,7 @@ class SelectionQuiz extends Quiz {
         "label": label.toJson(),
         "selections": selections,
         "correct_answers": correctAnswers.entries.toList(),
+        "max_points": maxPoints,
         "answer": _answer ?? [],
       };
 
