@@ -74,6 +74,31 @@ class _QuizPageState extends State<QuizPage> {
     return Container();
   }
 
+  /// Validate the user performance in this game.
+  ///
+  /// Calculate the points acquired by the user for `MultipleChoiceQuiz` and
+  /// `SelectionQuiz` as `userValidationPoints`.
+  ///
+  /// If `userValidationPoints` / `totalMaxPoints` >= 0.5, then the user game
+  /// performance is considered as valid.
+  bool _validateUserPerformance(List<Quiz> quizzes) {
+    const double validationRatio = 0.5;
+    int totalMaxPoints = 0;
+    int userValidationPoints = 0;
+    for (final quiz in quizzes) {
+      if (quiz.runtimeType == MultipleChoiceQuiz) {
+        final q = quiz as MultipleChoiceQuiz;
+        totalMaxPoints += q.maxPoints;
+        userValidationPoints += q.getPoints();
+      } else if (quiz.runtimeType == SelectionQuiz) {
+        final q = quiz as SelectionQuiz;
+        totalMaxPoints += q.maxPoints;
+        userValidationPoints += q.getPoints();
+      }
+    }
+    return (userValidationPoints / totalMaxPoints) >= validationRatio;
+  }
+
   void _exitQuiz(BuildContext context) {
     Timestamp finishTime = Timestamp.now();
     for (final quiz in _quizzes) {
@@ -81,6 +106,10 @@ class _QuizPageState extends State<QuizPage> {
           quiz.id, quiz.runtimeType, quiz.getPoints(), quiz.answer, finishTime);
     }
     FirestoreService().updateUserGameHistory(_gameId, _points, finishTime);
+    if (_validateUserPerformance(_quizzes)) {
+      log.d("The user is validated for this game"); // debug
+      FirestoreService().updateImageLabelRecords(_quizzes);
+    }
     Navigator.popUntil(context, ModalRoute.withName(MainPage.routeName));
   }
 

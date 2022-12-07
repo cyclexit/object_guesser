@@ -16,16 +16,18 @@ class MultipleChoiceAnswer {
 }
 
 class MultipleChoiceQuiz extends Quiz {
-  ImageData image;
-  List<Label> choices;
-  Map<String, MultipleChoiceAnswer> correctAnswers;
+  final ImageData image;
+  final List<Label> choices;
+  final Map<String, MultipleChoiceAnswer> correctAnswers;
+  final int maxPoints;
   Label? _answer;
 
   MultipleChoiceQuiz(
       {required super.id,
       required this.image,
       required this.choices,
-      required this.correctAnswers});
+      required this.correctAnswers,
+      required this.maxPoints});
 
   MultipleChoiceQuiz.fromJson(Map<String, dynamic> json)
       : image = ImageData.fromJson(json["image"]!),
@@ -36,6 +38,7 @@ class MultipleChoiceQuiz extends Quiz {
           for (var jsonAnswer in List.from(json["correct_answers"]!))
             jsonAnswer["label"]["id"]: MultipleChoiceAnswer.fromJson(jsonAnswer)
         },
+        maxPoints = json["max_points"],
         super(id: json["id"].toString());
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +46,7 @@ class MultipleChoiceQuiz extends Quiz {
         "image": image.toJson(),
         "choices": choices,
         "correct_answer": correctAnswers.entries.toList(),
+        "max_points": maxPoints,
         "_answer": _answer!.toJson()
       };
 

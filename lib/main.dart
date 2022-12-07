@@ -29,7 +29,8 @@ class _AppState extends State<App> {
       create: (context) => FirestoreService().streamUserGameHistory(),
       initialData: UserGameHistory(),
       catchError: (context, error) {
-        log.e("Error in stream: ", error);
+        log.e("Error in stream: ${error.toString()}");
+        log.i("This may be a new user.");
         return UserGameHistory();
       },
       child: MaterialApp(

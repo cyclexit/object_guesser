@@ -50,8 +50,9 @@ class _QuizBuilders {
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
+    quizJson["max_points"] = quiz!["max_points"];
 
-    ref = _db.collection(FirestoreCollections.images).doc(quiz!["image_id"]);
+    ref = _db.collection(FirestoreCollections.images).doc(quiz["image_id"]);
     final image = await ref.get().then((value) => value.data());
     quizJson["image"] = image;
 
@@ -131,8 +132,9 @@ class _QuizBuilders {
 
     Map<String, dynamic> quizJson = {};
     quizJson["id"] = quizId;
+    quizJson["max_points"] = quiz!["max_points"];
 
-    ref = _db.collection(FirestoreCollections.labels).doc(quiz!["label_id"]);
+    ref = _db.collection(FirestoreCollections.labels).doc(quiz["label_id"]);
     final label = await ref.get().then((value) => value.data());
     quizJson["label"] = label;
 
@@ -270,5 +272,87 @@ class FirestoreService {
             .toJson()
       ])
     });
+  }
+
+  /// If we find the corresponding label based on the user input, return the
+  /// existing `label_id`.
+  ///
+  /// Otherwise, add a new label in the collection and return the `label_id` of
+  /// the newly created label.
+  Future<String> _getLabelId(String userInput) async {
+    String potentialLabelName = userInput.replaceAll(" ", "_");
+    final query = _db
+        .collection(FirestoreCollections.labels)
+        .where("name", isEqualTo: potentialLabelName);
+    final snapshot = await query.get();
+    if (snapshot.docs.isEmpty) {
+      // create a new label
+      Map<String, dynamic> labelJson = {
+        "from_wordnet": false,
+        "name": potentialLabelName,
+      };
+      final ref = _db.collection(FirestoreCollections.labels).doc();
+      labelJson["id"] = ref.id;
+      labelJson["parent_id"] = ref.id;
+      labelJson["root_id"] = ref.id;
+      await ref.set(labelJson, SetOptions(merge: true));
+      return ref.id;
+    }
+    final label = snapshot.docs.first.data();
+    return label["id"];
+  }
+
+  Future<void> _updateImageLabelRecords(
+      final String labelId, final String imageId, double w) async {
+    final query = _db
+        .collection(FirestoreCollections.imageLabelRecords)
+        .where("label_id", isEqualTo: labelId)
+        .where("image_id", isEqualTo: imageId);
+    final snapshot = await query.get();
+    if (snapshot.docs.isEmpty) {
+      // create a new record
+      Map<String, dynamic> recordJson = {
+        "label_id": labelId,
+        "image_id": imageId,
+        "weight": w
+      };
+      final ref = _db.collection(FirestoreCollections.imageLabelRecords).doc();
+      recordJson["id"] = ref.id;
+      ref.set(recordJson, SetOptions(merge: true));
+    } else {
+      final record = snapshot.docs.first.data();
+      final ref = _db
+          .collection(FirestoreCollections.imageLabelRecords)
+          .doc(record["id"]);
+      ref.update({"weight": FieldValue.increment(w)});
+    }
+  }
+
+  Future<UserGameHistory> _getUserGameHistory() async {
+    final ref = _db
+        .collection(FirestoreCollections.userGameHistory)
+        .doc(AuthService().user!.uid);
+    final json = await ref.get().then((value) => value.data());
+    return UserGameHistory.fromJson(json!);
+  }
+
+  /// Update the `ImageLabelRecords` with the user answers of `InputQuiz`.
+  /// The weight is calculated by (user average points / 1000).
+  Future<void> updateImageLabelRecords(final List<Quiz> quizzes) async {
+    const double userContributionRatio = 1 / 1000;
+    final UserGameHistory userGameHistory = await _getUserGameHistory();
+
+    for (final quiz in quizzes) {
+      if (quiz.runtimeType == InputQuiz) {
+        final q = quiz as InputQuiz;
+        if (q.answer.isNotEmpty) {
+          final String labelId = await _getLabelId(q.answer);
+          final double w = userGameHistory.totalPoints /
+              userGameHistory.gameRecords.length *
+              userContributionRatio;
+          _updateImageLabelRecords(labelId, q.image.id, w);
+        }
+      }
+    }
   }
 }
