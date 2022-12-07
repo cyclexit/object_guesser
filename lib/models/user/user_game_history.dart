@@ -10,20 +10,27 @@ class GameRecord {
 
   final String gameId;
   final int gamePoints;
+  final String category;
   final Timestamp timestamp;
 
   GameRecord(
       {required this.gameId,
       required this.gamePoints,
+      required this.category,
       required this.timestamp});
 
   GameRecord.fromJson(Map<String, dynamic> json)
       : gameId = json["game_id"] ?? "",
         gamePoints = json["game_points"],
+        category = json["category"],
         timestamp = json["timestamp"] as Timestamp;
 
-  Map<String, dynamic> toJson() =>
-      {"game_id": gameId, "game_points": gamePoints, "timestamp": timestamp};
+  Map<String, dynamic> toJson() => {
+        "game_id": gameId,
+        "game_points": gamePoints,
+        "category": category,
+        "timestamp": timestamp
+      };
 }
 
 class UserGameHistory {
