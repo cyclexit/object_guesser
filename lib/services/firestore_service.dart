@@ -256,8 +256,8 @@ class FirestoreService {
     });
   }
 
-  Future<void> updateUserGameHistory(
-      String gameId, int gamePoints, Timestamp finishTime) async {
+  Future<void> updateUserGameHistory(final String gameId, final int gamePoints,
+      final String category, final Timestamp finishTime) async {
     final user = AuthService().user;
     final ref =
         _db.collection(FirestoreCollections.userGameHistory).doc(user!.uid);
@@ -268,7 +268,10 @@ class FirestoreService {
       "total_points": FieldValue.increment(gamePoints),
       "game_records": FieldValue.arrayUnion([
         GameRecord(
-                gameId: gameId, gamePoints: gamePoints, timestamp: finishTime)
+                gameId: gameId,
+                gamePoints: gamePoints,
+                category: category,
+                timestamp: finishTime)
             .toJson()
       ])
     });
@@ -337,7 +340,7 @@ class FirestoreService {
         .collection(FirestoreCollections.userGameHistory)
         .doc(AuthService().user!.uid);
     final json = await ref.get().then((value) => value.data());
-    return UserGameHistory.fromJson(json!);
+    return json != null ? UserGameHistory.fromJson(json) : UserGameHistory();
   }
 
   /// Update the `ImageLabelRecords` with the user answers of `InputQuiz`.
@@ -345,6 +348,11 @@ class FirestoreService {
   Future<void> updateImageLabelRecords(final List<Quiz> quizzes) async {
     const double userContributionRatio = 1 / 1000;
     final UserGameHistory userGameHistory = await _getUserGameHistory();
+    if (userGameHistory.uid.isEmpty) {
+      log.i(
+          "The 1st game for the current user. ImageLabelRecords will not be updated.");
+      return;
+    }
 
     for (final quiz in quizzes) {
       if (quiz.runtimeType == InputQuiz) {

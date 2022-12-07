@@ -105,7 +105,8 @@ class _QuizPageState extends State<QuizPage> {
       FirestoreService().uploadUserQuizRecord(
           quiz.id, quiz.runtimeType, quiz.getPoints(), quiz.answer, finishTime);
     }
-    FirestoreService().updateUserGameHistory(_gameId, _points, finishTime);
+    FirestoreService().updateUserGameHistory(
+        _gameId, _points, widget.category.name, finishTime);
     if (_validateUserPerformance(_quizzes)) {
       log.d("The user is validated for this game"); // debug
       FirestoreService().updateImageLabelRecords(_quizzes);
