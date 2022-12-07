@@ -278,7 +278,8 @@ class FirestoreService {
   /// existing `label_id`.
   ///
   /// Otherwise, add a new label in the collection and return the `label_id` of
-  /// the newly created label.
+  /// the newly created label. For the newly added label, no hierarchy should be
+  /// set!
   Future<String> _getLabelId(String userInput) async {
     String potentialLabelName = userInput.replaceAll(" ", "_");
     final query = _db
@@ -293,8 +294,11 @@ class FirestoreService {
       };
       final ref = _db.collection(FirestoreCollections.labels).doc();
       labelJson["id"] = ref.id;
-      labelJson["parent_id"] = ref.id;
-      labelJson["root_id"] = ref.id;
+
+      /// NOTE: for the newly added label, no hierarchy should be set! Hence,
+      /// `parent_id` and `root_id` should be null.
+      labelJson["parent_id"] = null;
+      labelJson["root_id"] = null;
       await ref.set(labelJson, SetOptions(merge: true));
       return ref.id;
     }
