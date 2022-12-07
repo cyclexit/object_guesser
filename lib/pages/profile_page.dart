@@ -29,8 +29,12 @@ class _ProfilePageState extends State<ProfilePage> {
     final UserGameHistory userGameHistory =
         Provider.of<UserGameHistory>(context);
 
-    final totalGames = userGameHistory.gameRecords.length;
-    final averagePoints = (userGameHistory.totalPoints / totalGames).round();
+    var totalGames = userGameHistory.gameRecords.length;
+    var averagePoints = 0;
+
+    if (totalGames != 0) {
+      averagePoints = (userGameHistory.totalPoints / totalGames).round();
+    }
 
     return SafeArea(
         child: Padding(
