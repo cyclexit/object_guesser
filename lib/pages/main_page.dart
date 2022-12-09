@@ -1,6 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:object_guesser/pages/error_page.dart';
+import 'package:object_guesser/pages/game_history_page.dart';
 import 'package:object_guesser/pages/home_page.dart';
 import 'package:object_guesser/pages/loading_page.dart';
 import 'package:object_guesser/pages/login_page.dart';
@@ -18,7 +19,11 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  final screens = [const HomePage(), const ProfilePage()];
+  final screens = [
+    const HomePage(),
+    const GameHistoryPage(),
+    const ProfilePage()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -67,6 +72,12 @@ class _MainPageState extends State<MainPage> {
                             size: 32,
                           ),
                           label: 'home'),
+                      BottomNavigationBarItem(
+                          icon: Icon(
+                            FluentIcons.data_bar_vertical_16_filled,
+                            size: 32,
+                          ),
+                          label: 'history'),
                       BottomNavigationBarItem(
                         icon: Icon(
                           FluentIcons.person_12_filled,

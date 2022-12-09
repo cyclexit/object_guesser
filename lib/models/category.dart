@@ -5,7 +5,7 @@ import 'package:object_guesser/models/label.dart';
 
 /// A category is a root label in the label hierarchy.
 class Category {
-  static const Map<String, IconData> _categoryIconMap = {
+  static const Map<String, IconData> categoryIconMap = {
     "car": FontAwesomeIcons.car,
     "dog": FontAwesomeIcons.dog,
     "fruit": FontAwesomeIcons.raspberryPi
@@ -18,5 +18,5 @@ class Category {
   Category.fromLabel(Label label)
       : id = label.id,
         name = label.name,
-        icon = _categoryIconMap[label.name] ?? Icons.question_mark;
+        icon = categoryIconMap[label.name] ?? Icons.question_mark;
 }
