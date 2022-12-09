@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:object_guesser/models/user/user_game_history.dart';
+import 'package:object_guesser/widgets/game_record_card.dart';
 import 'package:object_guesser/widgets/profile_stats_card.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +34,22 @@ class GameHistoryPage extends StatelessWidget {
                 const SizedBox(height: 12.0),
                 ProfileStatsCard(
                     averagePoints: averagePoints, totalGames: totalGames),
+                const SizedBox(height: 16.0),
+                Text(
+                  "History",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                const SizedBox(height: 12.0),
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: ((context, index) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0),
+                          child: GameRecordCard(
+                              record: userGameHistory.gameRecords[index]),
+                        )),
+                    itemCount: userGameHistory.gameRecords.length,
+                  ),
+                )
               ],
             )));
   }
