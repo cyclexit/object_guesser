@@ -7,8 +7,10 @@ class QuizList extends ChangeNotifier {
   late int _idx;
   final List<Quiz> _quizzes = [];
 
-  bool get ready => _quizzes.isNotEmpty;
-  bool get done => _idx >= _quizzes.length;
+  bool get isNotReady => _quizzes.isEmpty;
+  bool get isReady => _quizzes.isNotEmpty;
+  bool get isRunning => _idx < _quizzes.length;
+  bool get isDone => _idx >= _quizzes.length;
   Quiz get currentQuiz => _quizzes[_idx];
 
   set quizzes(List<Quiz> quizzes) {
