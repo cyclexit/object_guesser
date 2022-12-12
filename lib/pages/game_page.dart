@@ -4,9 +4,21 @@ import 'package:object_guesser/models/category.dart';
 import 'package:object_guesser/models/quiz_list.dart';
 import 'package:object_guesser/pages/error_page.dart';
 import 'package:object_guesser/pages/loading_page.dart';
-import 'package:object_guesser/pages/quiz_page.dart';
 import 'package:object_guesser/services/firestore_service.dart';
 import 'package:provider/provider.dart';
+
+class _GamePage extends StatelessWidget {
+  final String gameId;
+  final Category category;
+
+  const _GamePage({required this.gameId, required this.category});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
 
 class GamePage extends StatelessWidget {
   static const routeName = '/game';
@@ -20,16 +32,20 @@ class GamePage extends StatelessWidget {
     return FutureBuilder(
         future: FirestoreService().getQuizzes(QuizList.totalQuizzes, category),
         builder: ((context, snapshot) {
-          if (snapshot.hasError) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const LoadingPage();
+          } else if (snapshot.hasError) {
             return ErrorPage(errorMessage: snapshot.error.toString());
           } else if (snapshot.hasData) {
+            final gameData = snapshot.data!;
+            quizList.quizzes = gameData["quizzes"];
             return ChangeNotifierProvider(
               create: ((context) => quizList),
-              // TODO: update the API of QuizPage to QuizPage(gameId, category);
-              child: QuizPage(category: category),
+              child: _GamePage(gameId: gameData["game_id"], category: category),
             );
           }
-          return const LoadingPage();
+          return const ErrorPage(
+              errorMessage: "Oops! Something unkown happened...");
         }));
   }
 }
