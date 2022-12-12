@@ -15,8 +15,11 @@ class _GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    final quizList = Provider.of<QuizList>(context);
+    if (quizList.isNotReady) {
+      return const LoadingPage();
+    } else if (quizList.isRunning) {}
+    return const ErrorPage(errorMessage: "Unkown QuizList state");
   }
 }
 
