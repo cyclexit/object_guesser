@@ -8,8 +8,10 @@ import 'package:object_guesser/services/firestore_service.dart';
 import 'package:object_guesser/widgets/category_button.dart';
 import 'package:object_guesser/widgets/home_page_header.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class _HomePage extends StatelessWidget {
+  final List<Label> categoryList;
+
+  const _HomePage({required this.categoryList});
 
   List<Widget> _buildCategoryButtons(List<Label> categoryList) {
     List<Widget> buttons = [];
@@ -21,8 +23,45 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    final theme = Theme.of(context);
+    return Scaffold(
+        body: Column(
+      children: [
+        const HomePageHeader(),
+        const SizedBox(height: 16.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Categories",
+                  style: theme.textTheme.headline2,
+                ),
+                const SizedBox(height: 16.0),
+                GridView(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 120,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
+                  children: _buildCategoryButtons(categoryList),
+                )
+              ]),
+        ),
+      ],
+    ));
+  }
+}
 
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
         future: FirestoreService().getCategories(),
         builder: ((context, snapshot) {
@@ -32,37 +71,7 @@ class HomePage extends StatelessWidget {
             return ErrorPage(errorMessage: snapshot.error.toString());
           } else if (snapshot.hasData) {
             final categoryList = snapshot.data!;
-            return Scaffold(
-                body: Column(
-              children: [
-                const HomePageHeader(),
-                const SizedBox(height: 16.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Categories",
-                          style: theme.textTheme.headline2,
-                        ),
-                        const SizedBox(height: 16.0),
-                        GridView(
-                          shrinkWrap: true,
-                          padding: EdgeInsets.zero,
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 120,
-                                  childAspectRatio: 1,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 10),
-                          children: _buildCategoryButtons(categoryList),
-                        )
-                      ]),
-                ),
-              ],
-            ));
+            return _HomePage(categoryList: categoryList);
           }
           return const Text('No Categories');
         }));
