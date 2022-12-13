@@ -4,6 +4,7 @@ import 'package:object_guesser/pages/login_page.dart';
 import 'package:object_guesser/pages/about_page.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/pages/quiz_page.dart';
+import 'package:object_guesser/pages/quiz_result_page.dart';
 
 var appRoutes = {
   MainPage.routeName: (context) => const MainPage(),
@@ -20,6 +21,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       if (arguments != null && arguments is Category) {
         return MaterialPageRoute(
             builder: (context) => QuizPage(category: arguments));
+      }
+      break;
+    case QuizResultPage.routeName:
+      if (arguments != null && arguments is Category) {
+        return MaterialPageRoute(
+            builder: (context) => QuizResultPage(category: arguments));
       }
   }
   return MaterialPageRoute(builder: (context) => const MainPage());
