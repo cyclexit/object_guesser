@@ -5,12 +5,19 @@ import 'package:object_guesser/config/themes.dart';
 import 'package:object_guesser/log.dart';
 import 'package:object_guesser/models/category.dart';
 import 'package:object_guesser/models/quiz_list.dart';
+import 'package:object_guesser/models/quizzes/input_quiz.dart';
+import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
+import 'package:object_guesser/models/quizzes/quiz.dart';
+import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 import 'package:object_guesser/pages/error_page.dart';
 import 'package:object_guesser/pages/loading_page.dart';
 import 'package:object_guesser/pages/main_page.dart';
 import 'package:object_guesser/services/firestore_service.dart';
 import 'package:object_guesser/widgets/buttons/next_button.dart';
 import 'package:object_guesser/widgets/progress_bar.dart';
+import 'package:object_guesser/widgets/quiz_body/input_body.dart';
+import 'package:object_guesser/widgets/quiz_body/multiple_choice_body.dart';
+import 'package:object_guesser/widgets/quiz_body/selection_body.dart';
 import 'package:object_guesser/widgets/quiz_container.dart';
 import 'package:object_guesser/widgets/quiz_header.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +51,7 @@ class _GamePage extends StatelessWidget {
     final quizList = Provider.of<QuizList>(context);
     Widget body;
     if (quizList.isNotReady) {
-      body = const Loader();
+      return const LoadingPage();
     } else if (quizList.isRunning) {
       body = Column(
         children: [
@@ -59,7 +66,7 @@ class _GamePage extends StatelessWidget {
                     points: quizList.currentPoints,
                   ),
                   const SizedBox(height: 12.0),
-                  ProgressBar(quizzes: _quizzes, index: _idx)
+                  // ProgressBar(quizzes: _quizzes, index: _idx)
                 ],
               )),
           const SizedBox(height: 16.0),
@@ -69,8 +76,22 @@ class _GamePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                  // TODO: replace this function with Consumer
-                  _updateQuizBody(),
+                  Consumer<QuizList>(
+                    builder: (context, qList, child) {
+                      Quiz quiz = qList.currentQuiz;
+                      switch (quiz.runtimeType) {
+                        case MultipleChoiceQuiz:
+                          return MultipleChoiceBody(
+                              quiz: quiz as MultipleChoiceQuiz);
+                        case InputQuiz:
+                          return InputBody(quiz: quiz as InputQuiz);
+                        case SelectionQuiz:
+                          return SelectionBody(quiz: quiz as SelectionQuiz);
+                      }
+                      log.e("Unkown quiz type!");
+                      return Container();
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 50.0),
                     child: NextButton(handlePress: quizList.next),
