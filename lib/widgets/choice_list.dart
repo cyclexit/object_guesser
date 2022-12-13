@@ -30,6 +30,12 @@ class _ChoiceListState extends State<ChoiceList> {
   }
 
   @override
+  void didUpdateWidget(covariant ChoiceList oldWidget) {
+    _selectedIndex = -1;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GridView(
       shrinkWrap: true,
