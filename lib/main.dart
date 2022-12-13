@@ -6,6 +6,7 @@ import 'package:object_guesser/config/routes.dart';
 import 'package:object_guesser/config/themes.dart';
 import 'package:object_guesser/log.dart';
 import 'package:object_guesser/models/user/user_game_history.dart';
+import 'package:object_guesser/provider/quiz_provider.dart';
 import 'package:object_guesser/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
@@ -25,14 +26,19 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider(
-      create: (context) => FirestoreService().streamUserGameHistory(),
-      initialData: UserGameHistory(),
-      catchError: (context, error) {
-        log.e("Error in stream: ${error.toString()}");
-        log.i("This may be a new user.");
-        return UserGameHistory();
-      },
+    return MultiProvider(
+      providers: [
+        StreamProvider<UserGameHistory>(
+          create: (context) => FirestoreService().streamUserGameHistory(),
+          initialData: UserGameHistory(),
+          catchError: (context, error) {
+            log.e("Error in stream: ${error.toString()}");
+            log.i("This may be a new user.");
+            return UserGameHistory();
+          },
+        ),
+        ChangeNotifierProvider<QuizProvider>(create: (_) => QuizProvider()),
+      ],
       child: MaterialApp(
         theme: appTheme,
         routes: appRoutes,
