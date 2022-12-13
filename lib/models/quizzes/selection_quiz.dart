@@ -67,7 +67,7 @@ class SelectionQuiz extends Quiz {
   int getPoints() {
     int points = 0;
     if (isAnswerSet()) {
-      for (var selectedAnswer in answer!) {
+      for (var selectedAnswer in answer) {
         var correctAnswer = correctAnswers[selectedAnswer.id];
         if (correctAnswer != null) {
           points += correctAnswer.points;
