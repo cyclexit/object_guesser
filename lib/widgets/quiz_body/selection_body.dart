@@ -33,6 +33,12 @@ class _SelectionBodyState extends State<SelectionBody> {
   }
 
   @override
+  void didUpdateWidget(covariant SelectionBody oldWidget) {
+    _selectedAnswers.clear();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return QuizBody(
       type: const QuizTypeText(quizTypeInfo: select),
