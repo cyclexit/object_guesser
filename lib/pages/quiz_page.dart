@@ -59,14 +59,13 @@ class _QuizPage extends StatelessWidget {
               bottom: false,
               child: Column(
                 children: [
-                  // TODO: change API and use consumer
                   QuizHeader(
                     category: category,
                     exitQuiz: () => _exitQuiz(context),
                     points: quizList.currentPoints,
                   ),
                   const SizedBox(height: 12.0),
-                  // ProgressBar(quizzes: _quizzes, index: _idx)
+                  const ProgressBar()
                 ],
               )),
           const SizedBox(height: 16.0),
