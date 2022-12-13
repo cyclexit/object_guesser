@@ -1,5 +1,3 @@
-// ignore_for_file: unused_element, unused_field
-
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
@@ -212,31 +210,32 @@ class FirestoreService {
       final quizCollection = game["quizzes"][i]["collection"];
       quizList.add(await _quizBuilderMap[quizCollection]!.call(quizId));
     }
+
     return {"game_id": game["id"] as String, "quizzes": quizList};
   }
 
-  Future<void> uploadUserQuizRecord(String quizId, Type quizType, int points,
-      dynamic answer, Timestamp finishTime) async {
+  Future<void> uploadUserQuizRecord(Quiz quiz, Timestamp finishTime) async {
     UserQuizRecord userQuizRecord = UserQuizRecord(
         uid: AuthService().user!.uid,
-        quizId: quizId,
-        quizCollection: _quizTypeToCollection[quizType]!,
-        points: points,
+        quizId: quiz.id,
+        quizCollection: _quizTypeToCollection[quiz.runtimeType]!,
+        points: quiz.getPoints(),
         timestamp: finishTime);
-    switch (quizType) {
+    switch (quiz.runtimeType) {
       case MultipleChoiceQuiz:
-        userQuizRecord.multipleChoiceAnswer = answer;
+        userQuizRecord.multipleChoiceAnswer = quiz.answer;
         break;
       case InputQuiz:
-        userQuizRecord.inputAnswer = answer;
+        userQuizRecord.inputAnswer = quiz.answer;
         break;
       case SelectionQuiz:
-        userQuizRecord.selectionAnswer = answer;
+        userQuizRecord.selectionAnswer = quiz.answer;
         break;
       default:
-        log.e("Unkown quiz type!");
+        log.e("Unknown quiz type!");
         break;
     }
+
     final ref = _db.collection(FirestoreCollections.userQuizRecords).doc();
     return ref.set(userQuizRecord.toJson(), SetOptions(merge: true));
   }
