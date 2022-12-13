@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:object_guesser/models/image.dart';
 import 'package:object_guesser/models/label.dart';
 import 'package:object_guesser/models/quizzes/quiz.dart';
@@ -65,14 +67,15 @@ class SelectionQuiz extends Quiz {
 
   @override
   int getPoints() {
+    const int penalty = -50;
     int points = 0;
     if (isAnswerSet()) {
-      for (var selectedAnswer in answer!) {
+      for (var selectedAnswer in answer) {
         var correctAnswer = correctAnswers[selectedAnswer.id];
-        if (correctAnswer != null) {
-          points += correctAnswer.points;
-        }
+        points += correctAnswer != null ? correctAnswer.points : penalty;
       }
+      // make sure the points are not negative.
+      points = max(points, 0);
     }
     return points;
   }
