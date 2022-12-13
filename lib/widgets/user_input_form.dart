@@ -22,6 +22,12 @@ class _UserInputFormState extends State<UserInputForm> {
   }
 
   @override
+  void didUpdateWidget(covariant UserInputForm oldWidget) {
+    _userInputController.clear();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,

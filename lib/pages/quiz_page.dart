@@ -29,7 +29,7 @@ class _QuizPage extends StatelessWidget {
   const _QuizPage({required this.gameId, required this.category});
 
   void _exitQuiz(BuildContext context) {
-    final quizList = Provider.of<QuizList>(context);
+    final quizList = Provider.of<QuizList>(context, listen: false);
     if (quizList.isDone) {
       Timestamp finishTime = Timestamp.now();
       for (final quiz in quizList.quizzes) {
