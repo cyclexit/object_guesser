@@ -3,33 +3,31 @@ import 'package:object_guesser/config/themes.dart';
 import 'package:object_guesser/constants/quiz_types.dart';
 import 'package:object_guesser/models/image.dart';
 import 'package:object_guesser/models/quizzes/selection_quiz.dart';
+import 'package:object_guesser/provider/quiz_provider.dart';
 import 'package:object_guesser/widgets/quiz_body/quiz_body.dart';
 import 'package:object_guesser/widgets/quiz_type_text.dart';
 import 'package:object_guesser/widgets/selection_image.dart';
+import 'package:provider/provider.dart';
 
-class SelectionBody extends StatefulWidget {
+class SelectionBody extends StatelessWidget {
   final SelectionQuiz quiz;
 
   const SelectionBody({super.key, required this.quiz});
 
-  @override
-  State<SelectionBody> createState() => _SelectionBodyState();
-}
-
-class _SelectionBodyState extends State<SelectionBody> {
-  Map<String, ImageData> _selectedAnswers = {};
-
-  void onSelectionPress(ImageData selection) {
-    if (_selectedAnswers[selection.id] == null) {
-      _selectedAnswers[selection.id] = selection;
+  void onSelectionPress(BuildContext context, ImageData selection) {
+    var selectedAnswers = quiz.answer;
+    final index = selectedAnswers.indexOf(selection);
+    if (index < 0) {
+      selectedAnswers.add(selection);
     } else {
-      _selectedAnswers.remove(selection.id);
+      selectedAnswers.removeAt(index);
     }
+    Provider.of<QuizProvider>(context, listen: false)
+        .setAnswer(quiz, selectedAnswers);
+  }
 
-    setState(() {
-      _selectedAnswers = _selectedAnswers;
-    });
-    widget.quiz.answer = _selectedAnswers.values.toList();
+  bool isSelected(ImageData selection) {
+    return quiz.answer.contains(selection);
   }
 
   @override
@@ -41,18 +39,18 @@ class _SelectionBodyState extends State<SelectionBody> {
         padding: EdgeInsets.zero,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, mainAxisSpacing: 10.0, crossAxisSpacing: 10.0),
-        children: widget.quiz.selections
+        children: quiz.selections
             .asMap()
             .entries
             .map((entry) => SelectionImage(
                   image: entry.value,
-                  onPress: () => onSelectionPress(entry.value),
-                  isSelected: _selectedAnswers[entry.value.id] != null,
+                  onPress: () => onSelectionPress(context, entry.value),
+                  isSelected: isSelected(entry.value),
                 ))
             .toList(),
       ),
       bottomArea: Text(
-        widget.quiz.label.name,
+        quiz.label.name,
         style: Theme.of(context).textTheme.headline1?.apply(color: blackColor),
       ),
     );

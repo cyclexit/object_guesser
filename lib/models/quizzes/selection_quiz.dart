@@ -18,7 +18,7 @@ class SelectionQuiz extends Quiz {
   final List<ImageData> selections;
   final Map<String, SelectionAnswer> correctAnswers;
   final int maxPoints;
-  List<ImageData>? _answer;
+  List<ImageData> _answer = [];
 
   SelectionQuiz(
       {required super.id,
@@ -45,11 +45,11 @@ class SelectionQuiz extends Quiz {
         "selections": selections,
         "correct_answers": correctAnswers.entries.toList(),
         "max_points": maxPoints,
-        "answer": _answer ?? [],
+        "answer": _answer,
       };
 
   @override
-  List<ImageData>? get answer {
+  List<ImageData> get answer {
     return _answer;
   }
 
@@ -60,7 +60,7 @@ class SelectionQuiz extends Quiz {
 
   @override
   bool isAnswerSet() {
-    return _answer != null && _answer!.isNotEmpty;
+    return _answer.isNotEmpty;
   }
 
   @override
