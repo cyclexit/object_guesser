@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:object_guesser/models/quizzes/quiz.dart';
+import 'package:object_guesser/models/quizzes/multiple_choice_quiz.dart';
+import 'package:object_guesser/models/quizzes/selection_quiz.dart';
 
 class QuizList extends ChangeNotifier {
   static const int totalQuizzes = 10;
@@ -25,5 +27,30 @@ class QuizList extends ChangeNotifier {
   void next() {
     _currentPoints += _quizzes[_idx++].getPoints();
     notifyListeners();
+  }
+
+  /// Validate the user performance in this game.
+  ///
+  /// Calculate the points acquired by the user for `MultipleChoiceQuiz` and
+  /// `SelectionQuiz` as `userValidationPoints`.
+  ///
+  /// If `userValidationPoints` / `totalMaxPoints` >= 0.5, then the user game
+  /// performance is considered as valid.
+  bool validateUserPerformance() {
+    const double validationRatio = 0.5;
+    int totalMaxPoints = 0;
+    int userValidationPoints = 0;
+    for (final quiz in _quizzes) {
+      if (quiz.runtimeType == MultipleChoiceQuiz) {
+        final q = quiz as MultipleChoiceQuiz;
+        totalMaxPoints += q.maxPoints;
+        userValidationPoints += q.getPoints();
+      } else if (quiz.runtimeType == SelectionQuiz) {
+        final q = quiz as SelectionQuiz;
+        totalMaxPoints += q.maxPoints;
+        userValidationPoints += q.getPoints();
+      }
+    }
+    return (userValidationPoints / totalMaxPoints) >= validationRatio;
   }
 }
