@@ -36,6 +36,11 @@ class GameHistoryPage extends StatelessWidget {
                     averagePoints: averagePoints, totalGames: totalGames),
                 const SizedBox(height: 16.0),
                 Text(
+                  "Rank: ${userGameHistory.rank > 0 ? userGameHistory.rank : "None"}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                const SizedBox(height: 16.0),
+                Text(
                   "History",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
