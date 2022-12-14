@@ -36,14 +36,19 @@ class GameRecord {
 class UserGameHistory {
   String uid;
   int totalPoints;
+  int rank;
   List<GameRecord> gameRecords;
 
   UserGameHistory(
-      {this.uid = "", this.totalPoints = 0, this.gameRecords = const []});
+      {this.uid = "",
+      this.totalPoints = 0,
+      this.rank = 0,
+      this.gameRecords = const []});
 
   UserGameHistory.fromJson(Map<String, dynamic> json)
       : uid = json["uid"] ?? "",
         totalPoints = json["total_points"] as int,
+        rank = json["rank"] ?? 0,
         gameRecords = json["game_records"] != null
             ? List.from(json["game_records"])
                 .map((recordJson) => GameRecord.fromJson(recordJson))
@@ -53,6 +58,7 @@ class UserGameHistory {
   Map<String, dynamic> toJson() => {
         "uid": uid,
         "total_points": totalPoints,
+        "rank": rank,
         "game_records": gameRecords.map((e) => e.toJson()).toList()
       };
 }
