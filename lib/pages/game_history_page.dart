@@ -12,13 +12,6 @@ class GameHistoryPage extends StatelessWidget {
     final UserGameHistory userGameHistory =
         Provider.of<UserGameHistory>(context);
 
-    var totalGames = userGameHistory.gameRecords.length;
-    var averagePoints = 0;
-
-    if (totalGames != 0) {
-      averagePoints = (userGameHistory.totalPoints / totalGames).round();
-    }
-
     return SafeArea(
         child: Padding(
             padding:
@@ -32,13 +25,7 @@ class GameHistoryPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 const SizedBox(height: 12.0),
-                ProfileStatsCard(
-                    averagePoints: averagePoints, totalGames: totalGames),
-                const SizedBox(height: 16.0),
-                Text(
-                  "Rank: ${userGameHistory.rank > 0 ? userGameHistory.rank : "None"}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                ProfileStatsCard(gameHistory: userGameHistory),
                 const SizedBox(height: 16.0),
                 Text(
                   "History",
