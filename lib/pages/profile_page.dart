@@ -13,10 +13,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   void _signOut() async {
     await AuthService().signOut();
-    if (mounted) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
-    }
+    Navigator.of(context).pushNamedAndRemoveUntil(MainPage.routeName, (route) => false);
   }
 
   @override
